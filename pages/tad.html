@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAD | Grupo 6</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="Início">
+      <span class="brand-mark">ED</span>
+      <span>Grupo 6</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="tad.html" aria-current="page">TAD</a>
+      <a href="lista-simples.html">Lista simples</a>
+      <a href="lista-dupla.html">Lista dupla</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div>
+        <p class="eyebrow">Modulo 01</p>
+        <h1>Tipo Abstrato de Dados</h1>
+        <p>
+          Um TAD define quais operações uma estrutura oferece, sem obrigar o
+          usuário a conhecer todos os detalhes internos da implementação.
+        </p>
+      </div>
+      <img src="../assets/img/tad.svg" alt="Diagrama de tipo abstrato de dados">
+    </section>
+
+    <section class="content-layout">
+      <article class="article-block">
+        <h2>Ideia principal</h2>
+        <p>
+          Pense em um TAD como um contrato. Ele diz o que pode ser feito:
+          inserir, remover, buscar, percorrer ou verificar se está vazio. O modo
+          como isso acontece fica escondido dentro da implementação.
+        </p>
+        <p>
+          Essa separação facilita a manutenção. Uma lista pode trocar a forma de
+          armazenar dados internamente sem mudar a maneira como o restante do
+          programa usa suas operacoes.
+        </p>
+      </article>
+
+      <aside class="side-note">
+        <h2>Para colocar no trabalho</h2>
+        <ul>
+          <li>Definição de TAD.</li>
+          <li>Importância da abstração.</li>
+          <li>Exemplo de TAD Lista.</li>
+          <li>Comparação entre interface e implementação.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="section compact">
+      <div class="section-heading">
+        <p class="eyebrow">Exemplo em C#</p>
+        <h2>Um contrato simples para lista</h2>
+      </div>
+
+      <pre class="code-block"><code>public interface ILista
+{
+    bool EstaVazia();
+    void InserirInicio(int valor);
+    void InserirFim(int valor);
+    bool Buscar(int chave);
+    void Percorrer();
+}</code></pre>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><a href="../index.html">Voltar para a página inicial</a></p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista Duplamente Encadeada | Grupo 6</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="Início">
+      <span class="brand-mark">ED</span>
+      <span>Grupo 6</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="tad.html">TAD</a>
+      <a href="lista-simples.html">Lista simples</a>
+      <a href="lista-dupla.html" aria-current="page">Lista dupla</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div>
+        <p class="eyebrow">Modulo 03</p>
+        <h1>Lista Duplamente Encadeada</h1>
+        <p>
+          Cada nó possui duas referências: uma para o próximo elemento e outra
+          para o elemento anterior.
+        </p>
+      </div>
+      <img src="../assets/img/lista-dupla.svg" alt="Nos com setas para frente e para tras">
+    </section>
+
+    <section class="content-layout">
+      <article class="article-block">
+        <h2>Diferenca para a lista simples</h2>
+        <p>
+          Na lista simples o percurso natural acontece apenas para frente. Na
+          lista dupla, a presença do ponteiro anterior permite andar nos dois
+          sentidos, o que ajuda em remocoes e navegacoes mais flexiveis.
+        </p>
+        <p>
+          O custo dessa flexibilidade é o cuidado extra com os ponteiros. Ao
+          inserir ou remover um nó, é necessário atualizar tanto a ligação do
+          próximo quanto a ligação do anterior.
+        </p>
+      </article>
+
+      <aside class="side-note">
+        <h2>Pontos para demonstrar</h2>
+        <ul>
+          <li>Ponteiro anterior.</li>
+          <li>Ponteiro proximo.</li>
+          <li>Insercao no inicio e no fim.</li>
+          <li>Remocao mantendo a cadeia correta.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="section compact">
+      <div class="section-heading">
+        <p class="eyebrow">Exemplo em C#</p>
+        <h2>Modelo de no duplo</h2>
+      </div>
+
+      <pre class="code-block"><code>public class NoDuplo
+{
+    public int valor;
+    public NoDuplo anterior;
+    public NoDuplo proximo;
+
+    public NoDuplo(int valor)
+    {
+        this.valor = valor;
+        this.anterior = null;
+        this.proximo = null;
+    }
+}</code></pre>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><a href="../index.html">Voltar para a página inicial</a></p>
+  </footer>
+</body>
+</html>

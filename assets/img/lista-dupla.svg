@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" role="img" aria-labelledby="title desc">
+  <title id="title">Lista duplamente encadeada</title>
+  <desc id="desc">Nós conectados por setas para frente e para trás.</desc>
+  <rect width="760" height="360" fill="#ffffff"/>
+  <rect x="44" y="50" width="672" height="260" rx="8" fill="#ecf2ed" stroke="#d8ddd4"/>
+  <defs>
+    <marker id="arrow-forward" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#2e5e8c" stroke-width="2"/>
+    </marker>
+    <marker id="arrow-back" markerWidth="12" markerHeight="12" refX="2" refY="6" orient="auto">
+      <path d="M10,2 L2,6 L10,10" fill="none" stroke="#c4782b" stroke-width="2"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke-width="5" stroke-linecap="round">
+    <path d="M250 150 H320" stroke="#2e5e8c" marker-end="url(#arrow-forward)"/>
+    <path d="M320 210 H250" stroke="#c4782b" marker-end="url(#arrow-back)"/>
+    <path d="M474 150 H544" stroke="#2e5e8c" marker-end="url(#arrow-forward)"/>
+    <path d="M544 210 H474" stroke="#c4782b" marker-end="url(#arrow-back)"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <g>
+      <rect x="96" y="118" width="154" height="112" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="142" y1="118" x2="142" y2="230" stroke="#d8ddd4" stroke-width="3"/>
+      <line x1="204" y1="118" x2="204" y2="230" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="120" y="179" fill="#c4782b" font-size="14" font-weight="800">ant</text>
+      <text x="173" y="184" fill="#18201d" font-size="28" font-weight="800">8</text>
+      <text x="227" y="179" fill="#2e5e8c" font-size="14" font-weight="800">prox</text>
+    </g>
+    <g>
+      <rect x="320" y="118" width="154" height="112" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="366" y1="118" x2="366" y2="230" stroke="#d8ddd4" stroke-width="3"/>
+      <line x1="428" y1="118" x2="428" y2="230" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="344" y="179" fill="#c4782b" font-size="14" font-weight="800">ant</text>
+      <text x="397" y="184" fill="#18201d" font-size="28" font-weight="800">15</text>
+      <text x="451" y="179" fill="#2e5e8c" font-size="14" font-weight="800">prox</text>
+    </g>
+    <g>
+      <rect x="544" y="118" width="154" height="112" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="590" y1="118" x2="590" y2="230" stroke="#d8ddd4" stroke-width="3"/>
+      <line x1="652" y1="118" x2="652" y2="230" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="568" y="179" fill="#c4782b" font-size="14" font-weight="800">ant</text>
+      <text x="621" y="184" fill="#18201d" font-size="28" font-weight="800">23</text>
+      <text x="675" y="179" fill="#2e5e8c" font-size="14" font-weight="800">prox</text>
+    </g>
+  </g>
+</svg>

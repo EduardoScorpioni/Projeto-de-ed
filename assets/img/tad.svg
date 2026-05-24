@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 420" role="img" aria-labelledby="title desc">
+  <title id="title">TAD separando uso e implementação</title>
+  <desc id="desc">Uma interface no centro conectada ao usuário e às implementações de lista.</desc>
+  <rect width="760" height="420" fill="#ffffff"/>
+  <rect x="48" y="54" width="664" height="312" rx="8" fill="#ecf2ed" stroke="#d8ddd4"/>
+  <g fill="none" stroke="#5c685f" stroke-width="4" stroke-linecap="round">
+    <path d="M210 210 H306"/>
+    <path d="M454 210 H550"/>
+    <path d="M380 260 V306"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <rect x="86" y="160" width="124" height="100" rx="8" fill="#ffffff" stroke="#2e5e8c" stroke-width="3"/>
+    <text x="148" y="205" fill="#18201d" font-size="24" font-weight="800">Usuario</text>
+    <text x="148" y="233" fill="#5c685f" font-size="15">chama metodos</text>
+
+    <rect x="306" y="132" width="148" height="156" rx="8" fill="#18201d"/>
+    <text x="380" y="196" fill="#ffffff" font-size="30" font-weight="800">TAD</text>
+    <text x="380" y="230" fill="#b7d8c5" font-size="16">operações</text>
+    <text x="380" y="254" fill="#b7d8c5" font-size="16">sem detalhes</text>
+
+    <rect x="550" y="142" width="124" height="70" rx="8" fill="#ffffff" stroke="#2f7d5a" stroke-width="3"/>
+    <text x="612" y="184" fill="#18201d" font-size="19" font-weight="800">Lista</text>
+
+    <rect x="550" y="226" width="124" height="70" rx="8" fill="#ffffff" stroke="#c4782b" stroke-width="3"/>
+    <text x="612" y="268" fill="#18201d" font-size="19" font-weight="800">Vetor</text>
+
+    <rect x="280" y="306" width="200" height="62" rx="8" fill="#ffffff" stroke="#b84a4a" stroke-width="3"/>
+    <text x="380" y="344" fill="#18201d" font-size="19" font-weight="800">Implementação</text>
+  </g>
+</svg>

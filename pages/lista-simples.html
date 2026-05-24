@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista Simplesmente Encadeada | Grupo 6</title>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="Início">
+      <span class="brand-mark">ED</span>
+      <span>Grupo 6</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="../index.html">Início</a>
+      <a href="tad.html">TAD</a>
+      <a href="lista-simples.html" aria-current="page">Lista simples</a>
+      <a href="lista-dupla.html">Lista dupla</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div>
+        <p class="eyebrow">Modulo 02</p>
+        <h1>Lista Simplesmente Encadeada</h1>
+        <p>
+          Estrutura formada por nós. Cada nó guarda um valor e uma referência
+          para o próximo nó da sequência.
+        </p>
+      </div>
+      <img src="../assets/img/lista-simples.svg" alt="Tres nos apontando para o proximo elemento">
+    </section>
+
+    <section class="content-layout">
+      <article class="article-block">
+        <h2>Como funciona</h2>
+        <p>
+          A lista não precisa guardar seus elementos em posições contínuas da
+          memória. Cada elemento conhece apenas o próximo. Por isso, para buscar
+          um valor, o percurso normalmente começa no início e avança no sentido
+          dos ponteiros.
+        </p>
+        <p>
+          A inserção no início costuma ser rápida: o novo nó aponta para o antigo
+          inicio e, depois disso, ele passa a ser o novo primeiro elemento.
+        </p>
+      </article>
+
+      <aside class="side-note">
+        <h2>Operacoes essenciais</h2>
+        <ul>
+          <li>Inserir no inicio.</li>
+          <li>Inserir no fim.</li>
+          <li>Buscar um valor.</li>
+          <li>Percorrer todos os nós.</li>
+          <li>Remover um no.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="section compact">
+      <div class="section-heading">
+        <p class="eyebrow">Exemplo da aula</p>
+        <h2>Classe No em C#</h2>
+      </div>
+
+      <pre class="code-block"><code>public class No
+{
+    public int valor;
+    public No prox;
+
+    public No(int valor)
+    {
+        this.valor = valor;
+        this.prox = null;
+    }
+}</code></pre>
+    </section>
+
+    <section class="section compact alt-section">
+      <div class="section-heading">
+        <p class="eyebrow">Implementacao inicial</p>
+        <h2>Inserir no inicio</h2>
+      </div>
+
+      <pre class="code-block"><code>public void InserirInicio(int valor)
+{
+    No novoNo = new No(valor);
+
+    if (EstaVazia())
+    {
+        inicio = novoNo;
+        fim = novoNo;
+    }
+    else
+    {
+        novoNo.prox = inicio;
+        inicio = novoNo;
+    }
+}</code></pre>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p><a href="../index.html">Voltar para a página inicial</a></p>
+  </footer>
+</body>
+</html>

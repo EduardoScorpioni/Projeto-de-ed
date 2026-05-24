@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" role="img" aria-labelledby="title desc">
+  <title id="title">Lista simplesmente encadeada</title>
+  <desc id="desc">Três nós ligados por setas que apontam para o próximo nó.</desc>
+  <rect width="760" height="340" fill="#ffffff"/>
+  <rect x="44" y="46" width="672" height="248" rx="8" fill="#ecf2ed" stroke="#d8ddd4"/>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#2f7d5a" stroke-width="2"/>
+    </marker>
+  </defs>
+  <g fill="none" stroke="#2f7d5a" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)">
+    <path d="M218 170 H304"/>
+    <path d="M410 170 H496"/>
+    <path d="M602 170 H650"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <text x="110" y="104" fill="#5c685f" font-size="16" font-weight="700">inicio</text>
+    <text x="650" y="104" fill="#5c685f" font-size="16" font-weight="700">null</text>
+    <g>
+      <rect x="112" y="124" width="106" height="92" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="165" y1="124" x2="165" y2="216" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="139" y="178" fill="#18201d" font-size="28" font-weight="800">51</text>
+      <text x="192" y="178" fill="#2f7d5a" font-size="16" font-weight="800">prox</text>
+    </g>
+    <g>
+      <rect x="304" y="124" width="106" height="92" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="357" y1="124" x2="357" y2="216" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="331" y="178" fill="#18201d" font-size="28" font-weight="800">20</text>
+      <text x="384" y="178" fill="#2f7d5a" font-size="16" font-weight="800">prox</text>
+    </g>
+    <g>
+      <rect x="496" y="124" width="106" height="92" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="549" y1="124" x2="549" y2="216" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="523" y="178" fill="#18201d" font-size="28" font-weight="800">10</text>
+      <text x="576" y="178" fill="#2f7d5a" font-size="16" font-weight="800">prox</text>
+    </g>
+  </g>
+</svg>
