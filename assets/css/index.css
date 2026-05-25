@@ -1,0 +1,327 @@
+/* === Hero === */
+.intro-band {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(36px, 7vw, 88px) clamp(18px, 5vw, 72px);
+  border-bottom: 1px solid var(--line);
+}
+
+.intro-copy {
+  max-width: 720px;
+}
+
+.intro-copy p {
+  max-width: 680px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+.intro-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.intro-visual {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* === Faixa de integrantes === */
+.team-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px clamp(18px, 5vw, 72px);
+  background: var(--text);
+  color: var(--surface);
+}
+
+.team-strip span {
+  color: #b7d8c5;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.team-strip strong {
+  font-size: 0.95rem;
+}
+
+/* === Navegação interna por âncoras === */
+.anchor-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px clamp(18px, 5vw, 72px);
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.anchor-nav-label {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.anchor-nav a {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.87rem;
+  font-weight: 700;
+}
+
+.anchor-nav a:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: var(--surface-soft);
+}
+
+/* === Cards de objetivo === */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.feature-card {
+  min-height: 210px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(25, 36, 31, 0.04);
+}
+
+.card-index {
+  display: inline-block;
+  margin-bottom: 28px;
+  color: var(--amber);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.feature-card p {
+  color: var(--muted);
+}
+
+/* === Cards de módulos === */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.module-card {
+  min-height: 210px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(25, 36, 31, 0.04);
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.module-card span {
+  display: inline-block;
+  margin-bottom: 28px;
+  color: var(--amber);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.module-card p {
+  color: var(--muted);
+}
+
+.module-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--green);
+}
+
+/* === Roadmap === */
+.roadmap {
+  display: grid;
+  gap: 14px;
+  max-width: 900px;
+  margin: 0;
+  padding-left: 22px;
+  color: var(--muted);
+}
+
+.roadmap li {
+  padding-left: 8px;
+}
+
+.roadmap strong {
+  color: var(--text);
+}
+
+/* === Layout texto + figura das seções de estrutura === */
+.structure-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+  margin-bottom: 28px;
+}
+
+.structure-text p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+.structure-text code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.91em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--surface-soft);
+  color: var(--green);
+}
+
+/* === Blockquote === */
+blockquote {
+  margin: 16px 0 20px;
+  padding: 16px 20px 16px 24px;
+  border-left: 4px solid var(--green);
+  border-radius: 0 6px 6px 0;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.65;
+}
+
+/* === Figure e Figcaption === */
+.structure-figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.structure-figure img,
+.structure-figure video {
+  width: 100%;
+  display: block;
+}
+
+figcaption {
+  padding: 10px 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+video {
+  max-width: 100%;
+  display: block;
+}
+
+/* === Exemplos de código expansíveis (details/summary) === */
+.code-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+details {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.94rem;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::before {
+  content: '\25B6';
+  display: inline-block;
+  font-size: 0.68em;
+  color: var(--green);
+  transition: transform 200ms ease;
+  flex-shrink: 0;
+}
+
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+
+details .code-block {
+  border-radius: 0;
+  margin: 0;
+  max-width: 100%;
+}
+
+/* === Responsivo === */
+@media (max-width: 900px) {
+  .intro-band,
+  .feature-grid,
+  .module-grid,
+  .structure-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .intro-actions .button {
+    width: 100%;
+  }
+
+  .team-strip {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .anchor-nav {
+    gap: 6px;
+  }
+
+  .anchor-nav a {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
