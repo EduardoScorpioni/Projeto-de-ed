@@ -1,6 +1,4 @@
-<?php
-
-?>
+<?php require_once '../includes/sessao.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,16 +10,23 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="../index.html" aria-label="Início">
+    <a class="brand" href="../index.php" aria-label="Início">
       <span class="brand-mark">ED</span>
       <span>Grupo 6</span>
     </a>
 
     <nav class="main-nav" aria-label="Navegação principal">
-      <a href="../index.html">Início</a>
-      <a href="tad.html" aria-current="page">TAD</a>
-      <a href="lista-simples.html">Lista simples</a>
-      <a href="lista-dupla.html">Lista dupla</a>
+      <a href="../index.php">Início</a>
+      <a href="tad.php" aria-current="page">TAD</a>
+      <a href="lista-simples.php">Lista simples</a>
+      <a href="lista-dupla.php">Lista dupla</a>
+      <?php if (estaLogado()): ?>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="logout.php">Sair</a>
+      <?php else: ?>
+        <a href="login.php">Login</a>
+        <a href="cadastro.php">Cadastro</a>
+      <?php endif; ?>
     </nav>
   </header>
 
@@ -82,7 +87,7 @@
   </main>
 
   <footer class="footer">
-    <p><a href="../index.html">Voltar para a página inicial</a></p>
+    <p><a href="../index.php">Voltar para a página inicial</a></p>
   </footer>
 </body>
 </html>

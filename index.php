@@ -1,6 +1,4 @@
-<?php
-
-?>
+<?php require_once 'includes/sessao.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -18,11 +16,17 @@
     </a>
 
     <nav class="main-nav" aria-label="Navegação principal">
-      <a href="index.php" aria-current="page">Login</a>
       <a href="index.php" aria-current="page">Início</a>
       <a href="pages/tad.php">TAD</a>
       <a href="pages/lista-simples.php">Lista simples</a>
       <a href="pages/lista-dupla.php">Lista dupla</a>
+      <?php if (estaLogado()): ?>
+        <a href="pages/dashboard.php">Dashboard</a>
+        <a href="pages/logout.php">Sair</a>
+      <?php else: ?>
+        <a href="pages/login.php">Login</a>
+        <a href="pages/cadastro.php">Cadastro</a>
+      <?php endif; ?>
     </nav>
   </header>
 
