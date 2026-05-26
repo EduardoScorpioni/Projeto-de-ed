@@ -47,12 +47,16 @@
       </div>
 
       <figure class="intro-visual">
-        <video autoplay loop muted playsinline controls>
-          <source src="assets/video/exemplo1.mp4" type="video/mp4">
-          <img src="assets/img/estrutura-dados.svg"
-               loading="lazy"
-               alt="Mapa visual das estruturas de dados estudadas: TAD, lista simples, lista dupla">
-        </video>
+         <iframe
+          width="500"
+          height="320"
+          src="https://www.youtube.com/embed/EfF1M7myAyY?start=16"
+          title="Estruturas de Dados"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </figure>
       </figure>
     </section>
 
