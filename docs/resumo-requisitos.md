@@ -6,7 +6,7 @@ Base extraída do arquivo `ED-Trabalho-Pratico2.pdf`.
 
 Criar um Sistema Web com a temática: Ambiente de Ensino de Estrutura de Dados.
 
-## Conteudos pedidos nesta primeira etapa
+## Conteúdos pedidos nesta primeira etapa
 
 - TAD: Tipo Abstrato de Dados.
 - Listas simplesmente encadeadas.
@@ -27,16 +27,20 @@ Criar um Sistema Web com a temática: Ambiente de Ensino de Estrutura de Dados.
 
 ## Estrutura criada
 
-- `index.html`: página inicial.
-- `pages/tad.html`: conteúdo sobre TAD.
-- `pages/lista-simples.html`: conteúdo sobre lista simplesmente encadeada.
-- `pages/lista-dupla.html`: conteúdo sobre lista duplamente encadeada.
-- `assets/css/styles.css`: estilos do site.
+- `index.php`: página inicial.
+- `pages/tad.php`: conteúdo sobre TAD.
+- `pages/lista-simples.php`: conteúdo sobre lista simplesmente encadeada.
+- `pages/lista-dupla.php`: conteúdo sobre lista duplamente encadeada.
+- `assets/css/base.css`: estilos compartilhados.
+- `assets/css/tad.css`: estilos da página de TAD.
+- `assets/css/lista-simples.css`: estilos da página de lista simples.
+- `assets/css/lista-dupla.css`: estilos da página de lista dupla.
 - `assets/img/`: diagramas em SVG.
+- `docs/pdfs/`: PDFs explicativos e materiais de apoio.
 
-## Sugestoes para continuar
+## Sugestões para continuar
 
-- Trocar os textos base por explicações autorais do grupo.
+- Revisar os textos do site para manter o mesmo padrão dos PDFs.
 - Criar uma página de referências.
 - Adicionar um vídeo ou gif para cada operação principal.
 - Completar os códigos com remoção, busca e percurso em listas.

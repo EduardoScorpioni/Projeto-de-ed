@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1130" viewBox="0 0 1600 1130" role="img" aria-label="TAD Cliente">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#102033" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1d5d94"/>
+    </marker>
+    <marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5b6b7b"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d8891f"/>
+    </marker>
+    <style>
+      .card { filter: url(#shadow); }
+      .small-caps { letter-spacing: .08em; text-transform: uppercase; }
+    </style>
+  </defs>
+  <rect width="1600" height="1130" fill="#fbfcff"/>
+  <rect width="1600" height="16" fill="#1d5d94"/>
+  <rect y="1112" width="1600" height="18" fill="#1d5d94"/>
+  
+    <text x="90" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#1d5d94" font-weight="700"><tspan x="90" dy="0">EXEMPLO</tspan></text>
+    <text x="1510" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#5b6b7b" text-anchor="end"><tspan x="1510" dy="0">Grupo 6 | Estrutura de Dados</tspan></text>
+    <text x="90" y="142" font-family="Segoe UI, Arial, sans-serif" font-size="60" fill="#172331" font-weight="800"><tspan x="90" dy="0">TAD Cliente</tspan></text>
+    <text x="94" y="222" font-family="Segoe UI, Arial, sans-serif" font-size="27" fill="#5b6b7b"><tspan x="94" dy="0">Antes de programar, defina quais dados o cliente guarda e quais operações fazem sentido.</tspan></text>
+  
+       
+    <g class="card">
+      <rect x="90" y="340" width="650" height="225" rx="18" fill="#ffffff" stroke="#d8e1ea" stroke-width="2"/>
+      <rect x="90" y="340" width="12" height="225" rx="6" fill="#1d5d94"/>
+      
+      <text x="126" y="394" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#172331" font-weight="800"><tspan x="126" dy="0">Dados sugeridos</tspan></text>
+      <text x="126" y="452" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#5b6b7b"><tspan x="126" dy="0">Nome, CPF, data de nascimento e e-mail. Todos</tspan><tspan x="126" dy="30.72">pertencem ao mesmo conceito: Cliente.</tspan></text>
+    </g>
+  
+    <g class="card">
+      <rect x="810" y="340" width="650" height="225" rx="18" fill="#ffffff" stroke="#d8e1ea" stroke-width="2"/>
+      <rect x="810" y="340" width="12" height="225" rx="6" fill="#1d5d94"/>
+      
+      <text x="846" y="394" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#172331" font-weight="800"><tspan x="846" dy="0">Operação principal</tspan></text>
+      <text x="846" y="452" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#5b6b7b"><tspan x="846" dy="0">Imprimir() exibe os dados cadastrados de forma</tspan><tspan x="846" dy="30.72">organizada, sem espalhar Console.WriteLine</tspan><tspan x="846" dy="30.72">pelo programa.</tspan></text>
+    </g>
+  
+    <g class="card">
+      <rect x="90" y="605" width="650" height="225" rx="18" fill="#ffffff" stroke="#d8e1ea" stroke-width="2"/>
+      <rect x="90" y="605" width="12" height="225" rx="6" fill="#1d5d94"/>
+      
+      <text x="126" y="659" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#172331" font-weight="800"><tspan x="126" dy="0">Contrato mental</tspan></text>
+      <text x="126" y="717" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#5b6b7b"><tspan x="126" dy="0">O restante do código sabe que Cliente possui</tspan><tspan x="126" dy="30.72">dados e sabe se apresentar, sem conhecer a</tspan><tspan x="126" dy="30.72">lógica interna.</tspan></text>
+    </g>
+  
+    <g class="card">
+      <rect x="810" y="605" width="650" height="225" rx="18" fill="#ffffff" stroke="#d8e1ea" stroke-width="2"/>
+      <rect x="810" y="605" width="12" height="225" rx="6" fill="#1d5d94"/>
+      
+      <text x="846" y="659" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#172331" font-weight="800"><tspan x="846" dy="0">Boa prática</tspan></text>
+      <text x="846" y="717" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#5b6b7b"><tspan x="846" dy="0">Crie nomes claros para campos e métodos. Isso</tspan><tspan x="846" dy="30.72">deixa o TAD fácil de explicar e testar.</tspan></text>
+    </g>
+  
+       
+       
+       
+       
+       
+    <line x1="90" y1="1044" x2="1510" y2="1044" stroke="#d8e1ea" stroke-width="2"/>
+    <text x="90" y="1082" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#5b6b7b"><tspan x="90" dy="0">Modelar primeiro deixa o código mais coerente.</tspan></text>
+    <text x="1510" y="1082" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#5b6b7b" text-anchor="end"><tspan x="1510" dy="0">04 / 06</tspan></text>
+  
+</svg>
