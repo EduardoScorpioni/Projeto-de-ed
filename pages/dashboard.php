@@ -29,7 +29,7 @@ exigirLogin();
         <section class="dashboard-header">
             <div class="welcome-info">
                 <div class="eyebrow">Área do aluno</div>
-                <h1>Olá, <?php echo clean($_SESSION['usuario_nome']); ?>!</h1>
+                <h1 data-typed="Olá, <?php echo clean($_SESSION['usuario_nome']); ?>!">Olá, <?php echo clean($_SESSION['usuario_nome']); ?>!</h1>
                 <p>Bem-vindo ao seu painel educacional. Escolha um módulo abaixo para continuar seus estudos sobre Estrutura de Dados.</p>
             </div>
         </section>
@@ -68,5 +68,6 @@ exigirLogin();
     <footer class="footer">
         <p>&copy; 2024 Grupo 6 - Disciplina de Estrutura de Dados. <a href="logout.php">Sair da conta</a></p>
     </footer>
+  <script src="../assets/js/typed-title.js"></script>
 </body>
 </html>

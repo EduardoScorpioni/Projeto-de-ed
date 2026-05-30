@@ -46,7 +46,7 @@
         </p>
         <div class="intro-actions" aria-label="Acoes principais">
           <a class="button primary" href="pages/lista-simples.php">Ver lista simples</a>
-          <a class="button secondary" href="docs/resumo-requisitos.md">Resumo do enunciado</a>
+          <a class="button secondary" href="https://youtu.be/K_3Bq_ZfJmo?si=aXbat6x9ArW5jODM">Como utilizar a linguagem C#</a>
         </div>
       </div>
 
@@ -81,15 +81,8 @@
 
       <div class="ed-intro">
         <p>
-          Estrutura de Dados é a área da computação que estuda formas de organizar,
-          armazenar e gerenciar informações na memória de um computador. A escolha
-          certa de estrutura impacta diretamente o desempenho de um programa: ela
-          determina quão rápido é possível inserir, buscar e remover dados.
-        </p>
-        <p>
-          Neste site, apresentamos três estruturas fundamentais — TAD, lista
-          simplesmente encadeada e lista duplamente encadeada — com explicações,
-          diagramas e exemplos de código em C#.
+          Formas de organizar e gerenciar dados na memória. A estrutura certa
+          define o desempenho de inserir, buscar e remover.
         </p>
       </div>
     </section>
@@ -97,165 +90,93 @@
     <!-- ===== Navegação interna ===== -->
     <nav class="anchor-nav" aria-label="Ir para seção">
       <span class="anchor-nav-label">Ir para:</span>
-      <a href="#sobre-ed">O que é ED</a>
-      <a href="#explicacoes">Explicações</a>
-      <a href="#visualizacoes">Visualizações</a>
-      <a href="#codigos">Códigos C#</a>
+      <a href="#tad">TAD</a>
+      <a href="#struct">Struct</a>
+      <a href="#lista-simples">Lista simples</a>
+      <a href="#lista-dupla">Lista dupla</a>
     </nav>
 
-    <!-- ===== Tópicos — cards como links ===== -->
-    <section class="section alt-section">
-      <div class="section-heading">
-        <p class="eyebrow">Objetivo</p>
-        <h2>Tópicos</h2>
-      </div>
-
-      <div class="feature-grid">
-        <a class="feature-card" href="#explicacoes">
-          <span class="card-index">01</span>
-          <h3>Explicação clara</h3>
-          <p>
-            Resumo do que é cada estrutura de dados, por que ela existe e
-            em quais situações ela costuma ser utilizada.
-          </p>
-        </a>
-
-        <a class="feature-card" href="#visualizacoes">
-          <span class="card-index">02</span>
-          <h3>Visualização</h3>
-          <p>
-            Diagramas e imagens mostrando a estrutura interna dos nós
-            e a relação entre os ponteiros.
-          </p>
-        </a>
-
-        <a class="feature-card" href="#codigos">
-          <span class="card-index">03</span>
-          <h3>Código em C#</h3>
-          <p>
-            Exemplos de implementação em C# para cada estrutura,
-            do modelo básico às operações principais.
-          </p>
-        </a>
-      </div>
-    </section>
-
-    <!-- ===== 01 — Explicações ===== -->
-    <section id="explicacoes" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">01 — Explicação clara</p>
-        <h2>Resumo das estruturas</h2>
-      </div>
-
-      <div class="overview-grid">
-        <article class="overview-card">
-          <h3>TAD — Tipo Abstrato de Dados</h3>
-          <p>
-            Um TAD define o que uma estrutura pode fazer — suas operações —
-            sem revelar como isso é feito internamente. É a separação entre
-            contrato e implementação: quem usa não precisa conhecer os detalhes.
-          </p>
-          <a class="link-more" href="pages/tad.php">Ver página completa &rarr;</a>
-        </article>
-
-        <article class="overview-card">
-          <h3>Lista simplesmente encadeada</h3>
-          <p>
-            Sequência de nós onde cada um aponta apenas para o próximo.
-            Inserção no início é O(1); busca por valor exige percurso
-            linear O(n) a partir do início da lista.
-          </p>
-          <a class="link-more" href="pages/lista-simples.php">Ver página completa &rarr;</a>
-        </article>
-
-        <article class="overview-card">
-          <h3>Lista duplamente encadeada</h3>
-          <p>
-            Cada nó carrega dois ponteiros: próximo e anterior. Permite
-            navegação nos dois sentidos e simplifica remoções, pois o nó
-            já conhece o seu antecessor.
-          </p>
-          <a class="link-more" href="pages/lista-dupla.php">Ver página completa &rarr;</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===== 02 — Visualizações ===== -->
-    <section id="visualizacoes" class="section alt-section">
-      <div class="section-heading">
-        <p class="eyebrow">02 — Visualização</p>
-        <h2>Diagramas das estruturas</h2>
-      </div>
-
-      <div class="diagram-grid">
-        <figure class="diagram-card">
-          <img src="assets/img/tad.svg"
-               loading="lazy"
-               alt="Diagrama de TAD: interface separada da implementação">
-          <figcaption>TAD — Interface vs. Implementação</figcaption>
-        </figure>
-
-        <figure class="diagram-card">
-          <img src="assets/img/lista-simples.svg"
-               loading="lazy"
-               alt="Nós ligados em sequência, cada um apontando para o próximo">
-          <figcaption>Lista simples — nós com ponteiro único</figcaption>
-        </figure>
-
-        <figure class="diagram-card">
-          <img src="assets/img/lista-dupla.svg"
-               loading="lazy"
-               alt="Nós com setas bidirecionais, apontando para o próximo e para o anterior">
-          <figcaption>Lista dupla — nós com dois ponteiros</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- ===== 03 — Códigos C# ===== -->
-    <section id="codigos" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">03 — Código em C#</p>
-        <h2>Exemplos por estrutura</h2>
-      </div>
-
-      <div class="code-examples">
-        <details>
-          <summary>TAD — Interface ILista</summary>
-          <pre class="code-block"><code>public interface ILista
+    <!-- ===== TAD ===== -->
+    <section id="tad" class="section topic alt-section">
+      <figure class="topic-media">
+        <img src="docs/imagens-pdfs/tad-struct-explicativo/04-tad-cliente.svg" loading="lazy" alt="Modelo visual de um TAD Cliente">
+      </figure>
+      <div class="topic-body">
+        <p class="eyebrow">Módulo 01 — TAD</p>
+        <h2>Tipo Abstrato de Dados</h2>
+        <p>Um contrato: define o que a estrutura faz, sem revelar como faz por dentro.</p>
+        <pre class="code-block"><code>public struct Cliente
 {
-    bool EstaVazia();
-    void InserirInicio(int valor);
-    void InserirFim(int valor);
-    bool Buscar(int chave);
-    void Percorrer();
-}</code></pre>
-        </details>
+    // Dados
+    public string Nome;
+    public string Email;
 
-        <details>
-          <summary>Lista simples — Classe Nó e inserção no início</summary>
-          <pre class="code-block"><code>public class No
+     // Operação do TAD
+    public void Imprimir()
+    {
+        Console.WriteLine("Nome: " + this.Nome);
+        Console.WriteLine("E-mail: " + this.Email);
+    }
+}</code></pre>
+        <a class="link-more" href="pages/tad.php">Ver página completa &rarr;</a>
+      </div>
+    </section>
+
+    <!-- ===== Struct ===== -->
+    <section id="struct" class="section topic topic--reverse">
+      <figure class="topic-media">
+        <img src="docs/imagens-pdfs/exercicios-struct-explicativo/01-struct-como-tad.svg" loading="lazy" alt="Resumo dos exercícios de struct como TAD">
+      </figure>
+      <div class="topic-body">
+        <p class="eyebrow">Módulo 01 — Struct</p>
+        <h2>Struct em C#</h2>
+        <p>Agrupa dados relacionados em um único tipo. É armazenada na stack.</p>
+        <pre class="code-block"><code>public struct Ponto
+{
+    public int X;
+    public int Y;
+}
+
+Ponto p = new();
+p.X = 10;
+p.Y = 5;</code></pre>
+        <a class="link-more" href="pages/tad.php">Ver página completa &rarr;</a>
+      </div>
+    </section>
+
+    <!-- ===== Lista Simples ===== -->
+    <section id="lista-simples" class="section topic alt-section">
+      <figure class="topic-media">
+        <img src="docs/imagens-pdfs/lista-encadeada-explicativo/01-lista-encadeada-simples.svg" loading="lazy" alt="Resumo visual sobre lista simplesmente encadeada">
+      </figure>
+      <div class="topic-body">
+        <p class="eyebrow">Módulo 02</p>
+        <h2>Lista Simplesmente Encadeada</h2>
+        <p>Nós em sequência: cada um aponta para o próximo. Inserir no início é O(1).</p>
+        <pre class="code-block"><code>public class No
 {
     public int valor;
     public No prox;
     public No(int valor) { this.valor = valor; this.prox = null; }
-}
-
-public void InserirInicio(int valor)
-{
-    No novo = new No(valor);
-    novo.prox = inicio;
-    inicio = novo;
 }</code></pre>
-        </details>
+        <a class="link-more" href="pages/lista-simples.php">Ver página completa &rarr;</a>
+      </div>
+    </section>
 
-        <details>
-          <summary>Lista dupla — Classe NoDuplo e inserção no início</summary>
-          <pre class="code-block"><code>public class NoDuplo
+    <!-- ===== Lista Duplamente Encadeada ===== -->
+    <section id="lista-dupla" class="section topic topic--reverse">
+      <figure class="topic-media">
+        <img src="docs/imagens-pdfs/lista-duplamente-encadeada-explicativo/01-lista-duplamente-encadeada.svg" loading="lazy" alt="Resumo visual sobre lista duplamente encadeada">
+      </figure>
+      <div class="topic-body">
+        <p class="eyebrow">Módulo 03</p>
+        <h2>Lista Duplamente Encadeada</h2>
+        <p>Cada nó conhece o próximo e o anterior. Navega nos dois sentidos.</p>
+        <pre class="code-block"><code>public class NoDuplo
 {
     public int valor;
     public NoDuplo anterior;
     public NoDuplo proximo;
-    public NoDuplo(int valor) { this.valor = valor; anterior = null; proximo = null; }
 }
 
 public void InserirInicio(int valor)
@@ -265,7 +186,7 @@ public void InserirInicio(int valor)
     if (inicio != null) inicio.anterior = novo;
     inicio = novo;
 }</code></pre>
-        </details>
+        <a class="link-more" href="pages/lista-dupla.php">Ver página completa &rarr;</a>
       </div>
     </section>
 
@@ -303,6 +224,7 @@ public void InserirInicio(int valor)
     <p>Base web criada para o Trabalho Prático 2 de Estrutura de Dados.</p>
   </footer>
 
+  <script src="assets/js/image-lightbox.js"></script>
   <script>
     (function () {
       const el = document.getElementById('typed-title');

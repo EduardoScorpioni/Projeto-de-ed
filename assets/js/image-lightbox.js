@@ -1,5 +1,5 @@
 (() => {
-  const selector = '.visual-card img, .page-hero img[src*="docs/imagens-pdfs"]';
+  const selector = '.visual-card img, .topic-media img, .page-hero img[src*="docs/imagens-pdfs"]';
   const images = [...document.querySelectorAll(selector)];
 
   if (images.length === 0) {

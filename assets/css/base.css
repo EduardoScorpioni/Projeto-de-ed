@@ -131,6 +131,40 @@ h3 {
   line-height: 1.25;
 }
 
+/* === Efeito de digitação nos títulos (data-typed) === */
+[data-typed] {
+  position: relative;
+}
+
+[data-typed]::after {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  margin-left: 6px;
+  vertical-align: -0.12em;
+  background: var(--green);
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-typed]::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* === Botões === */
 .button {
   display: inline-flex;

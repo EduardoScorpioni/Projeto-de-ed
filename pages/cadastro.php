@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main class="auth-container" style="padding: 40px 20px;">
         <section class="auth-card">
             <div class="eyebrow" style="text-align: center;">Comece agora</div>
-            <h1>Criar conta</h1>
+            <h1 data-typed="Criar conta">Criar conta</h1>
             <p class="subtitle">Junte-se ao Grupo 6 e comece seus estudos.</p>
 
             <?php if (!empty($erros)): ?>
@@ -140,5 +140,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <footer class="footer">
         <p>&copy; 2024 Grupo 6 - Estrutura de Dados. <a href="../index.php">Voltar ao início</a></p>
     </footer>
+    <script src="../assets/js/typed-title.js"></script>
 </body>
 </html>

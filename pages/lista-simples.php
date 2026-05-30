@@ -34,7 +34,7 @@
     <section class="page-hero">
       <div>
         <p class="eyebrow">Módulo 02</p>
-        <h1>Lista Simplesmente Encadeada</h1>
+        <h1 data-typed="Lista Simplesmente Encadeada">Lista Simplesmente Encadeada</h1>
         <p>
           Estrutura formada por nós. Cada nó guarda um valor e uma referência
           para o próximo nó da sequência.
@@ -217,5 +217,6 @@
     <p><a href="../index.php">Voltar para a página inicial</a></p>
   </footer>
   <script src="../assets/js/image-lightbox.js"></script>
+  <script src="../assets/js/typed-title.js"></script>
 </body>
 </html>

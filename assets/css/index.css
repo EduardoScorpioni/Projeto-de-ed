@@ -296,13 +296,100 @@ details .code-block {
   max-width: 100%;
 }
 
+/* === Parágrafo de apoio nos títulos de seção === */
+.section-heading p:not(.eyebrow) {
+  margin-top: 12px;
+  margin-bottom: 0;
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.ed-intro {
+  max-width: 760px;
+}
+
+.ed-intro p {
+  font-size: 1.08rem;
+  color: var(--muted);
+}
+
+/* === Blocos de tópico padronizados === */
+.topic {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+.topic-media {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: clamp(16px, 2.5vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.topic-media img {
+  width: 100%;
+  height: auto;
+  max-height: 340px;
+  object-fit: contain;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.topic-body {
+  max-width: 560px;
+}
+
+.topic-body h2 {
+  margin-bottom: 12px;
+}
+
+.topic-body > p {
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.topic .code-block {
+  max-width: 100%;
+  margin: 0 0 20px;
+  font-size: 0.9rem;
+}
+
+.topic .link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--green);
+  font-weight: 800;
+}
+
+.topic .link-more:hover {
+  text-decoration: underline;
+}
+
+.topic--reverse .topic-media {
+  order: 2;
+}
+
 /* === Responsivo === */
 @media (max-width: 900px) {
   .intro-band,
   .feature-grid,
   .module-grid,
-  .structure-layout {
+  .structure-layout,
+  .topic {
     grid-template-columns: 1fr;
+  }
+
+  .topic--reverse .topic-media {
+    order: 0;
   }
 }
 

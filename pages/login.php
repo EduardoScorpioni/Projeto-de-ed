@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main class="auth-container">
         <section class="auth-card">
             <div class="eyebrow" style="text-align: center;">Bem-vindo de volta</div>
-            <h1>Acessar conta</h1>
+            <h1 data-typed="Acessar conta">Acessar conta</h1>
             <p class="subtitle">Entre para acessar a área restrita do aluno.</p>
 
             <?php if ($erro): ?>
@@ -106,5 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <footer class="footer">
         <p>&copy; 2024 Grupo 6 - Estrutura de Dados. <a href="../index.php">Voltar ao início</a></p>
     </footer>
+    <script src="../assets/js/typed-title.js"></script>
 </body>
 </html>

@@ -34,7 +34,7 @@
     <section class="page-hero">
       <div>
         <p class="eyebrow">Módulo 03</p>
-        <h1>Lista Duplamente Encadeada</h1>
+        <h1 data-typed="Lista Duplamente Encadeada">Lista Duplamente Encadeada</h1>
         <p>
           Cada nó possui duas referências: uma para o próximo elemento e outra
           para o elemento anterior.
@@ -135,5 +135,6 @@
     <p><a href="../index.php">Voltar para a página inicial</a></p>
   </footer>
   <script src="../assets/js/image-lightbox.js"></script>
+  <script src="../assets/js/typed-title.js"></script>
 </body>
 </html>
