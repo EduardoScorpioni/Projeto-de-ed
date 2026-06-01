@@ -1,117 +1,191 @@
 # Projeto de Estrutura de Dados - Grupo 6
 
-![HTML5](https://img.shields.io/badge/HTML5-projeto_web-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-estilizacao-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-aplicacao_web-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-banco_de_dados-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-interface-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![Localhost](https://img.shields.io/badge/Servidor-localhost-2EA44F?style=for-the-badge)
 
-Site desenvolvido para apresentar conteúdos de **Estrutura de Dados**, com foco em
-TAD, lista simplesmente encadeada e lista duplamente encadeada.
+Sistema web acadêmico desenvolvido para apresentar conteúdos de **Estrutura de Dados**.
+O projeto aborda **TAD**, **struct em C#**, **lista simplesmente encadeada** e
+**lista duplamente encadeada**, com páginas explicativas, exemplos de código,
+imagens de apoio, PDFs e área de login.
 
-O projeto foi pensado para ser aberto em servidor local, usando **EasyPHP** ou
-**XAMPP**, e pode ser executado logo depois do clone do repositório.
+O projeto roda localmente com **EasyPHP** ou **XAMPP**, usando PHP, Apache e MySQL.
 
 ---
 
-## Como abrir o projeto depois do clone
+## Como rodar depois do clone
 
 ### 1. Clone o repositório
 
-No terminal, escolha a pasta onde o projeto será salvo e execute:
-
 ```bash
 git clone <url-do-repositorio>
-```
-
-Depois entre na pasta clonada:
-
-```bash
 cd Projeto-de-ed
 ```
 
-### 2. Coloque o projeto na pasta do servidor local
+### 2. Coloque a pasta no servidor local
 
-Para o navegador conseguir abrir o site pelo `localhost`, a pasta do projeto
-precisa ficar dentro da pasta pública do servidor local.
+O projeto precisa ficar dentro da pasta pública do servidor local.
 
 | Ambiente | Pasta recomendada |
 | --- | --- |
 | EasyPHP | `C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\` |
 | XAMPP | `C:\xampp\htdocs\` |
 
-Exemplo:
+Exemplo no XAMPP:
 
 ```text
 C:\xampp\htdocs\Projeto-de-ed
 ```
 
-ou
+### 3. Inicie Apache e MySQL
+
+Abra o painel do **EasyPHP** ou do **XAMPP** e inicie:
+
+- Apache
+- MySQL
+
+### 4. Importe o banco de dados
+
+O arquivo de criação do banco está em:
 
 ```text
-C:\Program Files (x86)\EasyPHP-DevServer-14.1VC11\data\localweb\Projeto-de-ed
+db/setup.sql
 ```
 
-### 3. Inicie o servidor
+Você pode importar pelo **phpMyAdmin** ou pelo terminal:
 
-Abra o painel do **EasyPHP** ou do **XAMPP** e inicie o servidor Apache.
+```bash
+mysql -u root < db/setup.sql
+```
 
-### 4. Abra no navegador
+O projeto espera estas configurações em `includes/conexao.php`:
 
-Com o servidor ligado, acesse:
+| Configuração | Valor |
+| --- | --- |
+| Host | `localhost` |
+| Usuário | `root` |
+| Senha | vazia |
+| Banco | `ed_grupo6` |
+
+### 5. Abra no navegador
+
+Se a pasta clonada se chamar `Projeto-de-ed`, acesse:
 
 ```text
 http://localhost/Projeto-de-ed/
 ```
 
-Se a pasta tiver outro nome, troque `Projeto-de-ed` pelo nome da pasta usada.
+Se a pasta tiver outro nome, troque `Projeto-de-ed` pelo nome usado no servidor.
 
 ---
 
-## Estrutura do projeto
+## Acesso de teste
+
+O SQL já cria um usuário inicial para testar o login:
+
+| Campo | Valor |
+| --- | --- |
+| E-mail | `admin@grupo6.com` |
+| Senha | `Admin@123` |
+
+Também é possível criar novos usuários pela página de cadastro.
+
+## Estrutura atual
 
 ```text
 Projeto-de-ed/
-|-- index.html
+|-- index.php
 |-- pages/
-|   |-- tad.html
-|   |-- lista-simples.html
-|   |-- lista-dupla.html
+|   |-- tad.php
+|   |-- lista-simples.php
+|   |-- lista-dupla.php
+|   |-- login.php
+|   |-- cadastro.php
+|   |-- dashboard.php
+|   `-- logout.php
+|-- includes/
+|   |-- conexao.php
+|   `-- sessao.php
+|-- db/
+|   `-- setup.sql
 |-- assets/
 |   |-- css/
-|   |   `-- styles.css
+|   |-- js/
 |   `-- img/
 |-- docs/
+|   |-- pdfs/
+|   |-- imagens-pdfs/
+|   |-- generate-pdfs.mjs
+|   |-- generate-images.mjs
 |   `-- resumo-requisitos.md
 |-- LICENSE
 `-- README.md
 ```
 
-## Conteúdos abordados
+## Páginas principais
 
-| Página | Conteúdo |
+| Página | Função |
 | --- | --- |
-| `index.html` | Página inicial do projeto |
-| `pages/tad.html` | Conceitos de Tipo Abstrato de Dados |
-| `pages/lista-simples.html` | Lista simplesmente encadeada |
-| `pages/lista-dupla.html` | Lista duplamente encadeada |
-| `docs/resumo-requisitos.md` | Resumo dos requisitos do trabalho |
+| `index.php` | Página inicial com apresentação dos módulos |
+| `pages/tad.php` | Explica TAD, struct e exercícios de modelagem |
+| `pages/lista-simples.php` | Explica lista simplesmente encadeada |
+| `pages/lista-dupla.php` | Explica lista duplamente encadeada |
+| `pages/login.php` | Entrada de usuários |
+| `pages/cadastro.php` | Criação de novas contas |
+| `pages/dashboard.php` | Área restrita depois do login |
 
-## Referências e pesquisa
+## Materiais de apoio
 
-Estamos usando como base os **arquivos de referência das aulas apresentadas
-sobre os projetos**, seguindo o conteúdo trabalhado em sala para organizar a
-estrutura e a proposta do site.
+Os PDFs explicativos ficam em `docs/pdfs/`:
 
-O conteúdo sobre **lista duplamente encadeada** será complementado com pesquisas
-feitas por nós mesmos, para deixar a explicação mais completa, clara e alinhada
-ao objetivo do trabalho.
+- `tad-struct-explicativo.pdf`
+- `exercicios-struct-explicativo.pdf`
+- `lista-encadeada-explicativo.pdf`
+- `lista-encadeada-requisitos-programacao.pdf`
+- `lista-duplamente-encadeada-explicativo.pdf`
 
-## Tecnologias utilizadas
+As versões em imagem/SVG para usar no site ficam em:
 
+```text
+docs/imagens-pdfs/
+```
+
+Há também uma página de prévia em:
+
+```text
+docs/imagens-pdfs/index.html
+```
+
+## Scripts de geração
+
+Os materiais visuais podem ser recriados pelos scripts:
+
+```bash
+node docs/generate-pdfs.mjs
+node docs/generate-images.mjs
+```
+
+Esses scripts geram os PDFs e as imagens usadas como apoio visual no conteúdo.
+
+## Tecnologias usadas
+
+- PHP
+- MySQL
 - HTML5
 - CSS3
-- EasyPHP
-- XAMPP
-- Execução via `localhost`
+- JavaScript
+- EasyPHP ou XAMPP
+- Apache local via `localhost`
+
+## Referências
+
+O projeto usa como base os arquivos de referência das aulas apresentadas sobre
+Estrutura de Dados e os requisitos propostos para o trabalho.
+
+O conteúdo sobre listas encadeadas e lista duplamente encadeada também foi
+complementado com pesquisas realizadas pelo grupo, para deixar as explicações
+mais claras e aplicáveis ao site.
 
 ## Integrantes
 
