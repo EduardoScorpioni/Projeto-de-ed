@@ -20,6 +20,7 @@
       <a href="pages/tad.php">TAD</a>
       <a href="pages/lista-simples.php">Lista simples</a>
       <a href="pages/lista-dupla.php">Lista dupla</a>
+      <a href="pages/gamificacao.php">Gameficacao</a>
       <?php if (estaLogado()): ?>
         <a href="pages/dashboard.php">Dashboard</a>
         <a href="pages/logout.php">Sair</a>
@@ -215,6 +216,21 @@ public void InserirInicio(int valor)
           <h3>Duplamente encadeada</h3>
           <p>Nós com referências para o anterior e para o próximo.</p>
         </a>
+      </div>
+    </section>
+
+    <section class="gamification-cta">
+      <div class="gamification-cta__inner">
+        <div>
+          <p class="eyebrow">BrunoCoins</p>
+          <h2>Transforme estudo em recompensa</h2>
+          <p>Responda desafios de Estrutura de Dados, compre roupas para o personagem e evolua seu inventario no modo gameficado.</p>
+          <div class="gamification-cta__actions">
+            <a class="button primary" href="pages/gamificacao.php">Abrir gameficacao</a>
+            <a class="button secondary" href="pages/login.php">Entrar na conta</a>
+          </div>
+        </div>
+        <span class="gamification-cta__coins">BC</span>
       </div>
     </section>
 

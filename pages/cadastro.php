@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Login automático
             $_SESSION['usuario_id'] = $novo_id;
             $_SESSION['usuario_nome'] = $nome;
+            $_SESSION['usuario_email'] = $email;
             session_regenerate_id(true);
 
             header("Location: dashboard.php");
@@ -84,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </a>
         <nav class="main-nav">
             <a href="../index.php">Início</a>
+            <a href="gamificacao.php">Gameficacao</a>
             <a href="login.php">Login</a>
         </nav>
     </header>

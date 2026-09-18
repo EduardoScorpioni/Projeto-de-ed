@@ -20,6 +20,7 @@
       <a href="tad.php" aria-current="page">TAD</a>
       <a href="lista-simples.php">Lista simples</a>
       <a href="lista-dupla.php">Lista dupla</a>
+      <a href="gamificacao.php">Gameficacao</a>
       <?php if (estaLogado()): ?>
         <a href="dashboard.php">Dashboard</a>
         <a href="logout.php">Sair</a>
@@ -345,6 +346,20 @@
           <img src="../docs/imagens-pdfs/exercicios-struct-explicativo/06-como-resolver-cada-exercicio.svg" alt="Roteiro para resolver cada exercício de struct" loading="lazy">
           <figcaption><strong>Como resolver</strong>Roteiro com campos, métodos, testes e commits.</figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section class="gamification-cta">
+      <div class="gamification-cta__inner">
+        <div>
+          <p class="eyebrow">BrunoCoins</p>
+          <h2>Teste TAD e Struct valendo recompensa</h2>
+          <p>Depois de estudar o conteudo, entre na gameficacao para responder desafios, ganhar BrunoCoins e liberar roupas para o personagem.</p>
+          <div class="gamification-cta__actions">
+            <a class="button primary" href="gamificacao.php">Ir para gameficacao</a>
+          </div>
+        </div>
+        <span class="gamification-cta__coins">BC</span>
       </div>
     </section>
 

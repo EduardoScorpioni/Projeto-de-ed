@@ -21,6 +21,7 @@ exigirLogin();
         <nav class="main-nav">
             <a href="../index.php">Início</a>
             <a href="#" aria-current="page">Dashboard</a>
+            <a href="gamificacao.php">Gameficacao</a>
             <a href="logout.php">Sair</a>
         </nav>
     </header>
@@ -61,6 +62,19 @@ exigirLogin();
                     <p>Explore a navegação bidirecional e as vantagens de ponteiros para o elemento anterior.</p>
                     <div class="card-action">Acessar conteúdo</div>
                 </a>
+            </div>
+        </section>
+        <section class="gamification-cta">
+            <div class="gamification-cta__inner">
+                <div>
+                    <p class="eyebrow">BrunoCoins</p>
+                    <h2>Continue estudando no modo gameficado</h2>
+                    <p>Entre na loja, responda desafios e use suas BrunoCoins para montar o personagem mais forte do Grupo 6.</p>
+                    <div class="gamification-cta__actions">
+                        <a class="button primary" href="gamificacao.php">Abrir gameficacao</a>
+                    </div>
+                </div>
+                <span class="gamification-cta__coins">BC</span>
             </div>
         </section>
     </main>

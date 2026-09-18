@@ -1,0 +1,781 @@
+/* assets/css/gamificacao.css */
+
+.game-page {
+  min-height: 100vh;
+}
+
+.game-hud {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  gap: 24px;
+  align-items: stretch;
+  padding: clamp(28px, 5vw, 64px) clamp(18px, 5vw, 72px) 24px;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(236, 242, 237, 0.94), rgba(255, 255, 255, 0.72)),
+    var(--surface-soft);
+}
+
+.game-title-block {
+  max-width: 900px;
+}
+
+.game-title-block h1 {
+  max-width: 860px;
+  margin-bottom: 14px;
+  font-size: clamp(2.1rem, 5vw, 4.6rem);
+}
+
+.game-title-block p:not(.eyebrow) {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.wallet-panel,
+.avatar-panel,
+.challenge-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 16px 34px rgba(25, 36, 31, 0.07);
+}
+
+.wallet-panel {
+  display: grid;
+  align-content: center;
+  gap: 6px;
+  padding: 24px;
+}
+
+.wallet-label,
+.wallet-unit,
+.wallet-row,
+.stats-grid span,
+.progress-panel span,
+.slot-label,
+.item-meta,
+.mission-card p,
+.inventory-item span {
+  color: var(--muted);
+}
+
+.wallet-panel #coinBalance {
+  color: var(--amber);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  line-height: 1;
+}
+
+.wallet-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+  font-weight: 800;
+}
+
+.game-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+  gap: 24px;
+  padding: 24px clamp(18px, 5vw, 72px);
+}
+
+.avatar-panel,
+.challenge-panel {
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.panel-heading h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+}
+
+.panel-heading p:not(.eyebrow) {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.avatar-stage {
+  display: grid;
+  min-height: 360px;
+  margin: 22px 0;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(236, 242, 237, 0.8), rgba(255, 255, 255, 0.92)),
+    repeating-linear-gradient(90deg, rgba(47, 125, 90, 0.08) 0 1px, transparent 1px 34px);
+}
+
+.character-avatar {
+  --skin: #e6b98f;
+  --hair: #2a211d;
+  --cloth-head: #27312c;
+  --cloth-torso: #2f7d5a;
+  --cloth-legs: #2e5e8c;
+  --cloth-accent: #c4782b;
+  --cloth-aura: rgba(47, 125, 90, 0.18);
+  position: relative;
+  width: min(240px, 70vw);
+  height: 320px;
+  isolation: isolate;
+  transform-origin: center bottom;
+  transition: transform 180ms ease;
+}
+
+.character-avatar.is-celebrating {
+  animation: avatarCelebrate 520ms ease;
+}
+
+.character-avatar.is-overpowered {
+  --cloth-head: #111711;
+  --cloth-torso: #172414;
+  --cloth-legs: #111827;
+  --cloth-accent: #f5b341;
+  --cloth-aura: rgba(196, 120, 43, 0.32);
+}
+
+.avatar-aura,
+.avatar-shadow,
+.avatar-leg,
+.avatar-shoe,
+.avatar-body,
+.avatar-arm,
+.avatar-neck,
+.avatar-head,
+.avatar-hair,
+.avatar-eye,
+.avatar-mouth,
+.avatar-accessory,
+.avatar-badge {
+  position: absolute;
+  display: block;
+}
+
+.avatar-aura {
+  inset: 20px 8px 16px;
+  z-index: -1;
+  border: 2px solid rgba(47, 125, 90, 0.22);
+  border-radius: 50%;
+  background: var(--cloth-aura);
+  box-shadow: inset 0 0 34px rgba(47, 125, 90, 0.12);
+}
+
+.character-avatar.is-overpowered .avatar-aura {
+  animation: auraPulse 1.8s ease-in-out infinite;
+  border-color: rgba(245, 179, 65, 0.7);
+  box-shadow:
+    inset 0 0 36px rgba(245, 179, 65, 0.2),
+    0 0 42px rgba(196, 120, 43, 0.32);
+}
+
+.avatar-shadow {
+  left: 48px;
+  right: 48px;
+  bottom: 16px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(24, 32, 29, 0.16);
+}
+
+.avatar-leg {
+  top: 210px;
+  width: 42px;
+  height: 78px;
+  border: 3px solid var(--text);
+  border-radius: 8px;
+  background: var(--cloth-legs);
+}
+
+.avatar-leg-left {
+  left: 76px;
+}
+
+.avatar-leg-right {
+  right: 76px;
+}
+
+.avatar-shoe {
+  top: 282px;
+  width: 58px;
+  height: 22px;
+  border: 3px solid var(--text);
+  border-radius: 8px 8px 12px 12px;
+  background: var(--cloth-head);
+}
+
+.avatar-shoe-left {
+  left: 61px;
+}
+
+.avatar-shoe-right {
+  right: 61px;
+}
+
+.avatar-body {
+  left: 56px;
+  top: 128px;
+  width: 128px;
+  height: 106px;
+  border: 3px solid var(--text);
+  border-radius: 26px 26px 12px 12px;
+  background:
+    linear-gradient(110deg, rgba(255, 255, 255, 0.18), transparent 42%),
+    var(--cloth-torso);
+}
+
+.avatar-arm {
+  top: 144px;
+  width: 34px;
+  height: 92px;
+  border: 3px solid var(--text);
+  border-radius: 18px;
+  background: var(--cloth-torso);
+}
+
+.avatar-arm-left {
+  left: 28px;
+  transform: rotate(8deg);
+}
+
+.avatar-arm-right {
+  right: 28px;
+  transform: rotate(-8deg);
+}
+
+.avatar-neck {
+  left: 101px;
+  top: 112px;
+  width: 38px;
+  height: 28px;
+  border: 3px solid var(--text);
+  border-radius: 8px;
+  background: var(--skin);
+}
+
+.avatar-head {
+  left: 74px;
+  top: 42px;
+  width: 92px;
+  height: 92px;
+  border: 3px solid var(--text);
+  border-radius: 42px 42px 36px 36px;
+  background: var(--skin);
+}
+
+.avatar-hair {
+  left: 70px;
+  top: 34px;
+  width: 100px;
+  height: 42px;
+  border: 3px solid var(--text);
+  border-radius: 42px 42px 16px 16px;
+  background: var(--cloth-head);
+}
+
+.avatar-eye {
+  top: 82px;
+  width: 9px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text);
+}
+
+.avatar-eye-left {
+  left: 103px;
+}
+
+.avatar-eye-right {
+  right: 103px;
+}
+
+.avatar-mouth {
+  left: 108px;
+  top: 108px;
+  width: 24px;
+  height: 10px;
+  border-bottom: 3px solid var(--text);
+  border-radius: 0 0 18px 18px;
+}
+
+.avatar-accessory {
+  left: 151px;
+  top: 88px;
+  width: 54px;
+  height: 16px;
+  border: 3px solid var(--text);
+  border-radius: 8px;
+  background: var(--cloth-accent);
+  transform: rotate(12deg);
+}
+
+.avatar-badge {
+  left: 98px;
+  top: 162px;
+  display: grid;
+  width: 44px;
+  height: 32px;
+  place-items: center;
+  border: 3px solid var(--text);
+  border-radius: 8px;
+  background: var(--cloth-accent);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.equipped-summary {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+.equipped-summary h3 {
+  margin-bottom: 12px;
+}
+
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.equipment-slot,
+.stats-grid div,
+.progress-panel div,
+.mission-card,
+.inventory-item {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.equipment-slot {
+  min-height: 80px;
+  padding: 12px;
+}
+
+.slot-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.slot-value {
+  font-weight: 900;
+}
+
+.stats-grid,
+.progress-panel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.stats-grid div,
+.progress-panel div {
+  min-height: 74px;
+  padding: 12px;
+}
+
+.stats-grid span,
+.progress-panel span {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.stats-grid strong,
+.progress-panel strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.3rem;
+}
+
+.challenge-box {
+  margin: 22px 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.challenge-box p {
+  margin-bottom: 16px;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 800;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.option-button,
+.filter-button,
+.shop-card button,
+.mission-card button,
+.inventory-item button {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.option-button {
+  padding: 12px;
+  text-align: left;
+}
+
+.option-button:hover,
+.option-button:focus-visible,
+.filter-button:hover,
+.filter-button:focus-visible,
+.shop-card button:hover,
+.shop-card button:focus-visible,
+.mission-card button:hover,
+.mission-card button:focus-visible,
+.inventory-item button:hover,
+.inventory-item button:focus-visible {
+  border-color: var(--green);
+  outline: none;
+}
+
+.option-button.is-correct {
+  border-color: var(--green);
+  background: #e5f4ec;
+}
+
+.option-button.is-wrong {
+  border-color: var(--red);
+  background: #f8e8e8;
+}
+
+.option-button:disabled,
+.shop-card button:disabled,
+.mission-card button:disabled,
+.inventory-item button:disabled {
+  cursor: not-allowed;
+  opacity: 0.66;
+}
+
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.game-message {
+  min-height: 28px;
+  margin-top: 16px;
+  color: var(--green);
+  font-weight: 900;
+}
+
+.section-heading p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 1.04rem;
+}
+
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-button {
+  padding: 8px 14px;
+}
+
+.filter-button.is-active {
+  border-color: var(--green);
+  background: var(--green);
+  color: #ffffff;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.shop-card {
+  display: grid;
+  gap: 14px;
+  min-height: 310px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(25, 36, 31, 0.05);
+}
+
+.shop-card.is-owned {
+  border-color: rgba(47, 125, 90, 0.6);
+}
+
+.shop-card.is-equipped {
+  box-shadow: 0 0 0 2px rgba(47, 125, 90, 0.24), 0 12px 28px rgba(25, 36, 31, 0.08);
+}
+
+.shop-card.is-overpowered {
+  border-color: rgba(196, 120, 43, 0.85);
+  background:
+    linear-gradient(135deg, rgba(24, 32, 29, 0.96), rgba(47, 59, 49, 0.98)),
+    var(--text);
+  color: #f8f2e7;
+}
+
+.shop-card.is-overpowered .item-meta,
+.shop-card.is-overpowered .item-perk,
+.shop-card.is-overpowered .stat-pill {
+  color: #f2dfc2;
+}
+
+.item-preview {
+  height: 82px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, var(--preview-head) 0 24%, var(--preview-torso) 24% 54%, var(--preview-legs) 54% 78%, var(--preview-accent) 78% 100%);
+}
+
+.shop-card.is-overpowered .item-preview {
+  border-color: rgba(245, 179, 65, 0.48);
+  box-shadow: inset 0 0 28px rgba(245, 179, 65, 0.18);
+}
+
+.item-topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.item-topline h3 {
+  margin-bottom: 0;
+}
+
+.rarity-badge {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.rarity-comum .rarity-badge {
+  background: #e8eee9;
+}
+
+.rarity-raro .rarity-badge {
+  background: #e3eef8;
+}
+
+.rarity-epico .rarity-badge {
+  background: #eee6f7;
+}
+
+.rarity-lendario .rarity-badge {
+  background: #f7eadb;
+}
+
+.rarity-roubada .rarity-badge {
+  background: #f5b341;
+  color: #16110a;
+}
+
+.item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.item-perk {
+  margin: 0;
+  color: var(--muted);
+}
+
+.stat-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.stat-pill {
+  padding: 5px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.card-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  align-self: end;
+}
+
+.card-actions button {
+  padding: 9px 10px;
+}
+
+.card-actions .wide-action {
+  grid-column: 1 / -1;
+}
+
+.mission-grid,
+.inventory-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.mission-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+
+.mission-card h3,
+.mission-card p {
+  margin-bottom: 0;
+}
+
+.mission-card button,
+.inventory-item button {
+  padding: 9px 12px;
+}
+
+.mission-card.is-claimed {
+  background: #eef5f0;
+}
+
+.mission-progress {
+  overflow: hidden;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--surface-soft);
+}
+
+.mission-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--green);
+}
+
+.inventory-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 12px;
+  align-items: center;
+  min-height: 86px;
+  padding: 14px;
+}
+
+.inventory-item strong {
+  display: block;
+}
+
+.inventory-item span {
+  font-size: 0.9rem;
+}
+
+.danger-zone {
+  margin-top: 22px;
+}
+
+.danger-zone .button {
+  color: var(--red);
+}
+
+@keyframes avatarCelebrate {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  35% {
+    transform: translateY(-10px) scale(1.03);
+  }
+
+  70% {
+    transform: translateY(2px) scale(0.99);
+  }
+}
+
+@keyframes auraPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.86;
+  }
+
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .character-avatar,
+  .character-avatar.is-celebrating,
+  .character-avatar.is-overpowered .avatar-aura {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .game-hud,
+  .game-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid,
+  .progress-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .game-hud,
+  .game-layout {
+    padding-inline: 16px;
+  }
+
+  .option-grid,
+  .card-actions,
+  .stats-grid,
+  .progress-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .character-avatar {
+    width: 210px;
+    height: 300px;
+  }
+
+  .avatar-stage {
+    min-height: 330px;
+  }
+}

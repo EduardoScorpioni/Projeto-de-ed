@@ -445,3 +445,65 @@ body.lightbox-lock {
     min-height: 0;
   }
 }
+
+/* === Chamada para a gamificacao === */
+.gamification-cta {
+  padding: clamp(34px, 5vw, 64px) clamp(18px, 5vw, 72px);
+  border-top: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+
+.gamification-cta__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 16px 34px rgba(25, 36, 31, 0.07);
+}
+
+.gamification-cta h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+}
+
+.gamification-cta p {
+  max-width: 760px;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.gamification-cta__coins {
+  display: inline-grid;
+  min-width: 112px;
+  min-height: 86px;
+  place-items: center;
+  border: 2px solid rgba(196, 120, 43, 0.34);
+  border-radius: 8px;
+  background: #fff8eb;
+  color: var(--amber);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.gamification-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+@media (max-width: 560px) {
+  .gamification-cta__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .gamification-cta__coins {
+    width: 100%;
+  }
+}

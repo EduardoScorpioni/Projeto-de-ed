@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erro = 'Por favor, preencha todos os campos.';
     } else {
         // Busca o usuário pelo email
-        $stmt = $conn->prepare("SELECT id, nome, senha_hash FROM usuarios WHERE email = ?");
+        $stmt = $conn->prepare("SELECT id, nome, email, senha_hash FROM usuarios WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Inicia a sessão do usuário
                 $_SESSION['usuario_id'] = $user['id'];
                 $_SESSION['usuario_nome'] = $user['nome'];
+                $_SESSION['usuario_email'] = $user['email'];
                 
                 // Regenera ID da sessão por segurança
                 session_regenerate_id(true);
@@ -66,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </a>
         <nav class="main-nav">
             <a href="../index.php">Início</a>
+            <a href="gamificacao.php">Gameficacao</a>
             <a href="cadastro.php">Cadastro</a>
         </nav>
     </header>
@@ -84,8 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form action="login.php" method="POST">
                 <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" class="form-control" 
+                    <label for="email">E-mail ou usuario</label>
+                    <input type="text" id="email" name="email" class="form-control" 
                            value="<?php echo isset($email) ? clean($email) : ''; ?>" required autofocus>
                 </div>
                 

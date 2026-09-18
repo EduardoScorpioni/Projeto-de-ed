@@ -20,6 +20,7 @@
       <a href="tad.php">TAD</a>
       <a href="lista-simples.php">Lista simples</a>
       <a href="lista-dupla.php" aria-current="page">Lista dupla</a>
+      <a href="gamificacao.php">Gameficacao</a>
       <?php if (estaLogado()): ?>
         <a href="dashboard.php">Dashboard</a>
         <a href="logout.php">Sair</a>
@@ -127,6 +128,20 @@
           <img src="../docs/imagens-pdfs/lista-duplamente-encadeada-explicativo/07-vantagens-e-cuidados.svg" alt="Vantagens e cuidados da lista duplamente encadeada" loading="lazy">
           <figcaption><strong>Vantagens e cuidados</strong>Resume benefícios, memória extra e erros comuns.</figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section class="gamification-cta">
+      <div class="gamification-cta__inner">
+        <div>
+          <p class="eyebrow">BrunoCoins</p>
+          <h2>Ganhe moedas com lista dupla</h2>
+          <p>Revise ponteiro anterior, ponteiro proximo, insercao e remocao no modo gameficado do site.</p>
+          <div class="gamification-cta__actions">
+            <a class="button primary" href="gamificacao.php">Ir para gameficacao</a>
+          </div>
+        </div>
+        <span class="gamification-cta__coins">BC</span>
       </div>
     </section>
   </main>

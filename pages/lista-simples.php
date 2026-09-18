@@ -20,6 +20,7 @@
       <a href="tad.php">TAD</a>
       <a href="lista-simples.php" aria-current="page">Lista simples</a>
       <a href="lista-dupla.php">Lista dupla</a>
+      <a href="gamificacao.php">Gameficacao</a>
       <?php if (estaLogado()): ?>
         <a href="dashboard.php">Dashboard</a>
         <a href="logout.php">Sair</a>
@@ -209,6 +210,20 @@
           <img src="../docs/imagens-pdfs/lista-encadeada-requisitos-programacao/10-o-que-muda-entre-inicio-meio-e-fim.svg" alt="Resumo das diferenças entre início, meio e fim" loading="lazy">
           <figcaption><strong>Resumo prático</strong>Compara início, meio e fim nas operações da lista.</figcaption>
         </figure>
+      </div>
+    </section>
+
+    <section class="gamification-cta">
+      <div class="gamification-cta__inner">
+        <div>
+          <p class="eyebrow">BrunoCoins</p>
+          <h2>Treine listas simples jogando</h2>
+          <p>Use o que aprendeu sobre nos, ponteiros e insercao para acertar desafios, juntar BrunoCoins e comprar roupas novas.</p>
+          <div class="gamification-cta__actions">
+            <a class="button primary" href="gamificacao.php">Ir para gameficacao</a>
+          </div>
+        </div>
+        <span class="gamification-cta__coins">BC</span>
       </div>
     </section>
   </main>
