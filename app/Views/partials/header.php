@@ -22,7 +22,7 @@ $paginaAtual = $paginaAtual ?? '';
     <a href="<?php echo $urlPaginas; ?>lista-dupla.php"<?php echo $paginaAtual === 'lista-dupla' ? ' aria-current="page"' : ''; ?>>Lista dupla</a>
     <a href="<?php echo $urlPaginas; ?>fila.php"<?php echo $paginaAtual === 'fila' ? ' aria-current="page"' : ''; ?>>Fila</a>
     <a href="<?php echo $urlPaginas; ?>pilha.php"<?php echo $paginaAtual === 'pilha' ? ' aria-current="page"' : ''; ?>>Pilha</a>
-    <a href="<?php echo $urlPaginas; ?>gamificacao.php"<?php echo $paginaAtual === 'gamificacao' ? ' aria-current="page"' : ''; ?>>Gameficacao</a>
+    <a href="<?php echo $urlPaginas; ?>gamificacao.php"<?php echo $paginaAtual === 'gamificacao' ? ' aria-current="page"' : ''; ?>>PonteiroQuest</a>
     <?php if (estaLogado()): ?>
       <a href="<?php echo $urlPaginas; ?>dashboard.php">Dashboard</a>
       <a href="<?php echo $urlPaginas; ?>logout.php">Sair</a>

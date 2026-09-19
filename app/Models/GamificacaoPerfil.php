@@ -37,6 +37,7 @@ class GamificacaoPerfil
         'upgrades' => [],
         'claimedMissions' => [],
         'chestReadyAt' => 0,
+        'abilityCharges' => [],
     ];
 
     /**
@@ -121,6 +122,7 @@ class GamificacaoPerfil
                 'answer' => 0,
                 'reward' => 95,
                 'xp' => 55,
+                'categoria' => 'Lista simples',
             ],
             [
                 'question' => 'Buscar um valor que esta no ultimo no de uma lista simples normalmente custa:',
@@ -128,6 +130,7 @@ class GamificacaoPerfil
                 'answer' => 2,
                 'reward' => 120,
                 'xp' => 65,
+                'categoria' => 'Lista simples',
             ],
             [
                 'question' => 'Em uma lista duplamente encadeada, cada no guarda:',
@@ -135,6 +138,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 125,
                 'xp' => 68,
+                'categoria' => 'Lista dupla',
             ],
             [
                 'question' => 'Um TAD ajuda porque separa:',
@@ -142,6 +146,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 110,
                 'xp' => 62,
+                'categoria' => 'TAD',
             ],
             [
                 'question' => 'Se uma lista esta vazia, normalmente o ponteiro inicio aponta para:',
@@ -149,6 +154,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 90,
                 'xp' => 52,
+                'categoria' => 'Lista simples',
             ],
             [
                 'question' => 'Na remocao no meio de uma lista simples, e essencial:',
@@ -156,6 +162,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 145,
                 'xp' => 74,
+                'categoria' => 'Lista simples',
             ],
             [
                 'question' => 'Uma struct em C# costuma ser usada para:',
@@ -163,6 +170,7 @@ class GamificacaoPerfil
                 'answer' => 0,
                 'reward' => 105,
                 'xp' => 58,
+                'categoria' => 'TAD',
             ],
             [
                 'question' => 'O ponteiro fim em lista encadeada ajuda principalmente a:',
@@ -170,6 +178,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 135,
                 'xp' => 70,
+                'categoria' => 'Lista simples',
             ],
             [
                 'question' => 'O melhor caso de busca em lista simples acontece quando o valor esta:',
@@ -177,6 +186,7 @@ class GamificacaoPerfil
                 'answer' => 0,
                 'reward' => 100,
                 'xp' => 54,
+                'categoria' => 'Lista simples',
             ],
             [
                 'question' => 'Em lista duplamente encadeada, navegar para tras e possivel por causa do ponteiro:',
@@ -184,6 +194,7 @@ class GamificacaoPerfil
                 'answer' => 2,
                 'reward' => 130,
                 'xp' => 66,
+                'categoria' => 'Lista dupla',
             ],
 
             // ===== Fila FIFO — Aula 7 (conceituais + leitura do codigo dado em aula) =====
@@ -193,6 +204,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 100,
                 'xp' => 56,
+                'categoria' => 'Fila',
             ],
             [
                 'question' => 'No metodo inserirEnfileirar, quando a fila ja tem elementos, o novo no e ligado assim:',
@@ -200,6 +212,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 120,
                 'xp' => 64,
+                'categoria' => 'Fila',
             ],
             [
                 'question' => 'No metodo removerDesenfileirar, quando a fila tem so 1 elemento (inicio == fim), o correto e:',
@@ -207,6 +220,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 120,
                 'xp' => 64,
+                'categoria' => 'Fila',
             ],
             [
                 'question' => 'Um exemplo do dia a dia que se comporta como uma fila FIFO e:',
@@ -214,6 +228,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 95,
                 'xp' => 52,
+                'categoria' => 'Fila',
             ],
             [
                 'question' => 'Em uma Fila de Prioridades, a ordem de saida e definida por:',
@@ -221,6 +236,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 130,
                 'xp' => 68,
+                'categoria' => 'Fila de prioridades',
             ],
 
             // ===== Pilha — Aula 8 (conceituais + leitura do codigo dado em aula) =====
@@ -230,6 +246,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 100,
                 'xp' => 56,
+                'categoria' => 'Pilha',
             ],
             [
                 'question' => 'No metodo push da Pilha, o novo no e ligado assim:',
@@ -237,6 +254,7 @@ class GamificacaoPerfil
                 'answer' => 0,
                 'reward' => 120,
                 'xp' => 64,
+                'categoria' => 'Pilha',
             ],
             [
                 'question' => 'No metodo pop da Pilha, antes de retornar o no removido, o codigo faz:',
@@ -244,6 +262,7 @@ class GamificacaoPerfil
                 'answer' => 0,
                 'reward' => 120,
                 'xp' => 64,
+                'categoria' => 'Pilha',
             ],
             [
                 'question' => 'Um exemplo do dia a dia que se comporta como uma pilha LIFO e:',
@@ -251,6 +270,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 95,
                 'xp' => 52,
+                'categoria' => 'Pilha',
             ],
             [
                 'question' => 'A pilha de chamadas de funcao (call stack) de um programa em execucao se comporta como uma:',
@@ -258,6 +278,7 @@ class GamificacaoPerfil
                 'answer' => 1,
                 'reward' => 120,
                 'xp' => 64,
+                'categoria' => 'Pilha',
             ],
         ];
     }

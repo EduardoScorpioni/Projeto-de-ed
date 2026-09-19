@@ -7,6 +7,10 @@
   const STORAGE_KEY = 'grupo6_brunocoins_v1';
   const MAX_UPGRADE = 3;
   const CHEST_DELAY = 6 * 60 * 60 * 1000;
+  const QUESTION_TIME_MS = 20000;
+  const ABILITY_CHARGE_REGEN_EVERY = 6;
+  const SECRET_ITEM_ID = 'camiseta-bruno-secreta';
+  const SECRET_CHANCE = 0.1;
   const initialCoins = Number(root.dataset.initialCoins || 350);
   const forceAdminCoins = root.dataset.forceAdminCoins === 'true';
   const isLoggedIn = root.dataset.loggedIn === 'true';
@@ -56,6 +60,7 @@
       unlockLevel: 1,
       perk: 'Base equilibrada para comecar os estudos.',
       stats: { coins: 0.02, xp: 0.02, focus: 1 },
+      estilo: 'camiseta',
       visual: { torso: '#2f7d5a', accent: '#c4782b' },
     },
     {
@@ -67,6 +72,7 @@
       unlockLevel: 1,
       perk: 'Mantem o personagem pronto para qualquer modulo.',
       stats: { focus: 1 },
+      estilo: 'calca',
       visual: { legs: '#2e5e8c' },
     },
     {
@@ -78,6 +84,7 @@
       unlockLevel: 1,
       perk: 'Ajuda a engatar combos no inicio do treino.',
       stats: { coins: 0.06, xp: 0.03, focus: 1 },
+      estilo: 'bone',
       visual: { head: '#274d3c', accent: '#c4782b' },
     },
     {
@@ -89,7 +96,9 @@
       unlockLevel: 1,
       perk: 'Pequena chance extra de jackpot no desafio.',
       stats: { coins: 0.04, luck: 3, focus: 1 },
+      estilo: 'oculos',
       visual: { accent: '#2e5e8c' },
+      ability: 'dica',
     },
     {
       id: 'jaqueta-lista-simples',
@@ -100,6 +109,7 @@
       unlockLevel: 2,
       perk: 'Recompensa melhor quando voce acerta em sequencia.',
       stats: { coins: 0.12, xp: 0.04, focus: 2 },
+      estilo: 'jaqueta',
       visual: { torso: '#245f45', accent: '#e09b4a' },
     },
     {
@@ -111,6 +121,7 @@
       unlockLevel: 2,
       perk: 'Mais foco para desafios de operacoes em listas.',
       stats: { coins: 0.08, xp: 0.05, focus: 3 },
+      estilo: 'calca-esportiva',
       visual: { legs: '#254c75', head: '#203b5b' },
     },
     {
@@ -122,7 +133,9 @@
       unlockLevel: 3,
       perk: 'Aumenta XP e deixa evoluir nivel mais rapido.',
       stats: { xp: 0.18, luck: 5, focus: 2 },
+      estilo: 'capuz',
       visual: { head: '#4c3d57', accent: '#9b7ac2' },
+      ability: 'pular',
     },
     {
       id: 'colete-duplo-encadeado',
@@ -133,7 +146,9 @@
       unlockLevel: 4,
       perk: 'Bons ganhos de BrunoCoins e desconto leve na loja.',
       stats: { coins: 0.22, xp: 0.08, discount: 0.05, focus: 4 },
+      estilo: 'colete',
       visual: { torso: '#854f2a', accent: '#2e5e8c' },
+      ability: 'eliminar2',
     },
     {
       id: 'botas-percurso-binario',
@@ -144,6 +159,7 @@
       unlockLevel: 4,
       perk: 'Melhora combo e sorte para bonus dobrado.',
       stats: { coins: 0.16, luck: 8, focus: 5 },
+      estilo: 'bota',
       visual: { legs: '#3c4d2e', accent: '#7ea35d' },
     },
     {
@@ -155,7 +171,9 @@
       unlockLevel: 5,
       perk: 'Transforma abstracao em bonus de moedas.',
       stats: { coins: 0.2, xp: 0.12, luck: 9, discount: 0.03 },
+      estilo: 'amuleto',
       visual: { accent: '#b84a4a' },
+      ability: 'dobro',
     },
     {
       id: 'aura-stack-heap',
@@ -166,7 +184,9 @@
       unlockLevel: 5,
       perk: 'Faz o avatar brilhar e multiplica XP.',
       stats: { coins: 0.14, xp: 0.28, luck: 7, focus: 6 },
+      estilo: 'aura-brilho',
       visual: { aura: 'rgba(46, 94, 140, 0.24)', accent: '#2e5e8c' },
+      ability: 'congelar',
     },
     {
       id: 'kimono-struct-dourado',
@@ -177,7 +197,9 @@
       unlockLevel: 6,
       perk: 'Grande ganho de moedas em acertos perfeitos.',
       stats: { coins: 0.36, xp: 0.16, luck: 12, focus: 8 },
+      estilo: 'kimono',
       visual: { torso: '#b8752c', accent: '#23362c' },
+      ability: 'segundachance',
     },
     {
       id: 'capa-big-o-lendaria',
@@ -188,7 +210,9 @@
       unlockLevel: 7,
       perk: 'Desconto alto e jackpot mais frequente.',
       stats: { coins: 0.3, xp: 0.18, luck: 16, discount: 0.12, focus: 9 },
+      estilo: 'capa',
       visual: { aura: 'rgba(196, 120, 43, 0.3)', accent: '#c4782b' },
+      ability: 'recarga',
     },
     {
       id: 'armadura-bruno-infinito',
@@ -200,6 +224,7 @@
       overpowered: true,
       perk: 'A roupa mais cara: multiplica moedas absurdamente, protege combo e transforma quase tudo em jackpot.',
       stats: { coins: 7.77, xp: 4.2, luck: 55, discount: 0.08, focus: 50 },
+      estilo: 'armadura',
       visual: {
         head: '#101610',
         torso: '#182414',
@@ -208,7 +233,43 @@
         aura: 'rgba(245, 179, 65, 0.34)',
       },
     },
+    {
+      id: SECRET_ITEM_ID,
+      name: 'Camiseta do Bruno',
+      slot: 'tronco',
+      rarity: 'secreto',
+      price: 0,
+      unlockLevel: 1,
+      hidden: true,
+      secretPhoto: true,
+      perk: 'So se consegue descobrindo o segredo do professor no quiz.',
+      stats: { xp: 0.05, luck: 2, focus: 1 },
+      estilo: 'camiseta',
+      visual: { torso: '#1c1c1c', accent: '#ffce5c' },
+    },
   ];
+
+  // Habilidades ativas destravadas por roupas raras+, usaveis durante o quiz.
+  // Itens comuns continuam so com os bonus passivos de sempre (stats acima);
+  // isso e uma camada extra, nao substitui o sistema de stats.
+  const ABILITIES = {
+    dica: { id: 'dica', icon: 'DC', label: 'Dica', desc: 'Elimina 1 alternativa errada.' },
+    pular: { id: 'pular', icon: 'PL', label: 'Pular pergunta', desc: 'Troca de pergunta sem penalidade.' },
+    eliminar2: { id: 'eliminar2', icon: 'EL', label: 'Eliminacao dupla', desc: 'Elimina 2 alternativas erradas.' },
+    dobro: { id: 'dobro', icon: '2X', label: 'Pontos em dobro', desc: 'A proxima resposta certa vale o dobro.' },
+    congelar: { id: 'congelar', icon: 'FR', label: 'Congelar tempo', desc: 'Pausa o cronometro da pergunta atual.' },
+    segundachance: { id: 'segundachance', icon: 'SC', label: 'Segunda chance', desc: 'Um erro nao vai contar contra voce agora.' },
+    recarga: { id: 'recarga', icon: 'RC', label: 'Recarga total', desc: 'Recarrega as outras habilidades na hora.' },
+  };
+
+  const SECRET_CHALLENGE = {
+    question: 'Pergunta secreta: o que o Bruno mais gosta de fazer?',
+    options: ['Lavar o carro', 'Aplicar P5', 'Correr', 'Ficar de feriado'],
+    answer: 0,
+    reward: 260,
+    xp: 90,
+    categoria: 'Segredo',
+  };
 
   // Banco de desafios: vem do PHP (App\Models\GamificacaoPerfil::bancoDesafios()),
   // injetado no HTML como JSON. Assim a lista de perguntas tem uma unica fonte
@@ -373,7 +434,7 @@
       name: 'Colecao Completa',
       description: 'Tenha todos os itens da loja.',
       icon: 'ALL',
-      condition: (gameState) => gameState.owned.length >= items.length,
+      condition: (gameState) => gameState.owned.length >= items.filter((item) => !item.hidden).length,
     },
     {
       id: 'lendario',
@@ -399,12 +460,21 @@
       icon: '?',
       condition: (gameState) => gameState.owned.includes('armadura-bruno-infinito'),
     },
+    {
+      id: 'segredo-bruno',
+      tier: 'secreto',
+      name: '???',
+      description: 'Emblema secreto. Descubra jogando.',
+      icon: 'BR',
+      condition: (gameState) => gameState.owned.includes(SECRET_ITEM_ID),
+    },
   ];
 
   const elements = {
     coinBalance: document.getElementById('coinBalance'),
     playerLevel: document.getElementById('playerLevel'),
     comboCount: document.getElementById('comboCount'),
+    xpBarFill: document.getElementById('xpBarFill'),
     coinMultiplier: document.getElementById('coinMultiplier'),
     xpMultiplier: document.getElementById('xpMultiplier'),
     luckStat: document.getElementById('luckStat'),
@@ -413,8 +483,16 @@
     answeredCount: document.getElementById('answeredCount'),
     bestCombo: document.getElementById('bestCombo'),
     challengeReward: document.getElementById('challengeReward'),
+    challengeCategory: document.getElementById('challengeCategory'),
     challengeQuestion: document.getElementById('challengeQuestion'),
     challengeOptions: document.getElementById('challengeOptions'),
+    timerFill: document.getElementById('timerFill'),
+    timerBar: document.getElementById('timerBar'),
+    abilityGrid: document.getElementById('abilityGrid'),
+    quizStartScreen: document.getElementById('quizStartScreen'),
+    quizPlayArea: document.getElementById('quizPlayArea'),
+    quizActions: document.getElementById('quizActions'),
+    startQuiz: document.getElementById('startQuiz'),
     nextChallenge: document.getElementById('nextChallenge'),
     claimChest: document.getElementById('claimChest'),
     gameMessage: document.getElementById('gameMessage'),
@@ -430,6 +508,11 @@
 
   let activeFilter = 'todos';
   let state = loadState();
+  let questionEffects = { eliminated: [], doublePoints: false, shielded: false };
+  let isSecretChallengeActive = false;
+  let timerInterval = null;
+  let timerStartedAt = 0;
+  let timerFrozen = false;
 
   function freshState() {
     return {
@@ -451,6 +534,7 @@
       challengeIndex: randomChallengeIndex(),
       answeredCurrent: false,
       lastAnswer: null,
+      abilityCharges: {},
     };
   }
 
@@ -469,6 +553,7 @@
         upgrades: { ...(saved.upgrades || {}) },
         owned: Array.isArray(saved.owned) ? saved.owned : base.owned,
         claimedMissions: Array.isArray(saved.claimedMissions) ? saved.claimedMissions : [],
+        abilityCharges: { ...(saved.abilityCharges || {}) },
       };
 
       merged.owned = Array.from(new Set([...base.owned, ...merged.owned]));
@@ -561,6 +646,10 @@
     return Math.floor(Math.random() * challenges.length);
   }
 
+  function getCurrentChallenge() {
+    return isSecretChallengeActive ? SECRET_CHALLENGE : challenges[state.challengeIndex];
+  }
+
   function getItem(itemId) {
     return items.find((item) => item.id === itemId);
   }
@@ -617,6 +706,230 @@
     totals.discount = Math.min(totals.discount, 0.45);
     totals.luck = Math.min(totals.luck, totals.overpowered ? 92 : 42);
     return totals;
+  }
+
+  // === Habilidades ativas (P2): itens raro+ destravam 1 habilidade cada, usavel
+  // durante o quiz, com cargas limitadas que recarregam jogando. A Armadura
+  // Bruno Infinito (overpowered) da acesso a todas, uso ilimitado. ===
+  function getActiveAbilities() {
+    const totals = getTotals();
+
+    if (totals.overpowered) {
+      const armadura = getEquippedItems().find((item) => item.overpowered);
+      return Object.keys(ABILITIES).map((id) => ({ id, unlimited: true, sourceItem: armadura }));
+    }
+
+    return getEquippedItems()
+      .filter((item) => item.ability)
+      .map((item) => ({ id: item.ability, unlimited: false, sourceItem: item }));
+  }
+
+  function getAbilityMaxCharges(sourceItem) {
+    return 1 + getUpgradeLevel(sourceItem.id);
+  }
+
+  function ensureAbilityCharges() {
+    getActiveAbilities().forEach(({ id, unlimited, sourceItem }) => {
+      if (!unlimited && !(id in state.abilityCharges)) {
+        state.abilityCharges[id] = getAbilityMaxCharges(sourceItem);
+      }
+    });
+  }
+
+  function getAbilityCharges(abilityId) {
+    return Math.max(0, Number(state.abilityCharges[abilityId] || 0));
+  }
+
+  function consumeAbilityCharge(abilityId, unlimited) {
+    if (unlimited) {
+      return true;
+    }
+
+    const current = getAbilityCharges(abilityId);
+    if (current <= 0) {
+      return false;
+    }
+
+    state.abilityCharges[abilityId] = current - 1;
+    return true;
+  }
+
+  function regenAbilityCharges() {
+    getActiveAbilities().forEach(({ id, unlimited, sourceItem }) => {
+      if (unlimited) {
+        return;
+      }
+
+      const max = getAbilityMaxCharges(sourceItem);
+      state.abilityCharges[id] = Math.min(max, getAbilityCharges(id) + 1);
+    });
+  }
+
+  function remainingWrongOptions(challenge) {
+    return challenge.options
+      .map((_, index) => index)
+      .filter((index) => index !== challenge.answer && !questionEffects.eliminated.includes(index));
+  }
+
+  function eliminateWrongOptions(count) {
+    const challenge = getCurrentChallenge();
+    const pool = remainingWrongOptions(challenge);
+    for (let taken = 0; taken < count && pool.length > 0; taken += 1) {
+      const pickIndex = Math.floor(Math.random() * pool.length);
+      questionEffects.eliminated.push(pool.splice(pickIndex, 1)[0]);
+    }
+  }
+
+  function isAbilityBlocked(abilityId) {
+    if (state.answeredCurrent) {
+      return true;
+    }
+
+    if (abilityId === 'dobro') {
+      return questionEffects.doublePoints;
+    }
+
+    if (abilityId === 'segundachance') {
+      return questionEffects.shielded;
+    }
+
+    if (abilityId === 'congelar') {
+      return timerFrozen;
+    }
+
+    if (abilityId === 'dica' || abilityId === 'eliminar2') {
+      return remainingWrongOptions(getCurrentChallenge()).length === 0;
+    }
+
+    return false;
+  }
+
+  function useAbility(abilityId) {
+    const active = getActiveAbilities().find((entry) => entry.id === abilityId);
+    if (!active || isAbilityBlocked(abilityId)) {
+      return;
+    }
+
+    if (!consumeAbilityCharge(abilityId, active.unlimited)) {
+      showMessage('Sem cargas dessa habilidade agora. Acerte mais desafios para recarregar.');
+      renderAbilities();
+      return;
+    }
+
+    const ability = ABILITIES[abilityId];
+
+    switch (abilityId) {
+      case 'dica':
+        eliminateWrongOptions(1);
+        showMessage('Dica usada: 1 alternativa errada eliminada.');
+        break;
+      case 'eliminar2':
+        eliminateWrongOptions(2);
+        showMessage('Eliminacao dupla usada: 2 alternativas erradas sumiram.');
+        break;
+      case 'dobro':
+        questionEffects.doublePoints = true;
+        showMessage('Pontos em dobro ativado para a proxima resposta certa.');
+        break;
+      case 'congelar':
+        freezeTimer();
+        showMessage('Cronometro congelado nesta pergunta.');
+        break;
+      case 'segundachance':
+        questionEffects.shielded = true;
+        showMessage('Escudo ativo: essa resposta esta protegida.');
+        break;
+      case 'recarga':
+        regenAbilityChargesExcept('recarga');
+        showMessage('Recarga total: as outras habilidades foram recarregadas.');
+        break;
+      case 'pular':
+        showMessage('Pergunta pulada com a habilidade.');
+        nextChallenge({ silent: true });
+        break;
+      default:
+        break;
+    }
+
+    if (abilityId !== 'pular') {
+      saveState();
+      renderAll();
+    }
+  }
+
+  function regenAbilityChargesExcept(excludeId) {
+    getActiveAbilities().forEach(({ id, unlimited, sourceItem }) => {
+      if (unlimited || id === excludeId) {
+        return;
+      }
+
+      state.abilityCharges[id] = getAbilityMaxCharges(sourceItem);
+    });
+  }
+
+  // === Cronometro visual do desafio (bonus de velocidade, sem punir quem estoura o tempo) ===
+  function startTimer() {
+    window.clearInterval(timerInterval);
+    timerStartedAt = Date.now();
+    timerFrozen = false;
+
+    if (elements.timerBar) {
+      elements.timerBar.classList.remove('is-frozen');
+    }
+
+    updateTimerUI(0);
+    timerInterval = window.setInterval(tickTimer, 200);
+  }
+
+  function tickTimer() {
+    if (timerFrozen || state.answeredCurrent) {
+      return;
+    }
+
+    const elapsed = Date.now() - timerStartedAt;
+    updateTimerUI(elapsed);
+
+    if (elapsed >= QUESTION_TIME_MS) {
+      window.clearInterval(timerInterval);
+    }
+  }
+
+  function updateTimerUI(elapsed) {
+    if (!elements.timerFill) {
+      return;
+    }
+
+    const percent = Math.max(0, 100 - (elapsed / QUESTION_TIME_MS) * 100);
+    elements.timerFill.style.width = `${percent}%`;
+  }
+
+  function freezeTimer() {
+    timerFrozen = true;
+    if (elements.timerBar) {
+      elements.timerBar.classList.add('is-frozen');
+    }
+  }
+
+  function getSpeedBonus() {
+    const elapsed = Date.now() - timerStartedAt;
+    if (elapsed < QUESTION_TIME_MS * 0.4) {
+      return 25;
+    }
+    if (elapsed < QUESTION_TIME_MS * 0.75) {
+      return 10;
+    }
+    return 0;
+  }
+
+  function unlockSecretSkin() {
+    if (isOwned(SECRET_ITEM_ID)) {
+      return;
+    }
+
+    state.owned.push(SECRET_ITEM_ID);
+    state.equipped.tronco = SECRET_ITEM_ID;
+    showMessage('Segredo descoberto! Camiseta exclusiva do Bruno desbloqueada e equipada.');
+    celebrateAvatar();
   }
 
   function getDiscountedPrice(item) {
@@ -685,11 +998,29 @@
       return;
     }
 
-    const challenge = challenges[state.challengeIndex];
-    const totals = getTotals();
+    const challenge = getCurrentChallenge();
     const correct = optionIndex === challenge.answer;
+
+    if (isSecretChallengeActive) {
+      state.answeredCurrent = true;
+      state.lastAnswer = { selected: optionIndex, answer: challenge.answer, accepted: correct, savedByArmor: false };
+      window.clearInterval(timerInterval);
+
+      if (correct) {
+        unlockSecretSkin();
+      } else {
+        showMessage('Quase! O Bruno ama mesmo e lavar o carro dele. Continue jogando.');
+      }
+
+      saveState();
+      renderAll();
+      return;
+    }
+
+    const totals = getTotals();
     const savedByArmor = !correct && totals.overpowered && state.combo >= 2;
-    const accepted = correct || savedByArmor;
+    const savedByShield = !correct && questionEffects.shielded;
+    const accepted = correct || savedByArmor || savedByShield;
 
     state.answered += 1;
     state.answeredCurrent = true;
@@ -697,14 +1028,27 @@
       selected: optionIndex,
       answer: challenge.answer,
       accepted,
-      savedByArmor,
+      savedByArmor: savedByArmor || savedByShield,
     };
+    window.clearInterval(timerInterval);
 
     if (accepted) {
       state.correct += 1;
       state.combo += 1;
       state.bestCombo = Math.max(state.bestCombo, state.combo);
-      addCoins(challenge.reward + totals.focus * 2, savedByArmor ? 'A armadura salvou o combo' : 'Resposta correta', { xp: challenge.xp });
+
+      if (state.correct % ABILITY_CHARGE_REGEN_EVERY === 0) {
+        regenAbilityCharges();
+      }
+
+      const speedBonus = getSpeedBonus();
+      let rewardBase = challenge.reward + totals.focus * 2 + speedBonus;
+      if (questionEffects.doublePoints) {
+        rewardBase *= 2;
+      }
+
+      const reason = savedByShield ? 'Escudo protegeu a resposta' : savedByArmor ? 'A armadura salvou o combo' : 'Resposta correta';
+      addCoins(rewardBase, reason, { xp: challenge.xp });
       return;
     }
 
@@ -715,20 +1059,32 @@
     renderAll();
   }
 
-  function nextChallenge() {
-    let nextIndex = randomChallengeIndex();
-    if (challenges.length > 1) {
-      while (nextIndex === state.challengeIndex) {
-        nextIndex = randomChallengeIndex();
+  function nextChallenge(options = {}) {
+    questionEffects = { eliminated: [], doublePoints: false, shielded: false };
+
+    const canRollSecret = !isOwned(SECRET_ITEM_ID);
+    isSecretChallengeActive = canRollSecret && Math.random() < SECRET_CHANCE;
+
+    if (!isSecretChallengeActive) {
+      let nextIndex = randomChallengeIndex();
+      if (challenges.length > 1) {
+        while (nextIndex === state.challengeIndex) {
+          nextIndex = randomChallengeIndex();
+        }
       }
+      state.challengeIndex = nextIndex;
     }
 
-    state.challengeIndex = nextIndex;
     state.answeredCurrent = false;
     state.lastAnswer = null;
     saveState();
     renderChallenge();
-    showMessage('Novo desafio carregado.');
+    renderAbilities();
+    startTimer();
+
+    if (!options.silent) {
+      showMessage(isSecretChallengeActive ? 'Uma pergunta misteriosa apareceu...' : 'Novo desafio carregado.');
+    }
   }
 
   function buyItem(itemId) {
@@ -859,6 +1215,7 @@
   function renderAll() {
     renderHud();
     renderChallenge();
+    renderAbilities();
     renderEquippedSlots();
     renderAvatar();
     renderShop();
@@ -880,14 +1237,28 @@
     elements.correctCount.textContent = state.correct;
     elements.answeredCount.textContent = state.answered;
     elements.bestCombo.textContent = state.bestCombo;
+
+    if (elements.xpBarFill) {
+      const xpIntoLevel = state.xp % 420;
+      elements.xpBarFill.style.width = `${Math.round((xpIntoLevel / 420) * 100)}%`;
+    }
   }
 
   function renderChallenge() {
-    const challenge = challenges[state.challengeIndex];
+    const challenge = getCurrentChallenge();
     elements.challengeReward.textContent = `Recompensa base: ${formatCoins(challenge.reward)} BrunoCoins`;
     elements.challengeQuestion.textContent = challenge.question;
 
+    if (elements.challengeCategory) {
+      elements.challengeCategory.textContent = challenge.categoria || 'ED';
+      elements.challengeCategory.classList.toggle('is-secret', isSecretChallengeActive);
+    }
+
     elements.challengeOptions.innerHTML = challenge.options.map((option, index) => {
+      if (questionEffects.eliminated.includes(index)) {
+        return '';
+      }
+
       const answerState = getAnswerClass(index);
       return `
         <button
@@ -896,6 +1267,38 @@
           data-answer="${index}"
           ${state.answeredCurrent ? 'disabled' : ''}
         >${option}</button>
+      `;
+    }).join('');
+  }
+
+  function renderAbilities() {
+    if (!elements.abilityGrid) {
+      return;
+    }
+
+    ensureAbilityCharges();
+    const active = getActiveAbilities();
+
+    if (!active.length) {
+      elements.abilityGrid.innerHTML = '<p class="ability-empty">Equipe roupas raras ou melhores pra destravar habilidades ativas de quiz.</p>';
+      return;
+    }
+
+    elements.abilityGrid.innerHTML = active.map(({ id, unlimited, sourceItem }) => {
+      const ability = ABILITIES[id];
+      const charges = unlimited ? '∞' : getAbilityCharges(id);
+      const blocked = isAbilityBlocked(id) || (!unlimited && getAbilityCharges(id) <= 0);
+
+      return `
+        <article class="ability-card ${blocked ? 'is-disabled' : ''}">
+          <span class="ability-card__icon" aria-hidden="true">${ability.icon}</span>
+          <div class="ability-card__body">
+            <h4>${ability.label} <span class="ability-charges">${charges}</span></h4>
+            <p>${ability.desc}</p>
+            <span class="ability-source">via ${sourceItem ? sourceItem.name : '?'}</span>
+          </div>
+          <button type="button" data-ability="${id}" ${blocked ? 'disabled' : ''}>Usar</button>
+        </article>
       `;
     }).join('');
   }
@@ -919,8 +1322,9 @@
   function renderEquippedSlots() {
     elements.equippedSlots.innerHTML = slots.map((slot) => {
       const item = getItem(state.equipped[slot.id]);
+      const accent = item ? (item.visual.accent || item.visual.torso || '#3fe08c') : 'transparent';
       return `
-        <div class="equipment-slot">
+        <div class="equipment-slot ${item ? '' : 'is-empty'}" style="--slot-accent:${accent}">
           <span class="slot-label">${slot.label}</span>
           <span class="slot-value">${item ? item.name : 'Vazio'}</span>
         </div>
@@ -946,13 +1350,21 @@
         temAcessorio: Boolean(state.equipped.acessorio),
         temAura: Boolean(state.equipped.aura),
         overpowered: getTotals().overpowered,
+        temSkinSecreta: state.equipped.tronco === SECRET_ITEM_ID,
+        estiloCabeca: getItem(state.equipped.cabeca)?.estilo || 'nenhum',
+        estiloTronco: getItem(state.equipped.tronco)?.estilo || 'camiseta',
+        estiloPernas: getItem(state.equipped.pernas)?.estilo || 'calca',
+        estiloAcessorio: getItem(state.equipped.acessorio)?.estilo || 'nenhum',
+        estiloAura: getItem(state.equipped.aura)?.estilo || 'nenhum',
       });
     }
   }
 
   function renderShop() {
     const level = getLevel();
-    const visibleItems = items.filter((item) => activeFilter === 'todos' || item.slot === activeFilter);
+    const visibleItems = items
+      .filter((item) => !item.hidden)
+      .filter((item) => activeFilter === 'todos' || item.slot === activeFilter);
 
     elements.shopGrid.innerHTML = visibleItems.map((item) => {
       const owned = isOwned(item.id);
@@ -971,7 +1383,7 @@
 
       return `
         <article class="${cardClass}" style="${getPreviewVars(item)}">
-          <div class="item-preview" aria-hidden="true"></div>
+          <div class="item-preview" aria-hidden="true">${renderItemCube(item)}</div>
           <div class="item-topline">
             <h3>${item.name}</h3>
             <span class="rarity-badge">${item.rarity}</span>
@@ -989,6 +1401,57 @@
         </article>
       `;
     }).join('');
+  }
+
+  // Itens com modelo 3D real (glTF baixado do Poly Pizza, ver assets/models/ e
+  // os creditos no rodape) usam o preview giratorio de verdade; os demais
+  // continuam com o cubo generico em CSS (fallback automatico e sem quebra).
+  const MODEL_PREVIEWS = {
+    'bone-ponteiro-inicial': 'bone',
+    'oculos-complexidade-o1': 'oculos',
+    'jaqueta-lista-simples': 'jaqueta',
+    'tenis-inserir-inicio': 'tenis',
+    'botas-percurso-binario': 'bota',
+    'amuleto-tad': 'amuleto',
+    'capa-big-o-lendaria': 'capa',
+    'armadura-bruno-infinito': 'armadura',
+    'camiseta-grupo-6': 'camiseta',
+    'camiseta-bruno-secreta': 'camiseta',
+  };
+
+  // O modelo baixado vem com as proprias cores/estampa; repintamos com a cor
+  // do item (por slot) pra cada card ficar coerente com o resto do visual.
+  function corDoModelo(item) {
+    const v = item.visual || {};
+    if (item.slot === 'cabeca') {
+      return v.head || v.accent;
+    }
+    if (item.slot === 'pernas') {
+      return v.legs || v.accent;
+    }
+    if (item.slot === 'tronco' || item.slot === 'conjunto') {
+      return v.torso || v.accent;
+    }
+    return v.accent || v.torso;
+  }
+
+  function renderItemCube(item) {
+    const modelKey = MODEL_PREVIEWS[item.id];
+    if (modelKey) {
+      const cor = corDoModelo(item) || '#3fe08c';
+      return `<div class="item-model-preview" data-model-preview="${modelKey}" data-model-color="${cor}" aria-hidden="true"></div>`;
+    }
+
+    return `
+      <div class="item-cube">
+        <span class="item-cube__face item-cube__face--front"></span>
+        <span class="item-cube__face item-cube__face--back"></span>
+        <span class="item-cube__face item-cube__face--right"></span>
+        <span class="item-cube__face item-cube__face--left"></span>
+        <span class="item-cube__face item-cube__face--top"></span>
+        <span class="item-cube__face item-cube__face--bottom"></span>
+      </div>
+    `;
   }
 
   function getPreviewVars(item) {
@@ -1068,7 +1531,10 @@
           <div class="mission-progress" aria-label="Progresso ${percent}%">
             <span style="width:${percent}%"></span>
           </div>
-          <p>${formatCoins(progress)} / ${formatCoins(mission.goal)} - recompensa ${formatCoins(mission.reward)} BC</p>
+          <div class="mission-tags">
+            <span class="mission-tag">${formatCoins(progress)} / ${formatCoins(mission.goal)}</span>
+            <span class="mission-tag mission-tag--reward">+${formatCoins(mission.reward)} BC</span>
+          </div>
           <button type="button" data-action="mission" data-mission="${mission.id}" ${!done || claimed ? 'disabled' : ''}>
             ${claimed ? 'Recebida' : 'Receber'}
           </button>
@@ -1097,25 +1563,39 @@
   }
 
   function renderInventory() {
-    const ownedItems = state.owned
-      .map(getItem)
-      .filter(Boolean)
-      .sort((first, second) => first.price - second.price);
+    const ownedItems = state.owned.map(getItem).filter(Boolean);
+    const grouped = slots
+      .map((slot) => ({ slot, slotItems: ownedItems.filter((item) => item.slot === slot.id) }))
+      .filter((group) => group.slotItems.length > 0);
 
-    elements.inventoryList.innerHTML = ownedItems.map((item) => {
-      const equipped = isEquipped(item);
-      return `
-        <article class="inventory-item">
-          <div>
-            <strong>${item.name}</strong>
-            <span>${slotLabel(item.slot)} - ${item.rarity} - upgrade ${getUpgradeLevel(item.id)}/${MAX_UPGRADE}</span>
-          </div>
-          <button type="button" data-action="${equipped ? 'unequip' : 'equip'}" data-item="${item.id}">
-            ${equipped ? 'Remover' : 'Equipar'}
-          </button>
-        </article>
-      `;
-    }).join('');
+    if (!grouped.length) {
+      elements.inventoryList.innerHTML = '<p class="ability-empty">Sua colecao ainda esta vazia.</p>';
+      return;
+    }
+
+    elements.inventoryList.innerHTML = grouped.map(({ slot, slotItems }) => `
+      <div class="inventory-slot-group">
+        <h3 class="inventory-slot-heading">${slot.label}</h3>
+        <div class="inventory-grid">
+          ${slotItems.map((item) => {
+            const equipped = isEquipped(item);
+            return `
+              <article class="inventory-card rarity-${item.rarity} ${equipped ? 'is-equipped' : ''}" style="${getPreviewVars(item)}">
+                <div class="item-preview" aria-hidden="true">${renderItemCube(item)}</div>
+                <div class="inventory-card__body">
+                  <strong>${item.name}</strong>
+                  <span class="rarity-badge">${item.rarity}</span>
+                  <span>Upgrade ${getUpgradeLevel(item.id)}/${MAX_UPGRADE}</span>
+                </div>
+                <button type="button" data-action="${equipped ? 'unequip' : 'equip'}" data-item="${item.id}">
+                  ${equipped ? 'Remover' : 'Equipar'}
+                </button>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `).join('');
   }
 
   function renderChestLabel() {
@@ -1144,9 +1624,20 @@
     answerChallenge(Number(button.dataset.answer));
   });
 
-  elements.nextChallenge.addEventListener('click', nextChallenge);
+  elements.nextChallenge.addEventListener('click', () => nextChallenge());
   elements.claimChest.addEventListener('click', claimChest);
   elements.resetProgress.addEventListener('click', resetProgress);
+
+  if (elements.abilityGrid) {
+    elements.abilityGrid.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-ability]');
+      if (!button) {
+        return;
+      }
+
+      useAbility(button.dataset.ability);
+    });
+  }
 
   elements.shopFilters.addEventListener('click', (event) => {
     const button = event.target.closest('[data-filter]');
@@ -1198,6 +1689,23 @@
       unequipItem(button.dataset.item);
     }
   });
+
+  function startQuizNow() {
+    if (elements.quizStartScreen) {
+      elements.quizStartScreen.classList.add('is-hidden');
+    }
+    if (elements.quizPlayArea) {
+      elements.quizPlayArea.classList.remove('is-hidden');
+    }
+    if (elements.quizActions) {
+      elements.quizActions.classList.remove('is-hidden');
+    }
+    nextChallenge();
+  }
+
+  if (elements.startQuiz) {
+    elements.startQuiz.addEventListener('click', startQuizNow);
+  }
 
   if (window.Avatar3D) {
     window.Avatar3D.montar(elements.avatar);

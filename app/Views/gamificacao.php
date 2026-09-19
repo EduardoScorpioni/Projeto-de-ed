@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gameficacao BrunoCoins | Grupo 6</title>
+  <title>PonteiroQuest ED | Grupo 6</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap">
@@ -24,37 +24,35 @@
   >
     <section class="game-hud" aria-labelledby="game-title">
       <div class="game-title-block">
-        <p class="eyebrow">Gameficacao</p>
-        <h1 id="game-title" data-typed="BrunoCoins e guarda-roupa ED">BrunoCoins e guarda-roupa ED</h1>
-        <p>
-          Responda desafios de Estrutura de Dados, ganhe BrunoCoins, compre roupas,
-          monte combos de atributos e evolua o personagem do Grupo 6.
-        </p>
+        <p class="eyebrow">PonteiroQuest ED</p>
+        <h1 id="game-title" data-typed="Bem-vindo, <?php echo clean($usuarioNome); ?>!">Bem-vindo, <?php echo clean($usuarioNome); ?>!</h1>
+        <p>Responda desafios de ED, ganhe BrunoCoins e evolua seu personagem.</p>
         <?php if (!estaLogado()): ?>
           <p class="game-guest-note">
-            Jogando como visitante: seu progresso fica só neste navegador.
-            <a href="login.php">Entre na conta</a> para salvar BrunoCoins, roupas e nível no seu perfil.
+            Modo visitante: progresso só neste navegador.
+            <a href="login.php">Entrar</a> para salvar de vez.
           </p>
         <?php endif; ?>
       </div>
 
       <aside class="wallet-panel" aria-label="Carteira BrunoCoins">
+        <div class="brunocoin-3d" id="brunoCoin3d" role="button" tabindex="0" aria-label="Girar a moeda BrunoCoin" title="Clique para girar">
+          <div class="brunocoin-3d__inner">
+            <span class="brunocoin-3d__face brunocoin-3d__face--front">BC</span>
+            <span class="brunocoin-3d__face brunocoin-3d__face--back">ED</span>
+          </div>
+        </div>
         <div class="wallet-main">
-          <div class="brunocoin-3d" id="brunoCoin3d" role="button" tabindex="0" aria-label="Girar a moeda BrunoCoin" title="Clique para girar">
-            <div class="brunocoin-3d__inner">
-              <span class="brunocoin-3d__face brunocoin-3d__face--front">BC</span>
-              <span class="brunocoin-3d__face brunocoin-3d__face--back">ED</span>
-            </div>
-          </div>
-          <div>
-            <span class="wallet-label">Saldo</span>
-            <strong id="coinBalance">0</strong>
-            <span class="wallet-unit">BrunoCoins</span>
-          </div>
+          <span class="wallet-label">Saldo</span>
+          <strong id="coinBalance">0</strong>
+          <span class="wallet-unit">BrunoCoins</span>
         </div>
         <div class="wallet-row">
           <span>Nivel <strong id="playerLevel">1</strong></span>
           <span>Combo <strong id="comboCount">0</strong></span>
+        </div>
+        <div class="xp-bar" aria-label="Progresso de XP para o proximo nivel">
+          <span id="xpBarFill"></span>
         </div>
       </aside>
     </section>
@@ -98,17 +96,29 @@
 
       <section class="challenge-panel" aria-labelledby="challenge-title">
         <div class="panel-heading">
-          <p class="eyebrow">Treino valendo BrunoCoins</p>
-          <h2 id="challenge-title">Desafio rapido</h2>
+          <p class="eyebrow">Desafio</p>
+          <h2 id="challenge-title">Quiz rapido</h2>
           <p id="challengeReward">Recompensa base: 0 BrunoCoins</p>
         </div>
 
         <div class="challenge-box" aria-live="polite">
-          <p id="challengeQuestion">Carregando desafio...</p>
-          <div id="challengeOptions" class="option-grid"></div>
+          <div id="quizStartScreen" class="quiz-start-screen">
+            <p>Pronto pra testar o que sabe de Estrutura de Dados?</p>
+            <button id="startQuiz" class="button primary" type="button">Iniciar Quiz</button>
+          </div>
+          <div id="quizPlayArea" class="quiz-play-area is-hidden">
+            <div class="challenge-top-row">
+              <span id="challengeCategory" class="category-tag">ED</span>
+              <div id="timerBar" class="timer-bar" aria-label="Tempo restante">
+                <span id="timerFill"></span>
+              </div>
+            </div>
+            <p id="challengeQuestion">Carregando desafio...</p>
+            <div id="challengeOptions" class="option-grid"></div>
+          </div>
         </div>
 
-        <div class="action-row">
+        <div id="quizActions" class="action-row is-hidden">
           <button id="nextChallenge" class="button primary" type="button">Novo desafio</button>
           <button id="claimChest" class="button secondary" type="button">Abrir cofre</button>
         </div>
@@ -129,14 +139,19 @@
             <strong id="bestCombo">0</strong>
           </div>
         </div>
+
+        <div class="ability-panel">
+          <h3>Habilidades ativas</h3>
+          <div id="abilityGrid" class="ability-grid"></div>
+        </div>
       </section>
     </section>
 
     <section class="section wardrobe-section alt-section" aria-labelledby="wardrobe-title">
       <div class="section-heading">
-        <p class="eyebrow">Loja de roupas</p>
-        <h2 id="wardrobe-title">Guarda-roupa BrunoCoins</h2>
-        <p>Itens comprados podem ser equipados por slot e melhorados ate o nivel 3.</p>
+        <p class="eyebrow">Loja</p>
+        <h2 id="wardrobe-title">Guarda-roupa</h2>
+        <p>Roupas raras+ destravam habilidades ativas pro quiz. Melhore ate o nivel 3.</p>
       </div>
 
       <div id="shopFilters" class="filter-bar" aria-label="Filtros da loja">
@@ -155,7 +170,7 @@
     <section class="section missions-section" aria-labelledby="missions-title">
       <div class="section-heading">
         <p class="eyebrow">Missoes</p>
-        <h2 id="missions-title">Contratos de BrunoCoins</h2>
+        <h2 id="missions-title">Contratos</h2>
       </div>
 
       <div id="missionGrid" class="mission-grid"></div>
@@ -165,7 +180,7 @@
       <div class="section-heading">
         <p class="eyebrow">Coleção</p>
         <h2 id="badges-title">Emblemas</h2>
-        <p>Desbloqueiam sozinhos conforme você joga — não precisa resgatar, é só reconhecimento.</p>
+        <p>Desbloqueiam sozinhos conforme você joga.</p>
       </div>
 
       <div id="badgeGrid" class="badge-grid"></div>
@@ -187,6 +202,12 @@
 
   <footer class="footer">
     <p><a href="../index.php">Voltar para a pagina inicial</a></p>
+    <p class="model-credits">
+      Modelos 3D dos itens: <a href="https://poly.pizza" target="_blank" rel="noopener">Poly Pizza</a>
+      (Baseball cap, T-shirt, Sneakers por Poly by Google; Completionist Cape por Julien Savoie -- CC-BY 3.0;
+      Glasses por iPoly3D, Jacket por Polygonal Mind, Boots por Isa Lousberg, Necklace e Armor Golden por
+      Quaternius -- CC0).
+    </p>
   </footer>
 
   <!-- Banco de desafios do quiz, gerado pelo GamificacaoPerfil::bancoDesafios() (PHP) -->
@@ -194,7 +215,9 @@
 
   <script src="../assets/js/typed-title.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
   <script src="../assets/js/avatar3d.js"></script>
+  <script src="../assets/js/item-preview-3d.js"></script>
   <script src="../assets/js/gamificacao.js"></script>
 </body>
 </html>
