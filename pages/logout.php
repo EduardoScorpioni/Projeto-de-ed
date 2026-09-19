@@ -1,14 +1,8 @@
 <?php
-/* pages/logout.php */
-require_once '../includes/sessao.php';
+/* pages/logout.php — ponto de entrada fino */
 
-// Limpa todas as variáveis de sessão
-session_unset();
+require_once __DIR__ . '/../app/bootstrap.php';
 
-// Destrói a sessão
-session_destroy();
+use App\Controllers\AutenticacaoController;
 
-// Redireciona para a home
-header("Location: ../index.php");
-exit;
-?>
+(new AutenticacaoController())->logout();

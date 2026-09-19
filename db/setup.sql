@@ -25,19 +25,32 @@ CREATE TABLE IF NOT EXISTS sessoes_log (
 -- Inserção de usuário de teste
 -- Nome: Admin, Email: admin@grupo6.com, Senha: Admin@123
 -- Hash gerado via PHP: password_hash('Admin@123', PASSWORD_BCRYPT)
-INSERT INTO usuarios (nome, email, senha_hash) 
-VALUES ('Admin', 'admin@grupo6.com', '$2y$10$BEG/XyJi6c9ZeOEKIi/1C.bp/h5stiveIwNnMqmMw8nbVg.kggoyy');
+-- ON DUPLICATE KEY UPDATE torna o script seguro para rodar mais de uma vez
+-- (antes falhava com "Duplicate entry" se o banco ja existisse).
+INSERT INTO usuarios (nome, email, senha_hash)
+VALUES ('Admin', 'admin@grupo6.com', '$2y$10$BEG/XyJi6c9ZeOEKIi/1C.bp/h5stiveIwNnMqmMw8nbVg.kggoyy')
+ON DUPLICATE KEY UPDATE
+    nome = VALUES(nome),
+    senha_hash = VALUES(senha_hash);
 
 -- Gameficacao: perfil com BrunoCoins
+-- estado_json guarda o "estado" completo do jogo (inventario, equipamentos,
+-- combo, missoes concluidas, cofre) do jeito que o cliente ja calcula --
+-- ver comentario em app/Models/GamificacaoPerfil.php para o porque dessa escolha.
 CREATE TABLE IF NOT EXISTS gamificacao_perfis (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT UNSIGNED NOT NULL UNIQUE,
     brunocoins BIGINT UNSIGNED NOT NULL DEFAULT 350,
     xp BIGINT UNSIGNED NOT NULL DEFAULT 0,
     nivel INT UNSIGNED NOT NULL DEFAULT 1,
+    estado_json JSON NULL,
     atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Defensivo: garante a coluna tambem em bancos que rodaram este script antes
+-- da adicao do estado_json (MariaDB/MySQL recentes suportam IF NOT EXISTS aqui).
+ALTER TABLE gamificacao_perfis ADD COLUMN IF NOT EXISTS estado_json JSON NULL;
 
 -- Acesso pedido para teste:
 -- usuario: admin

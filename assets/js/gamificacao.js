@@ -9,6 +9,8 @@
   const CHEST_DELAY = 6 * 60 * 60 * 1000;
   const initialCoins = Number(root.dataset.initialCoins || 350);
   const forceAdminCoins = root.dataset.forceAdminCoins === 'true';
+  const isLoggedIn = root.dataset.loggedIn === 'true';
+  const apiUrl = root.dataset.apiUrl || null;
 
   const slots = [
     { id: 'cabeca', label: 'Cabeca' },
@@ -183,78 +185,11 @@
     },
   ];
 
-  const challenges = [
-    {
-      question: 'Em uma lista simplesmente encadeada com ponteiro inicio, inserir no inicio custa:',
-      options: ['O(1)', 'O(n)', 'O(n log n)', 'O(n2)'],
-      answer: 0,
-      reward: 95,
-      xp: 55,
-    },
-    {
-      question: 'Buscar um valor que esta no ultimo no de uma lista simples normalmente custa:',
-      options: ['O(1)', 'O(log n)', 'O(n)', 'O(n2)'],
-      answer: 2,
-      reward: 120,
-      xp: 65,
-    },
-    {
-      question: 'Em uma lista duplamente encadeada, cada no guarda:',
-      options: ['Apenas o valor', 'Valor, anterior e proximo', 'Valor e tamanho', 'Indice fixo'],
-      answer: 1,
-      reward: 125,
-      xp: 68,
-    },
-    {
-      question: 'Um TAD ajuda porque separa:',
-      options: ['Tela e CSS', 'Contrato e implementacao', 'Banco e senha', 'Loop e variavel'],
-      answer: 1,
-      reward: 110,
-      xp: 62,
-    },
-    {
-      question: 'Se uma lista esta vazia, normalmente o ponteiro inicio aponta para:',
-      options: ['fim', 'null', 'primeiro valor', 'um vetor'],
-      answer: 1,
-      reward: 90,
-      xp: 52,
-    },
-    {
-      question: 'Na remocao no meio de uma lista simples, e essencial:',
-      options: ['Ordenar tudo', 'Religar o no anterior ao proximo', 'Duplicar a lista', 'Criar uma struct nova'],
-      answer: 1,
-      reward: 145,
-      xp: 74,
-    },
-    {
-      question: 'Uma struct em C# costuma ser usada para:',
-      options: ['Agrupar dados relacionados', 'Abrir paginas HTML', 'Substituir todo banco', 'Rodar CSS'],
-      answer: 0,
-      reward: 105,
-      xp: 58,
-    },
-    {
-      question: 'O ponteiro fim em lista encadeada ajuda principalmente a:',
-      options: ['Buscar qualquer valor em O(1)', 'Inserir no fim mais rapido', 'Remover sempre sem percurso', 'Trocar o tipo da lista'],
-      answer: 1,
-      reward: 135,
-      xp: 70,
-    },
-    {
-      question: 'O melhor caso de busca em lista simples acontece quando o valor esta:',
-      options: ['No inicio', 'No fim', 'Em nenhum no', 'Fora da memoria'],
-      answer: 0,
-      reward: 100,
-      xp: 54,
-    },
-    {
-      question: 'Em lista duplamente encadeada, navegar para tras e possivel por causa do ponteiro:',
-      options: ['proximo', 'valor', 'anterior', 'tamanho'],
-      answer: 2,
-      reward: 130,
-      xp: 66,
-    },
-  ];
+  // Banco de desafios: vem do PHP (App\Models\GamificacaoPerfil::bancoDesafios()),
+  // injetado no HTML como JSON. Assim a lista de perguntas tem uma unica fonte
+  // (facil de estender com Fila/Pilha/Fila de Prioridades sem tocar neste arquivo).
+  const challengesDataEl = document.getElementById('dados-desafios');
+  const challenges = challengesDataEl ? JSON.parse(challengesDataEl.textContent) : [];
 
   const missions = [
     {
@@ -397,6 +332,65 @@
     }
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    agendarSincronizacaoServidor();
+  }
+
+  // Sincronizacao com o backend (api/gamificacao.php -> GamificacaoController -> GamificacaoPerfil).
+  // So roda para usuario logado. O localStorage continua sendo a copia instantanea/local
+  // (visitante e fallback offline); o servidor e' o que amarra o progresso ao perfil do usuario.
+  let idAgendamentoSincronizacao = null;
+
+  function agendarSincronizacaoServidor() {
+    if (!isLoggedIn || !apiUrl) {
+      return;
+    }
+
+    window.clearTimeout(idAgendamentoSincronizacao);
+    idAgendamentoSincronizacao = window.setTimeout(() => {
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(state),
+      }).catch(() => {
+        // Sem conexao: o progresso continua seguro no localStorage deste navegador.
+      });
+    }, 500);
+  }
+
+  function hidratarComServidor() {
+    if (!isLoggedIn || !apiUrl) {
+      return;
+    }
+
+    fetch(apiUrl)
+      .then((resposta) => (resposta.ok ? resposta.json() : null))
+      .then((estadoServidor) => {
+        if (!estadoServidor || estadoServidor.erro) {
+          return;
+        }
+
+        state = {
+          ...state,
+          ...estadoServidor,
+          equipped: { ...state.equipped, ...(estadoServidor.equipped || {}) },
+          owned: Array.isArray(estadoServidor.owned)
+            ? Array.from(new Set([...state.owned, ...estadoServidor.owned]))
+            : state.owned,
+          claimedMissions: Array.isArray(estadoServidor.claimedMissions)
+            ? estadoServidor.claimedMissions
+            : state.claimedMissions,
+        };
+
+        if (!Number.isInteger(state.challengeIndex) || !challenges[state.challengeIndex]) {
+          state.challengeIndex = randomChallengeIndex();
+        }
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        renderAll();
+      })
+      .catch(() => {
+        // Sem conexao com a API: continua com o que ja foi carregado do localStorage.
+      });
   }
 
   function getLevel() {
@@ -1027,4 +1021,5 @@
 
   window.setInterval(renderChestLabel, 60000);
   renderAll();
+  hidratarComServidor();
 })();
