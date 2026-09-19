@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gameficacao BrunoCoins | Grupo 6</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&display=swap">
   <link rel="stylesheet" href="../assets/css/base.css">
   <link rel="stylesheet" href="../assets/css/gamificacao.css">
 </head>
@@ -36,9 +39,19 @@
       </div>
 
       <aside class="wallet-panel" aria-label="Carteira BrunoCoins">
-        <span class="wallet-label">Saldo</span>
-        <strong id="coinBalance">0</strong>
-        <span class="wallet-unit">BrunoCoins</span>
+        <div class="wallet-main">
+          <div class="brunocoin-3d" id="brunoCoin3d" role="button" tabindex="0" aria-label="Girar a moeda BrunoCoin" title="Clique para girar">
+            <div class="brunocoin-3d__inner">
+              <span class="brunocoin-3d__face brunocoin-3d__face--front">BC</span>
+              <span class="brunocoin-3d__face brunocoin-3d__face--back">ED</span>
+            </div>
+          </div>
+          <div>
+            <span class="wallet-label">Saldo</span>
+            <strong id="coinBalance">0</strong>
+            <span class="wallet-unit">BrunoCoins</span>
+          </div>
+        </div>
         <div class="wallet-row">
           <span>Nivel <strong id="playerLevel">1</strong></span>
           <span>Combo <strong id="comboCount">0</strong></span>
@@ -54,25 +67,8 @@
         </div>
 
         <div class="avatar-stage">
-          <div id="characterAvatar" class="character-avatar" aria-label="Avatar com roupas equipadas">
-            <span class="avatar-aura" aria-hidden="true"></span>
-            <span class="avatar-shadow" aria-hidden="true"></span>
-            <span class="avatar-leg avatar-leg-left" aria-hidden="true"></span>
-            <span class="avatar-leg avatar-leg-right" aria-hidden="true"></span>
-            <span class="avatar-shoe avatar-shoe-left" aria-hidden="true"></span>
-            <span class="avatar-shoe avatar-shoe-right" aria-hidden="true"></span>
-            <span class="avatar-body" aria-hidden="true"></span>
-            <span class="avatar-arm avatar-arm-left" aria-hidden="true"></span>
-            <span class="avatar-arm avatar-arm-right" aria-hidden="true"></span>
-            <span class="avatar-neck" aria-hidden="true"></span>
-            <span class="avatar-head" aria-hidden="true"></span>
-            <span class="avatar-hair" aria-hidden="true"></span>
-            <span class="avatar-eye avatar-eye-left" aria-hidden="true"></span>
-            <span class="avatar-eye avatar-eye-right" aria-hidden="true"></span>
-            <span class="avatar-mouth" aria-hidden="true"></span>
-            <span class="avatar-accessory" aria-hidden="true"></span>
-            <span class="avatar-badge" aria-hidden="true">ED</span>
-          </div>
+          <div id="characterAvatar" class="character-avatar-3d" aria-label="Avatar 3D com roupas equipadas"></div>
+          <span class="avatar-stage__hint" aria-hidden="true">Arraste para girar</span>
         </div>
 
         <div class="equipped-summary">
@@ -165,7 +161,17 @@
       <div id="missionGrid" class="mission-grid"></div>
     </section>
 
-    <section class="section inventory-section alt-section" aria-labelledby="inventory-title">
+    <section class="section badges-section alt-section" aria-labelledby="badges-title">
+      <div class="section-heading">
+        <p class="eyebrow">Coleção</p>
+        <h2 id="badges-title">Emblemas</h2>
+        <p>Desbloqueiam sozinhos conforme você joga — não precisa resgatar, é só reconhecimento.</p>
+      </div>
+
+      <div id="badgeGrid" class="badge-grid"></div>
+    </section>
+
+    <section class="section inventory-section" aria-labelledby="inventory-title">
       <div class="section-heading">
         <p class="eyebrow">Inventario</p>
         <h2 id="inventory-title">Colecao desbloqueada</h2>
@@ -187,6 +193,8 @@
   <script type="application/json" id="dados-desafios"><?php echo json_encode($desafios, JSON_UNESCAPED_UNICODE); ?></script>
 
   <script src="../assets/js/typed-title.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="../assets/js/avatar3d.js"></script>
   <script src="../assets/js/gamificacao.js"></script>
 </body>
 </html>

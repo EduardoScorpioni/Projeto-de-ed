@@ -12,6 +12,31 @@
   const isLoggedIn = root.dataset.loggedIn === 'true';
   const apiUrl = root.dataset.apiUrl || null;
 
+  // Moeda BrunoCoin em pseudo-3D: gira sozinha (CSS) e da um giro extra ao clicar/Enter.
+  // Decorativo, nao depende do estado do jogo.
+  const brunoCoin3d = document.getElementById('brunoCoin3d');
+  if (brunoCoin3d) {
+    const girar = () => {
+      if (brunoCoin3d.classList.contains('is-flipping')) {
+        return;
+      }
+      brunoCoin3d.classList.add('is-flipping');
+    };
+
+    brunoCoin3d.addEventListener('click', girar);
+    brunoCoin3d.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        girar();
+      }
+    });
+    brunoCoin3d.addEventListener('animationend', (event) => {
+      if (event.target.classList.contains('brunocoin-3d__inner')) {
+        brunoCoin3d.classList.remove('is-flipping');
+      }
+    });
+  }
+
   const slots = [
     { id: 'cabeca', label: 'Cabeca' },
     { id: 'tronco', label: 'Tronco' },
@@ -240,6 +265,140 @@
       reward: 7777,
       progress: (gameState) => (gameState.owned.includes('armadura-bruno-infinito') ? 1 : 0),
     },
+    {
+      id: 'estudante-dedicado',
+      title: 'Estudante dedicado',
+      description: 'Responda 15 desafios (acertando ou errando).',
+      goal: 15,
+      reward: 520,
+      progress: (gameState) => gameState.answered,
+    },
+    {
+      id: 'comprador-frequente',
+      title: 'Comprador frequente',
+      description: 'Compre 5 itens na loja.',
+      goal: 5,
+      reward: 480,
+      progress: (gameState) => gameState.purchases,
+    },
+    {
+      id: 'upgrade-master',
+      title: 'Upgrade master',
+      description: 'Melhore um item ate o nivel maximo (3).',
+      goal: MAX_UPGRADE,
+      reward: 650,
+      progress: (gameState) => Math.max(0, ...Object.values(gameState.upgrades || {})),
+    },
+    {
+      id: 'maratona-ed',
+      title: 'Maratona de ED',
+      description: 'Responda 30 desafios no total.',
+      goal: 30,
+      reward: 900,
+      progress: (gameState) => gameState.answered,
+    },
+    {
+      id: 'milionario',
+      title: 'Milionario BrunoCoins',
+      description: 'Guarde 50000 BrunoCoins.',
+      goal: 50000,
+      reward: 1500,
+      progress: (gameState) => gameState.coins,
+    },
+  ];
+
+  // Colecao de emblemas: diferente das missoes, nao tem botao de "receber" —
+  // desbloqueia sozinho quando a condicao passa a ser verdadeira (derivado do
+  // estado atual, nao precisa guardar nada novo). E' só reconhecimento/colecao.
+  const badges = [
+    {
+      id: 'recruta',
+      tier: 'bronze',
+      name: 'Recruta de ED',
+      description: 'Jogou pela primeira vez.',
+      icon: '01',
+      condition: () => true,
+    },
+    {
+      id: 'combo-5',
+      tier: 'bronze',
+      name: 'Sequencia Encadeada',
+      description: 'Alcance combo 5.',
+      icon: '05',
+      condition: (gameState) => gameState.bestCombo >= 5,
+    },
+    {
+      id: 'combo-10',
+      tier: 'prata',
+      name: 'Combo Perfeito',
+      description: 'Alcance combo 10.',
+      icon: '10',
+      condition: (gameState) => gameState.bestCombo >= 10,
+    },
+    {
+      id: 'acertos-20',
+      tier: 'bronze',
+      name: 'Gabaritando',
+      description: 'Acumule 20 respostas certas.',
+      icon: 'OK',
+      condition: (gameState) => gameState.correct >= 20,
+    },
+    {
+      id: 'nivel-5',
+      tier: 'prata',
+      name: 'Monitor de ED',
+      description: 'Chegue ao nivel 5.',
+      icon: 'N5',
+      condition: () => getLevel() >= 5,
+    },
+    {
+      id: 'nivel-10',
+      tier: 'ouro',
+      name: 'Mestre de ED',
+      description: 'Chegue ao nivel 10.',
+      icon: 'N10',
+      condition: () => getLevel() >= 10,
+    },
+    {
+      id: 'colecionador-8',
+      tier: 'prata',
+      name: 'Guarda-roupa Cheio',
+      description: 'Tenha 8 itens no inventario.',
+      icon: '08',
+      condition: (gameState) => gameState.owned.length >= 8,
+    },
+    {
+      id: 'guarda-roupa-completo',
+      tier: 'ouro',
+      name: 'Colecao Completa',
+      description: 'Tenha todos os itens da loja.',
+      icon: 'ALL',
+      condition: (gameState) => gameState.owned.length >= items.length,
+    },
+    {
+      id: 'lendario',
+      tier: 'ouro',
+      name: 'Toque Lendario',
+      description: 'Possua um item Lendario.',
+      icon: 'LG',
+      condition: (gameState) => gameState.owned.some((id) => getItem(id)?.rarity === 'lendario'),
+    },
+    {
+      id: 'todas-missoes',
+      tier: 'ouro',
+      name: 'Cumpridor de Contratos',
+      description: 'Receba a recompensa de todas as missoes.',
+      icon: 'ALL',
+      condition: (gameState) => gameState.claimedMissions.length >= missions.length,
+    },
+    {
+      id: 'secreto-roubado',
+      tier: 'secreto',
+      name: '???',
+      description: 'Emblema secreto. Descubra jogando.',
+      icon: '?',
+      condition: (gameState) => gameState.owned.includes('armadura-bruno-infinito'),
+    },
   ];
 
   const elements = {
@@ -262,6 +421,7 @@
     shopGrid: document.getElementById('shopGrid'),
     shopFilters: document.getElementById('shopFilters'),
     missionGrid: document.getElementById('missionGrid'),
+    badgeGrid: document.getElementById('badgeGrid'),
     inventoryList: document.getElementById('inventoryList'),
     equippedSlots: document.getElementById('equippedSlots'),
     avatar: document.getElementById('characterAvatar'),
@@ -497,10 +657,9 @@
   }
 
   function celebrateAvatar() {
-    elements.avatar.classList.remove('is-celebrating');
-    window.requestAnimationFrame(() => {
-      elements.avatar.classList.add('is-celebrating');
-    });
+    if (window.Avatar3D) {
+      window.Avatar3D.celebrar();
+    }
   }
 
   function addCoins(baseAmount, reason, options = {}) {
@@ -704,6 +863,7 @@
     renderAvatar();
     renderShop();
     renderMissions();
+    renderBadges();
     renderInventory();
     renderChestLabel();
   }
@@ -781,12 +941,13 @@
       Object.assign(visual, item.visual || {});
     });
 
-    elements.avatar.style.setProperty('--cloth-head', visual.head);
-    elements.avatar.style.setProperty('--cloth-torso', visual.torso);
-    elements.avatar.style.setProperty('--cloth-legs', visual.legs);
-    elements.avatar.style.setProperty('--cloth-accent', visual.accent);
-    elements.avatar.style.setProperty('--cloth-aura', visual.aura);
-    elements.avatar.classList.toggle('is-overpowered', getTotals().overpowered);
+    if (window.Avatar3D) {
+      window.Avatar3D.atualizar(visual, {
+        temAcessorio: Boolean(state.equipped.acessorio),
+        temAura: Boolean(state.equipped.aura),
+        overpowered: getTotals().overpowered,
+      });
+    }
   }
 
   function renderShop() {
@@ -916,6 +1077,25 @@
     }).join('');
   }
 
+  function renderBadges() {
+    if (!elements.badgeGrid) {
+      return;
+    }
+
+    elements.badgeGrid.innerHTML = badges.map((badge) => {
+      const desbloqueado = Boolean(badge.condition(state));
+      const ehSecreto = badge.tier === 'secreto' && !desbloqueado;
+
+      return `
+        <article class="badge-card tier-${badge.tier} ${desbloqueado ? 'is-unlocked' : 'is-locked'}">
+          <span class="badge-card__icon" aria-hidden="true">${ehSecreto ? '?' : badge.icon}</span>
+          <h3>${ehSecreto ? 'Emblema secreto' : badge.name}</h3>
+          <p>${ehSecreto ? 'Continue jogando para descobrir.' : badge.description}</p>
+        </article>
+      `;
+    }).join('');
+  }
+
   function renderInventory() {
     const ownedItems = state.owned
       .map(getItem)
@@ -1018,6 +1198,10 @@
       unequipItem(button.dataset.item);
     }
   });
+
+  if (window.Avatar3D) {
+    window.Avatar3D.montar(elements.avatar);
+  }
 
   window.setInterval(renderChestLabel, 60000);
   renderAll();

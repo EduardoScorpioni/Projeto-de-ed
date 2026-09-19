@@ -17,6 +17,7 @@
             <a href="../index.php">Início</a>
             <a href="#" aria-current="page">Dashboard</a>
             <a href="gamificacao.php">Gameficacao</a>
+            <a href="perfil.php">Meu perfil</a>
             <a href="logout.php">Sair</a>
         </nav>
     </header>
@@ -27,6 +28,7 @@
                 <div class="eyebrow">Área do aluno</div>
                 <h1 data-typed="Olá, <?php echo clean($_SESSION['usuario_nome']); ?>!">Olá, <?php echo clean($_SESSION['usuario_nome']); ?>!</h1>
                 <p>Bem-vindo ao seu painel educacional. Escolha um módulo abaixo para continuar seus estudos sobre Estrutura de Dados.</p>
+                <p><a href="perfil.php" class="link-more">Editar meus dados de perfil &rarr;</a></p>
             </div>
         </section>
 

@@ -30,6 +30,31 @@ class Usuario
         return (bool) $stmt->fetch();
     }
 
+    /**
+     * Igual a emailExiste(), mas ignora o proprio usuario (usado ao editar o perfil,
+     * onde o usuario pode "trocar" o e-mail para o mesmo que ja tinha).
+     */
+    public static function emailPertenceAOutroUsuario(string $email, int $usuarioId): bool
+    {
+        $stmt = Database::conexao()->prepare(
+            'SELECT id FROM usuarios WHERE email = ? AND id != ?'
+        );
+        $stmt->execute([$email, $usuarioId]);
+
+        return (bool) $stmt->fetch();
+    }
+
+    public static function buscarPorId(int $id): ?array
+    {
+        $stmt = Database::conexao()->prepare(
+            'SELECT id, nome, email, senha_hash FROM usuarios WHERE id = ?'
+        );
+        $stmt->execute([$id]);
+        $usuario = $stmt->fetch();
+
+        return $usuario ?: null;
+    }
+
     public static function criar(string $nome, string $email, string $senha): int
     {
         $hash = password_hash($senha, PASSWORD_BCRYPT);
@@ -47,5 +72,22 @@ class Usuario
             'INSERT INTO sessoes_log (usuario_id, ip) VALUES (?, ?)'
         );
         $stmt->execute([$usuarioId, $ip]);
+    }
+
+    public static function atualizarPerfil(int $id, string $nome, string $email): void
+    {
+        $stmt = Database::conexao()->prepare(
+            'UPDATE usuarios SET nome = ?, email = ? WHERE id = ?'
+        );
+        $stmt->execute([$nome, $email, $id]);
+    }
+
+    public static function atualizarSenha(int $id, string $novaSenha): void
+    {
+        $hash = password_hash($novaSenha, PASSWORD_BCRYPT);
+        $stmt = Database::conexao()->prepare(
+            'UPDATE usuarios SET senha_hash = ? WHERE id = ?'
+        );
+        $stmt->execute([$hash, $id]);
     }
 }
