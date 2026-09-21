@@ -21,6 +21,7 @@ $paginaAtual = $paginaAtual ?? '';
     <a href="<?php echo $urlPaginas; ?>lista-simples.php"<?php echo $paginaAtual === 'lista-simples' ? ' aria-current="page"' : ''; ?>>Lista simples</a>
     <a href="<?php echo $urlPaginas; ?>lista-dupla.php"<?php echo $paginaAtual === 'lista-dupla' ? ' aria-current="page"' : ''; ?>>Lista dupla</a>
     <a href="<?php echo $urlPaginas; ?>fila.php"<?php echo $paginaAtual === 'fila' ? ' aria-current="page"' : ''; ?>>Fila</a>
+    <a href="<?php echo $urlPaginas; ?>fila-prioridade.php"<?php echo $paginaAtual === 'fila-prioridade' ? ' aria-current="page"' : ''; ?>>Fila de Prioridades</a>
     <a href="<?php echo $urlPaginas; ?>pilha.php"<?php echo $paginaAtual === 'pilha' ? ' aria-current="page"' : ''; ?>>Pilha</a>
     <a href="<?php echo $urlPaginas; ?>gamificacao.php"<?php echo $paginaAtual === 'gamificacao' ? ' aria-current="page"' : ''; ?>>PonteiroQuest</a>
     <?php if (estaLogado()): ?>

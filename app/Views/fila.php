@@ -11,7 +11,7 @@
   <?php $paginaAtual = 'fila'; require APP_PATH . '/Views/partials/header.php'; ?>
 
   <main>
-    <section class="page-hero page-hero--sem-imagem">
+    <section class="page-hero">
       <div>
         <p class="eyebrow">Módulo 04 &middot; Aula 7</p>
         <h1 data-typed="Fila Encadeada (FIFO)">Fila Encadeada (FIFO)</h1>
@@ -21,6 +21,7 @@
           Aparece o tempo todo no dia a dia: fila bancária, fila do cinema, fila de impressão.
         </p>
       </div>
+      <img src="../assets/img/fila.svg" alt="Diagrama esquemático de Fila Encadeada FIFO" loading="lazy">
     </section>
 
     <section class="content-layout">
@@ -266,21 +267,19 @@
       </div>
     </section>
 
-    <!-- ===== FILA DE PRIORIDADES (pendente) ===== -->
+    <!-- ===== FILA DE PRIORIDADES ===== -->
     <section class="section compact alt-section">
       <div class="section-heading">
-        <p class="eyebrow">Variação</p>
+        <p class="eyebrow">Variação Avançada</p>
         <h2>Fila de Prioridades Encadeada</h2>
-        <p class="nota-pendente">
-          Conteúdo e exemplo de código ainda pendentes &mdash; não fez parte do material
-          desta aula, e existem várias formas válidas de implementar (ex.: lista ordenada
-          por prioridade), então esta parte não será inventada aqui.
-        </p>
         <p>
-          A diferença conceitual em relação à fila comum: a ordem de saída não depende só
-          da ordem de chegada, mas de um <strong>critério de prioridade</strong> definido
-          para cada elemento.
+          Diferente da fila comum, na Fila de Prioridades a ordem de saída depende de um
+          <strong>critério de urgência</strong> associado a cada nó (com desempate estável FIFO).
+          Implementamos um módulo dedicado com teoria completa, diagrama visual e código C# estruturado.
         </p>
+        <div style="margin-top: 16px;">
+          <a class="button primary" href="fila-prioridade.php" style="display: inline-block;">Ver Fila de Prioridades Completa &rarr;</a>
+        </div>
       </div>
     </section>
 

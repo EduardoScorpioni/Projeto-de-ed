@@ -38,4 +38,10 @@ class ConteudoController
     {
         require APP_PATH . '/Views/pilha.php';
     }
+
+    public function filaPrioridade(string $urlInicio, string $urlPaginas): void
+    {
+        require APP_PATH . '/Views/fila-prioridade.php';
+    }
 }
+

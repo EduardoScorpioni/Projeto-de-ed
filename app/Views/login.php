@@ -26,7 +26,13 @@
             <h1 data-typed="Acessar conta">Acessar conta</h1>
             <p class="subtitle">Entre para acessar a área restrita do aluno.</p>
 
-            <?php if ($erro): ?>
+            <?php if (!empty($sucesso)): ?>
+                <div class="alert alert-success">
+                    <?php echo clean($sucesso); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($erro)): ?>
                 <div class="alert alert-danger">
                     <?php echo clean($erro); ?>
                 </div>
@@ -40,7 +46,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="senha">Senha</label>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label for="senha" style="margin-bottom: 0;">Senha</label>
+                        <a href="esqueci-senha.php" style="font-size: 0.85rem; color: var(--green); text-decoration: none;">Esqueceu a senha?</a>
+                    </div>
                     <input type="password" id="senha" name="senha" class="form-control" required>
                 </div>
 

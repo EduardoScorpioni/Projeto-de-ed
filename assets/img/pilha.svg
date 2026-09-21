@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 370" role="img" aria-labelledby="title desc">
+  <title id="title">Pilha Encadeada (LIFO)</title>
+  <desc id="desc">Diagrama de nós empilhados, demonstrando o topo, a operação push de inserção no topo e pop de remoção do topo.</desc>
+  <rect width="800" height="370" fill="#ffffff"/>
+  <rect x="30" y="25" width="740" height="320" rx="10" fill="#edf4f8" stroke="#d0e1ed"/>
+  <defs>
+    <marker id="arrow-stack" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#2980b9" stroke-width="2"/>
+    </marker>
+    <marker id="arrow-push" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#27ae60" stroke-width="2"/>
+    </marker>
+    <marker id="arrow-pop" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#c0392b" stroke-width="2"/>
+    </marker>
+  </defs>
+
+  <!-- Encadeamento da Pilha (Topo -> Próximo -> Base) -->
+  <g fill="none" stroke="#2980b9" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow-stack)">
+    <path d="M375 180 H440"/>
+    <path d="M560 180 H625"/>
+  </g>
+
+  <!-- Operação Push (Entrada pelo topo) -->
+  <g fill="none" stroke="#27ae60" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-push)">
+    <path d="M170 120 C190 120, 220 140, 255 160"/>
+  </g>
+
+  <!-- Operação Pop (Saída pelo topo) -->
+  <g fill="none" stroke="#c0392b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-pop)">
+    <path d="M270 140 C250 110, 210 90, 170 85"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="400" y="55" fill="#18201d" font-size="20" font-weight="800" text-anchor="middle">Pilha Encadeada LIFO (Last In, First Out)</text>
+
+    <!-- Indicadores Push e Pop -->
+    <text x="160" y="80" fill="#c0392b" font-size="14" font-weight="800" text-anchor="end">&uarr; POP (Desempilhar)</text>
+    <text x="160" y="125" fill="#27ae60" font-size="14" font-weight="800" text-anchor="end">&darr; PUSH (Empilhar)</text>
+
+    <!-- Rótulo do Topo -->
+    <text x="315" y="105" fill="#2980b9" font-size="15" font-weight="800" text-anchor="middle">&darr; TOPO</text>
+
+    <!-- Nó 1 (Topo) -->
+    <g>
+      <rect x="255" y="135" width="120" height="90" rx="8" fill="#ffffff" stroke="#2980b9" stroke-width="3"/>
+      <line x1="315" y1="135" x2="315" y2="225" stroke="#d0e1ed" stroke-width="3"/>
+      <text x="285" y="190" fill="#18201d" font-size="28" font-weight="800" text-anchor="middle">90</text>
+      <text x="345" y="190" fill="#2980b9" font-size="14" font-weight="800" text-anchor="middle">prox</text>
+      <text x="315" y="248" fill="#2980b9" font-size="12" font-weight="700" text-anchor="middle">Elemento do Topo</text>
+    </g>
+
+    <!-- Nó 2 (Meio) -->
+    <g>
+      <rect x="440" y="135" width="120" height="90" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="500" y1="135" x2="500" y2="225" stroke="#d0e1ed" stroke-width="3"/>
+      <text x="470" y="190" fill="#18201d" font-size="28" font-weight="800" text-anchor="middle">45</text>
+      <text x="530" y="190" fill="#2980b9" font-size="14" font-weight="800" text-anchor="middle">prox</text>
+      <text x="500" y="248" fill="#5c685f" font-size="12" font-weight="700" text-anchor="middle">Nó intermediário</text>
+    </g>
+
+    <!-- Nó 3 (Base da Pilha) -->
+    <g>
+      <rect x="625" y="135" width="120" height="90" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="685" y1="135" x2="685" y2="225" stroke="#d0e1ed" stroke-width="3"/>
+      <text x="655" y="190" fill="#18201d" font-size="28" font-weight="800" text-anchor="middle">10</text>
+      <text x="715" y="190" fill="#2980b9" font-size="14" font-weight="800" text-anchor="middle">prox</text>
+      <text x="685" y="248" fill="#5c685f" font-size="12" font-weight="700" text-anchor="middle">Base da Pilha (null)</text>
+    </g>
+
+    <!-- Rodapé -->
+    <text x="400" y="305" fill="#2c3e50" font-size="14" font-weight="600" text-anchor="middle">
+      Acesso exclusivo pelo Topo: Push O(1) e Pop O(1) &bull; O último nó aponta para null
+    </text>
+  </g>
+</svg>

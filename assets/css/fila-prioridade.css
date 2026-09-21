@@ -1,0 +1,114 @@
+/* assets/css/fila-prioridade.css
+ * Estilos específicos para a página de Fila de Prioridades Encadeada FIFO
+ */
+
+.page-hero--prioridade {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 460px);
+  gap: 32px;
+  align-items: center;
+  padding: clamp(36px, 7vw, 76px) clamp(18px, 5vw, 72px);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero--prioridade p {
+  color: var(--muted);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.6;
+}
+
+.page-hero--prioridade img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  background: var(--surface);
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 360px);
+  gap: 28px;
+  padding: clamp(38px, 6vw, 76px) clamp(18px, 5vw, 72px);
+}
+
+.article-block {
+  max-width: 880px;
+}
+
+.article-block p {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.side-note {
+  min-height: 0;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(25, 36, 31, 0.04);
+}
+
+.side-note ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.side-note li + li {
+  margin-top: 8px;
+}
+
+.media-embed {
+  margin-top: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.media-embed iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+}
+
+.priority-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.priority-badge--high {
+  background: rgba(192, 57, 43, 0.15);
+  color: #e74c3c;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+}
+
+.priority-badge--medium {
+  background: rgba(230, 126, 34, 0.15);
+  color: #e67e22;
+  border: 1px solid rgba(230, 126, 34, 0.3);
+}
+
+.priority-badge--low {
+  background: rgba(41, 128, 185, 0.15);
+  color: #3498db;
+  border: 1px solid rgba(41, 128, 185, 0.3);
+}
+
+@media (max-width: 900px) {
+  .page-hero--prioridade {
+    grid-template-columns: 1fr;
+  }
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+}

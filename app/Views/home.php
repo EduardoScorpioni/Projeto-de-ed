@@ -202,6 +202,12 @@ public void InserirInicio(int valor)
           <p>O primeiro elemento a entrar é o primeiro a sair.</p>
         </a>
 
+        <a class="module-card" href="pages/fila-prioridade.php">
+          <span>Prioridade</span>
+          <h3>Fila de Prioridades (FIFO)</h3>
+          <p>Atendimento por nível de urgência com desempate cronológico estável.</p>
+        </a>
+
         <a class="module-card" href="pages/pilha.php">
           <span>Pilha</span>
           <h3>Pilha Encadeada (LIFO)</h3>

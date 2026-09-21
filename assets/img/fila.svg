@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" role="img" aria-labelledby="title desc">
+  <title id="title">Fila Encadeada (FIFO)</title>
+  <desc id="desc">Diagrama de uma Fila FIFO com nós encadeados, ponteiros inicio e fim, indicando remoção no início e inserção no fim.</desc>
+  <rect width="800" height="360" fill="#ffffff"/>
+  <rect x="30" y="30" width="740" height="300" rx="10" fill="#ecf2ed" stroke="#d8ddd4"/>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#2f7d5a" stroke-width="2"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#c0392b" stroke-width="2"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#2980b9" stroke-width="2"/>
+    </marker>
+  </defs>
+
+  <!-- Encadeamento dos nós -->
+  <g fill="none" stroke="#2f7d5a" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)">
+    <path d="M236 180 H304"/>
+    <path d="M424 180 H492"/>
+    <path d="M612 180 H670"/>
+  </g>
+
+  <!-- Indicador de Saída (Desenfileirar no Início) -->
+  <g fill="none" stroke="#c0392b" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-red)">
+    <path d="M120 100 V126"/>
+  </g>
+
+  <!-- Indicador de Entrada (Enfileirar no Fim) -->
+  <g fill="none" stroke="#2980b9" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-blue)">
+    <path d="M552 100 V126"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <!-- Título do diagrama -->
+    <text x="400" y="60" fill="#18201d" font-size="20" font-weight="800">Fila Encadeada FIFO (First In, First Out)</text>
+
+    <!-- Rótulos de controle -->
+    <text x="120" y="92" fill="#c0392b" font-size="14" font-weight="800">INÍCIO (Saída)</text>
+    <text x="552" y="92" fill="#2980b9" font-size="14" font-weight="800">FIM (Entrada)</text>
+    <text x="695" y="185" fill="#5c685f" font-size="16" font-weight="700">null</text>
+
+    <!-- Nó 1 (Início) -->
+    <g>
+      <rect x="120" y="134" width="116" height="92" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="180" y1="134" x2="180" y2="226" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="150" y="188" fill="#18201d" font-size="26" font-weight="800">12</text>
+      <text x="208" y="188" fill="#2f7d5a" font-size="14" font-weight="800">prox</text>
+      <text x="178" y="248" fill="#5c685f" font-size="12" font-weight="700">1º a sair</text>
+    </g>
+
+    <!-- Nó 2 (Meio) -->
+    <g>
+      <rect x="308" y="134" width="116" height="92" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="368" y1="134" x2="368" y2="226" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="338" y="188" fill="#18201d" font-size="26" font-weight="800">45</text>
+      <text x="396" y="188" fill="#2f7d5a" font-size="14" font-weight="800">prox</text>
+      <text x="366" y="248" fill="#5c685f" font-size="12" font-weight="700">2º da fila</text>
+    </g>
+
+    <!-- Nó 3 (Fim) -->
+    <g>
+      <rect x="496" y="134" width="116" height="92" rx="8" fill="#ffffff" stroke="#18201d" stroke-width="3"/>
+      <line x1="556" y1="134" x2="556" y2="226" stroke="#d8ddd4" stroke-width="3"/>
+      <text x="526" y="188" fill="#18201d" font-size="26" font-weight="800">89</text>
+      <text x="584" y="188" fill="#2f7d5a" font-size="14" font-weight="800">prox</text>
+      <text x="554" y="248" fill="#5c685f" font-size="12" font-weight="700">Último inserido</text>
+    </g>
+
+    <!-- Rodapé explicativo -->
+    <text x="400" y="300" fill="#2c3e50" font-size="14" font-weight="600">
+      Remover (Desenfileirar) = no Início O(1) &bull; Inserir (Enfileirar) = no Fim O(1)
+    </text>
+  </g>
+</svg>

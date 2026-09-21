@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 370" role="img" aria-labelledby="title desc">
+  <title id="title">Fila de Prioridades Encadeada</title>
+  <desc id="desc">Diagrama de nós com campo prioridade e valor, ordenados por nível de prioridade com desempate FIFO.</desc>
+  <rect width="820" height="370" fill="#ffffff"/>
+  <rect x="30" y="25" width="760" height="320" rx="10" fill="#f4f0fa" stroke="#d5cde5"/>
+  <defs>
+    <marker id="arrow-p" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#6c5ce7" stroke-width="2"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#d63031" stroke-width="2"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10" fill="none" stroke="#e67e22" stroke-width="2"/>
+    </marker>
+  </defs>
+
+  <!-- Encadeamento -->
+  <g fill="none" stroke="#6c5ce7" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow-p)">
+    <path d="M250 185 H310"/>
+    <path d="M450 185 H510"/>
+    <path d="M650 185 H700"/>
+  </g>
+
+  <!-- Indicador Saída da maior prioridade -->
+  <g fill="none" stroke="#d63031" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-red)">
+    <path d="M120 95 V125"/>
+  </g>
+
+  <!-- Indicador Inserção Ordenada -->
+  <g fill="none" stroke="#e67e22" stroke-width="3" stroke-linecap="round" marker-end="url(#arrow-orange)">
+    <path d="M380 95 V125"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+    <text x="410" y="55" fill="#2d3436" font-size="20" font-weight="800">Fila de Prioridades Encadeada (Priority Queue)</text>
+    <text x="120" y="85" fill="#d63031" font-size="13" font-weight="800">INÍCIO (Maior Prioridade)</text>
+    <text x="380" y="85" fill="#e67e22" font-size="13" font-weight="800">INSERÇÃO ORDENADA</text>
+    <text x="725" y="190" fill="#636e72" font-size="16" font-weight="700">null</text>
+
+    <!-- Nó 1: Alta Prioridade -->
+    <g>
+      <rect x="110" y="135" width="140" height="100" rx="8" fill="#ffffff" stroke="#d63031" stroke-width="3"/>
+      <line x1="190" y1="135" x2="190" y2="235" stroke="#fad390" stroke-width="2"/>
+      <line x1="110" y1="185" x2="190" y2="185" stroke="#fad390" stroke-width="2"/>
+      <text x="150" y="165" fill="#d63031" font-size="12" font-weight="800">P1 (Alta)</text>
+      <text x="150" y="215" fill="#2d3436" font-size="20" font-weight="800">Paciente A</text>
+      <text x="220" y="192" fill="#6c5ce7" font-size="14" font-weight="800">prox</text>
+      <text x="180" y="258" fill="#d63031" font-size="12" font-weight="700">1º a ser atendido</text>
+    </g>
+
+    <!-- Nó 2: Média Prioridade -->
+    <g>
+      <rect x="310" y="135" width="140" height="100" rx="8" fill="#ffffff" stroke="#e67e22" stroke-width="3"/>
+      <line x1="390" y1="135" x2="390" y2="235" stroke="#fad390" stroke-width="2"/>
+      <line x1="310" y1="185" x2="390" y2="185" stroke="#fad390" stroke-width="2"/>
+      <text x="350" y="165" fill="#e67e22" font-size="12" font-weight="800">P2 (Média)</text>
+      <text x="350" y="215" fill="#2d3436" font-size="20" font-weight="800">Paciente B</text>
+      <text x="420" y="192" fill="#6c5ce7" font-size="14" font-weight="800">prox</text>
+      <text x="380" y="258" fill="#e67e22" font-size="12" font-weight="700">2º a ser atendido</text>
+    </g>
+
+    <!-- Nó 3: Baixa Prioridade -->
+    <g>
+      <rect x="510" y="135" width="140" height="100" rx="8" fill="#ffffff" stroke="#0984e3" stroke-width="3"/>
+      <line x1="590" y1="135" x2="590" y2="235" stroke="#dfe6e9" stroke-width="2"/>
+      <line x1="510" y1="185" x2="590" y2="185" stroke="#dfe6e9" stroke-width="2"/>
+      <text x="550" y="165" fill="#0984e3" font-size="12" font-weight="800">P3 (Normal)</text>
+      <text x="550" y="215" fill="#2d3436" font-size="20" font-weight="800">Paciente C</text>
+      <text x="620" y="192" fill="#6c5ce7" font-size="14" font-weight="800">prox</text>
+      <text x="580" y="258" fill="#0984e3" font-size="12" font-weight="700">3º a ser atendido</text>
+    </g>
+
+    <!-- Rodapé -->
+    <text x="410" y="315" fill="#2d3436" font-size="14" font-weight="600">
+      Remoção rápida do elemento prioritário no início O(1) &bull; Inserção na posição ordenada O(n) &bull; Estabilidade FIFO
+    </text>
+  </g>
+</svg>
