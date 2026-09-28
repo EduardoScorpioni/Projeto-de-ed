@@ -88,10 +88,34 @@
 
       <div class="visual-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
         <figure class="visual-card">
-          <img src="../assets/img/fila-prioridade.svg" alt="Nós encadeados com prioridade e ponteiros" loading="lazy">
+          <img src="../assets/img/fila-prioridade/01-ordem-por-prioridade.svg" alt="Fila encadeada ordenada com prioridades P1, P2 e P3" loading="lazy">
           <figcaption>
-            <strong>Esquema de Nós</strong>
-            Cada nó encapsula o dado, o valor de prioridade e o ponteiro <code>prox</code> para o próximo nó da cadeia.
+            <strong>Ordem por prioridade</strong>
+            O nó mais urgente permanece no início para ser removido em <code>O(1)</code>.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/fila-prioridade/02-insercao-ordenada.svg" alt="Inserção de um nó P2 entre os nós P1 e P3" loading="lazy">
+          <figcaption>
+            <strong>Inserção ordenada</strong>
+            O novo nó percorre a cadeia até encontrar a posição correta para sua prioridade.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/fila-prioridade/03-empate-preserva-fifo.svg" alt="Dois elementos P1 mantendo a ordem FIFO em caso de empate" loading="lazy">
+          <figcaption>
+            <strong>Empate preserva FIFO</strong>
+            Dentro do mesmo nível, quem chegou primeiro também será atendido primeiro.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/fila-prioridade/04-triagem-hospitalar.svg" alt="Fluxo de triagem hospitalar classificando pacientes em P1, P2 e P3" loading="lazy">
+          <figcaption>
+            <strong>Triagem hospitalar</strong>
+            Um exemplo prático de como o critério de urgência define a ordem de atendimento.
           </figcaption>
         </figure>
 
@@ -350,5 +374,6 @@ namespace FilaPrioridadeDemo
 
   <script src="../assets/js/typed-title.js"></script>
   <script src="../assets/js/code-tools.js"></script>
+  <script src="../assets/js/image-lightbox.js"></script>
 </body>
 </html>

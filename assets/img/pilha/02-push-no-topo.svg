@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1130" viewBox="0 0 1600 1130" role="img" aria-labelledby="title desc">
+  <title id="title">Empilhar: novo nó no topo</title>
+  <desc id="desc">O novo nó aponta para o topo antigo antes de assumir o controle da pilha.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#102033" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1d5d94"/></marker>
+    <marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5b6b7b"/></marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c94f45"/></marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#d8891f"/></marker>
+    <style>.card { filter: url(#shadow); }</style>
+  </defs>
+  <rect width="1600" height="1130" fill="#fbfcff"/>
+  <rect width="1600" height="16" fill="#1d5d94"/>
+  <rect y="1112" width="1600" height="18" fill="#1d5d94"/>
+  <text x="90" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="24" fill="#1d5d94" font-weight="800" text-anchor="start"><tspan x="90" dy="0">OPERAÇÃO PUSH</tspan></text>
+  <text x="1370" y="72" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#5b6b7b" font-weight="400" text-anchor="end"><tspan x="1370" dy="0">Grupo 6 | Estrutura de Dados</tspan></text>
+  <text x="90" y="142" font-family="Segoe UI, Arial, sans-serif" font-size="58" fill="#172331" font-weight="900" text-anchor="start"><tspan x="90" dy="0">Empilhar: novo nó no topo</tspan></text>
+  <text x="94" y="222" font-family="Segoe UI, Arial, sans-serif" font-size="27" fill="#5b6b7b" font-weight="400" text-anchor="start"><tspan x="94" dy="0">O novo nó aponta para o topo antigo antes de assumir o controle da pilha.</tspan></text>
+  <g class="card">
+    <rect x="90" y="300" width="1000" height="620" rx="22" fill="#ffffff" stroke="#d8e1ea" stroke-width="2"/>
+    <g style="--accent:#1d5d94;--soft:#eaf3fb">
+        <text x="180" y="365" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#5b6b7b" font-weight="900" text-anchor="middle"><tspan x="180" dy="0">ANTES</tspan></text>
+        <g>
+    <rect x="150" y="395" width="310" height="92" rx="18" fill="#ffffff" stroke="var(--accent)" stroke-width="3"/>
+    <line x1="380" y1="409" x2="380" y2="473" stroke="#d8e1ea" stroke-width="2"/>
+    <text x="265" y="454" font-family="Segoe UI, Arial, sans-serif" font-size="34" fill="#172331" font-weight="900" text-anchor="middle"><tspan x="265" dy="0">45</tspan></text>
+    <text x="420" y="452" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#5b6b7b" font-weight="700" text-anchor="middle"><tspan x="420" dy="0">prox</tspan></text>
+  </g>
+        <line x1="305" y1="487" x2="305" y2="525" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow-accent)"/>
+        <g>
+    <rect x="150" y="540" width="310" height="92" rx="18" fill="#ffffff" stroke="var(--accent)" stroke-width="3"/>
+    <line x1="380" y1="554" x2="380" y2="618" stroke="#d8e1ea" stroke-width="2"/>
+    <text x="265" y="599" font-family="Segoe UI, Arial, sans-serif" font-size="34" fill="#172331" font-weight="900" text-anchor="middle"><tspan x="265" dy="0">10</tspan></text>
+    <text x="420" y="597" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#5b6b7b" font-weight="700" text-anchor="middle"><tspan x="420" dy="0">prox</tspan></text>
+  </g>
+        <text x="785" y="365" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#1d5d94" font-weight="900" text-anchor="middle"><tspan x="785" dy="0">NOVO</tspan></text>
+        <g>
+    <rect x="630" y="395" width="310" height="92" rx="18" fill="var(--soft)" stroke="var(--accent)" stroke-width="3"/>
+    <line x1="860" y1="409" x2="860" y2="473" stroke="#d8e1ea" stroke-width="2"/>
+    <text x="745" y="454" font-family="Segoe UI, Arial, sans-serif" font-size="34" fill="#172331" font-weight="900" text-anchor="middle"><tspan x="745" dy="0">90</tspan></text>
+    <text x="900" y="452" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#5b6b7b" font-weight="700" text-anchor="middle"><tspan x="900" dy="0">prox</tspan></text>
+  </g>
+        <line x1="470" y1="500" x2="605" y2="500" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow-accent)"/>
+        <text x="540" y="475" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#1d5d94" font-weight="900" text-anchor="middle"><tspan x="540" dy="0">push(90)</tspan></text>
+        <line x1="785" y1="487" x2="785" y2="525" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow-accent)"/>
+        <g>
+    <rect x="630" y="540" width="310" height="92" rx="18" fill="#ffffff" stroke="var(--accent)" stroke-width="3"/>
+    <line x1="860" y1="554" x2="860" y2="618" stroke="#d8e1ea" stroke-width="2"/>
+    <text x="745" y="599" font-family="Segoe UI, Arial, sans-serif" font-size="34" fill="#172331" font-weight="900" text-anchor="middle"><tspan x="745" dy="0">45</tspan></text>
+    <text x="900" y="597" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#5b6b7b" font-weight="700" text-anchor="middle"><tspan x="900" dy="0">prox</tspan></text>
+  </g>
+        <line x1="785" y1="632" x2="785" y2="670" stroke="var(--accent)" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow-accent)"/>
+        <g>
+    <rect x="630" y="685" width="310" height="92" rx="18" fill="#ffffff" stroke="var(--accent)" stroke-width="3"/>
+    <line x1="860" y1="699" x2="860" y2="763" stroke="#d8e1ea" stroke-width="2"/>
+    <text x="745" y="744" font-family="Segoe UI, Arial, sans-serif" font-size="34" fill="#172331" font-weight="900" text-anchor="middle"><tspan x="745" dy="0">10</tspan></text>
+    <text x="900" y="742" font-family="Segoe UI, Arial, sans-serif" font-size="17" fill="#5b6b7b" font-weight="700" text-anchor="middle"><tspan x="900" dy="0">prox</tspan></text>
+  </g>
+        <text x="305" y="690" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#5b6b7b" font-weight="800" text-anchor="middle"><tspan x="305" dy="0">topo antigo</tspan></text>
+        <text x="785" y="820" font-family="Segoe UI, Arial, sans-serif" font-size="20" fill="#1d5d94" font-weight="900" text-anchor="middle"><tspan x="785" dy="0">novo topo</tspan></text>
+      </g>
+  </g>
+  <g class="card">
+    <rect x="1160" y="330" width="350" height="230" rx="18" fill="#ffffff" stroke="#d8e1ea" stroke-width="2"/>
+    <rect x="1160" y="330" width="12" height="230" rx="6" fill="#1d5d94"/>
+    <text x="1196" y="388" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#172331" font-weight="800" text-anchor="start"><tspan x="1196" dy="0">1. Ligar</tspan></text>
+    <text x="1196" y="448" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#5b6b7b" font-weight="400" text-anchor="start"><tspan x="1196" dy="0">novo.prox recebe o topo</tspan><tspan x="1196" dy="26.88">atual para não perder a</tspan><tspan x="1196" dy="26.88">cadeia existente.</tspan></text>
+  </g>
+  <g class="card">
+    <rect x="1160" y="620" width="350" height="230" rx="18" fill="#ffffff" stroke="#d8e1ea" stroke-width="2"/>
+    <rect x="1160" y="620" width="12" height="230" rx="6" fill="#1d5d94"/>
+    <text x="1196" y="678" font-family="Segoe UI, Arial, sans-serif" font-size="28" fill="#172331" font-weight="800" text-anchor="start"><tspan x="1196" dy="0">2. Atualizar</tspan></text>
+    <text x="1196" y="738" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#5b6b7b" font-weight="400" text-anchor="start"><tspan x="1196" dy="0">topo recebe novo.</tspan><tspan x="1196" dy="26.88">Apenas dois ponteiros</tspan><tspan x="1196" dy="26.88">mudam: custo O(1).</tspan></text>
+  </g>
+  <line x1="90" y1="1044" x2="1510" y2="1044" stroke="#d8e1ea" stroke-width="2"/>
+  <text x="90" y="1082" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#5b6b7b" font-weight="400" text-anchor="start"><tspan x="90" dy="0">O elemento 90 foi o último a entrar e agora está no topo.</tspan></text>
+  <text x="1510" y="1082" font-family="Segoe UI, Arial, sans-serif" font-size="21" fill="#5b6b7b" font-weight="400" text-anchor="end"><tspan x="1510" dy="0">02 / 04</tspan></text>
+</svg>

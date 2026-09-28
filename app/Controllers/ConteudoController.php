@@ -9,37 +9,37 @@ namespace App\Controllers;
  */
 class ConteudoController
 {
-    public function home(string $urlInicio, string $urlPaginas): void
+    public function home($urlInicio, $urlPaginas)
     {
         require APP_PATH . '/Views/home.php';
     }
 
-    public function tad(string $urlInicio, string $urlPaginas): void
+    public function tad($urlInicio, $urlPaginas)
     {
         require APP_PATH . '/Views/tad.php';
     }
 
-    public function listaSimples(string $urlInicio, string $urlPaginas): void
+    public function listaSimples($urlInicio, $urlPaginas)
     {
         require APP_PATH . '/Views/lista-simples.php';
     }
 
-    public function listaDupla(string $urlInicio, string $urlPaginas): void
+    public function listaDupla($urlInicio, $urlPaginas)
     {
         require APP_PATH . '/Views/lista-dupla.php';
     }
 
-    public function fila(string $urlInicio, string $urlPaginas): void
+    public function fila($urlInicio, $urlPaginas)
     {
         require APP_PATH . '/Views/fila.php';
     }
 
-    public function pilha(string $urlInicio, string $urlPaginas): void
+    public function pilha($urlInicio, $urlPaginas)
     {
         require APP_PATH . '/Views/pilha.php';
     }
 
-    public function filaPrioridade(string $urlInicio, string $urlPaginas): void
+    public function filaPrioridade($urlInicio, $urlPaginas)
     {
         require APP_PATH . '/Views/fila-prioridade.php';
     }

@@ -12,14 +12,14 @@ use PDOException;
  */
 class Database
 {
-    private const HOST = 'localhost';
-    private const NOME_BANCO = 'ed_grupo6';
-    private const USUARIO = 'root';
-    private const SENHA = '';
+    const HOST = 'localhost';
+    const NOME_BANCO = 'ed_grupo6';
+    const USUARIO = 'root';
+    const SENHA = '';
 
-    private static ?PDO $conexao = null;
+    private static $conexao = null;
 
-    public static function conexao(): PDO
+    public static function conexao()
     {
         if (self::$conexao === null) {
             $dsn = 'mysql:host=' . self::HOST . ';dbname=' . self::NOME_BANCO . ';charset=utf8mb4';

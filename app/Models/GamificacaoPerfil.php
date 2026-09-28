@@ -24,7 +24,7 @@ use App\Config\Database;
  */
 class GamificacaoPerfil
 {
-    private const ESTADO_PADRAO = [
+    private static $estadoPadrao = [
         'coins' => 350,
         'xp' => 0,
         'combo' => 0,
@@ -44,7 +44,7 @@ class GamificacaoPerfil
      * Busca o perfil salvo do usuario; se ainda nao existir, cria a linha padrao.
      * Retorna sempre o "estado" completo (mesmo formato usado pelo JS).
      */
-    public static function buscarOuCriar(int $usuarioId): array
+    public static function buscarOuCriar($usuarioId)
     {
         $stmt = Database::conexao()->prepare(
             'SELECT brunocoins, xp, nivel, estado_json FROM gamificacao_perfis WHERE usuario_id = ?'
@@ -58,7 +58,7 @@ class GamificacaoPerfil
             );
             $criar->execute([$usuarioId]);
 
-            return self::ESTADO_PADRAO;
+            return self::$estadoPadrao;
         }
 
         $estadoSalvo = $linha['estado_json'] ? json_decode((string) $linha['estado_json'], true) : null;
@@ -70,7 +70,7 @@ class GamificacaoPerfil
             ];
         }
 
-        return array_merge(self::ESTADO_PADRAO, $estadoSalvo);
+        return array_merge(self::$estadoPadrao, $estadoSalvo);
     }
 
     /**
@@ -79,10 +79,10 @@ class GamificacaoPerfil
      * o restante do objeto (inventario, equipamentos, missoes, etc.) vai
      * inteiro para a coluna estado_json.
      */
-    public static function salvarEstado(int $usuarioId, array $estado): void
+    public static function salvarEstado($usuarioId, array $estado)
     {
-        $coins = max(0, (int) ($estado['coins'] ?? 0));
-        $xp = max(0, (int) ($estado['xp'] ?? 0));
+        $coins = max(0, (int) (isset($estado['coins']) ? $estado['coins'] : 0));
+        $xp = max(0, (int) (isset($estado['xp']) ? $estado['xp'] : 0));
         $nivel = max(1, (int) floor($xp / 420) + 1);
         $estadoJson = json_encode($estado, JSON_UNESCAPED_UNICODE);
 
@@ -112,7 +112,7 @@ class GamificacaoPerfil
      * codigo" de Fila/Pilha: isso fica pendente ate o material de aula chegar,
      * para nao arriscar contradizer o que foi ensinado.
      */
-    public static function bancoDesafios(): array
+    public static function bancoDesafios()
     {
         return [
             // ===== TAD / Lista simples / Lista dupla (existentes) =====

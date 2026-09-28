@@ -15,7 +15,7 @@ class RecuperacaoSenha
     /**
      * Invalida tokens anteriores não utilizados do mesmo usuário.
      */
-    public static function invalidarTokensAnteriores(int $usuarioId): void
+    public static function invalidarTokensAnteriores($usuarioId)
     {
         $stmt = Database::conexao()->prepare(
             'UPDATE recuperacao_senhas SET usado = 1 WHERE usuario_id = ? AND usado = 0'
@@ -26,7 +26,7 @@ class RecuperacaoSenha
     /**
      * Cria e registra um novo token de recuperação temporário (padrão 30 minutos).
      */
-    public static function criarToken(int $usuarioId, string $token, int $minutosValidade = 30): bool
+    public static function criarToken($usuarioId, $token, $minutosValidade = 30)
     {
         self::invalidarTokensAnteriores($usuarioId);
 
@@ -43,7 +43,7 @@ class RecuperacaoSenha
     /**
      * Busca um token válido, não expirado e ainda não utilizado.
      */
-    public static function buscarPorToken(string $token): ?array
+    public static function buscarPorToken($token)
     {
         $tokenHash = hash('sha256', $token);
 
@@ -63,7 +63,7 @@ class RecuperacaoSenha
     /**
      * Marca o token de recuperação como utilizado para que não possa ser reaproveitado.
      */
-    public static function marcarComoUsado(int $id): void
+    public static function marcarComoUsado($id)
     {
         $stmt = Database::conexao()->prepare(
             'UPDATE recuperacao_senhas SET usado = 1 WHERE id = ?'

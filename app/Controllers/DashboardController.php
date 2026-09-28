@@ -5,7 +5,7 @@ namespace App\Controllers;
 
 class DashboardController
 {
-    public function index(): void
+    public function index()
     {
         exigirLogin();
         require APP_PATH . '/Views/dashboard.php';

@@ -7,7 +7,7 @@
  * - $urlPaginas: prefixo relativo ate a pasta pages/ ('pages/' na raiz, '' dentro de pages/)
  * - $paginaAtual (opcional): slug da pagina atual, para marcar aria-current
  */
-$paginaAtual = $paginaAtual ?? '';
+$paginaAtual = isset($paginaAtual) ? $paginaAtual : '';
 ?>
 <header class="topbar">
   <a class="brand" href="<?php echo $urlInicio; ?>" aria-label="Início">

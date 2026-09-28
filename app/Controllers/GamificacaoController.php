@@ -7,10 +7,12 @@ use App\Models\GamificacaoPerfil;
 
 class GamificacaoController
 {
-    public function pagina(string $urlInicio, string $urlPaginas): void
+    public function pagina($urlInicio, $urlPaginas)
     {
         $usuarioNome = estaLogado() ? $_SESSION['usuario_nome'] : 'Aluno visitante';
-        $usuarioEmail = estaLogado() ? ($_SESSION['usuario_email'] ?? '') : '';
+        $usuarioEmail = estaLogado() && isset($_SESSION['usuario_email'])
+            ? $_SESSION['usuario_email']
+            : '';
         $isAdminGame = estaLogado() && (
             strtolower($usuarioNome) === 'admin' ||
             strtolower($usuarioEmail) === 'admin'
@@ -28,7 +30,7 @@ class GamificacaoController
      * garante (persistencia real por usuario) e o que ele NAO faz
      * (nao recalcula/valida cada regra de economia do jogo no servidor).
      */
-    public function api(): void
+    public function api()
     {
         header('Content-Type: application/json; charset=utf-8');
 

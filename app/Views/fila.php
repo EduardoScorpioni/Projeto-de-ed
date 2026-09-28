@@ -50,6 +50,36 @@
       </aside>
     </section>
 
+    <section class="section visual-section alt-section">
+      <div class="section-heading">
+        <p class="eyebrow">Material visual</p>
+        <h2>Fila FIFO em imagens</h2>
+        <p>Veja como os ponteiros controlam a estrutura e acompanhe as operações de enfileirar, desenfileirar e percorrer.</p>
+      </div>
+
+      <div class="visual-grid">
+        <figure class="visual-card">
+          <img src="../assets/img/fila/01-inicio-fim-e-nos.svg" alt="Fila encadeada com ponteiros início e fim e três nós" loading="lazy">
+          <figcaption><strong>Início, fim e nós</strong>Mostra os dois ponteiros de controle e o encadeamento até <code>null</code>.</figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/fila/02-enfileirar-no-fim.svg" alt="Passos para enfileirar um novo nó no fim da fila" loading="lazy">
+          <figcaption><strong>Enfileirar</strong>O antigo fim aponta para o novo nó, que passa a ser o novo fim.</figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/fila/03-desenfileirar-no-inicio.svg" alt="Passos para desenfileirar o primeiro nó da fila" loading="lazy">
+          <figcaption><strong>Desenfileirar</strong>O primeiro nó sai e o ponteiro início avança para o sucessor.</figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/fila/04-percurso-da-fila.svg" alt="Percurso sequencial dos nós de uma fila encadeada" loading="lazy">
+          <figcaption><strong>Percurso</strong>Uma referência auxiliar visita cada nó sem alterar a fila original.</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <!-- ===== EXEMPLO DA AULA / EXERCÍCIO 1 ===== -->
     <section class="section visual-section">
       <div class="section-heading">
@@ -846,5 +876,6 @@ namespace ListaExercicios_FilaFIFO
 
   <script src="../assets/js/typed-title.js"></script>
   <script src="../assets/js/code-tools.js"></script>
+  <script src="../assets/js/image-lightbox.js"></script>
 </body>
 </html>

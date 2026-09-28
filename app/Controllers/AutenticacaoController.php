@@ -12,18 +12,18 @@ use App\Models\RecuperacaoSenha;
  */
 class AutenticacaoController
 {
-    public function login(string $urlInicio, string $urlPaginas): void
+    public function login($urlInicio, $urlPaginas)
     {
         exigirDeslogado();
 
         $erro = '';
-        $sucesso = $_SESSION['mensagem_sucesso'] ?? '';
+        $sucesso = isset($_SESSION['mensagem_sucesso']) ? $_SESSION['mensagem_sucesso'] : '';
         unset($_SESSION['mensagem_sucesso']);
         $email = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) ?: '';
-            $senha = $_POST['senha'] ?? '';
+            $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
 
             if ($email === '' || $senha === '') {
                 $erro = 'Por favor, preencha todos os campos.';
@@ -36,7 +36,8 @@ class AutenticacaoController
                     $_SESSION['usuario_email'] = $usuario['email'];
                     session_regenerate_id(true);
 
-                    Usuario::registrarAcesso((int) $usuario['id'], $_SERVER['REMOTE_ADDR'] ?? '');
+                    $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+                    Usuario::registrarAcesso((int) $usuario['id'], $ip);
 
                     header('Location: dashboard.php');
                     exit;
@@ -49,7 +50,7 @@ class AutenticacaoController
         require APP_PATH . '/Views/login.php';
     }
 
-    public function cadastro(string $urlInicio, string $urlPaginas): void
+    public function cadastro($urlInicio, $urlPaginas)
     {
         exigirDeslogado();
 
@@ -58,10 +59,10 @@ class AutenticacaoController
         $email = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nome = trim($_POST['nome'] ?? '');
+            $nome = trim(isset($_POST['nome']) ? $_POST['nome'] : '');
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) ?: '';
-            $senha = $_POST['senha'] ?? '';
-            $confirmaSenha = $_POST['confirma_senha'] ?? '';
+            $senha = isset($_POST['senha']) ? $_POST['senha'] : '';
+            $confirmaSenha = isset($_POST['confirma_senha']) ? $_POST['confirma_senha'] : '';
 
             if ($nome === '') {
                 $erros[] = 'O nome é obrigatório.';
@@ -102,7 +103,7 @@ class AutenticacaoController
         require APP_PATH . '/Views/cadastro.php';
     }
 
-    public function logout(): void
+    public function logout()
     {
         session_unset();
         session_destroy();
@@ -110,7 +111,7 @@ class AutenticacaoController
         exit;
     }
 
-    public function esqueciSenha(string $urlInicio, string $urlPaginas): void
+    public function esqueciSenha($urlInicio, $urlPaginas)
     {
         exigirDeslogado();
 
@@ -129,7 +130,7 @@ class AutenticacaoController
                 $usuario = Usuario::buscarPorEmail($email);
 
                 if ($usuario) {
-                    $token = bin2hex(random_bytes(32));
+                    $token = gerarTokenSeguro(32);
                     RecuperacaoSenha::criarToken((int) $usuario['id'], $token, $minutosValidade);
 
                     $linkSimulado = 'redefinir-senha.php?token=' . urlencode($token);
@@ -143,11 +144,13 @@ class AutenticacaoController
         require APP_PATH . '/Views/esqueci-senha.php';
     }
 
-    public function redefinirSenha(string $urlInicio, string $urlPaginas): void
+    public function redefinirSenha($urlInicio, $urlPaginas)
     {
         exigirDeslogado();
 
-        $token = trim($_GET['token'] ?? $_POST['token'] ?? '');
+        $token = isset($_GET['token'])
+            ? trim($_GET['token'])
+            : (isset($_POST['token']) ? trim($_POST['token']) : '');
         $erro = '';
         $recuperacao = null;
 
@@ -161,8 +164,8 @@ class AutenticacaoController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && $recuperacao) {
-            $novaSenha = $_POST['nova_senha'] ?? '';
-            $confirmaNovaSenha = $_POST['confirma_nova_senha'] ?? '';
+            $novaSenha = isset($_POST['nova_senha']) ? $_POST['nova_senha'] : '';
+            $confirmaNovaSenha = isset($_POST['confirma_nova_senha']) ? $_POST['confirma_nova_senha'] : '';
 
             if (strlen($novaSenha) < 8) {
                 $erro = 'A nova senha deve ter pelo menos 8 caracteres.';

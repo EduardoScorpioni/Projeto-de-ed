@@ -112,10 +112,34 @@
 
       <div class="visual-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
         <figure class="visual-card">
-          <img src="../assets/img/pilha.svg" alt="Diagrama de Pilha Encadeada LIFO" loading="lazy">
+          <img src="../assets/img/pilha/01-topo-e-nos.svg" alt="Pilha encadeada vertical com topo e nós ligados até null" loading="lazy">
           <figcaption>
-            <strong>Pilha Encadeada (LIFO)</strong>
-            Inserção e remoção acontecem exclusivamente pelo mesmo lado: o <code>topo</code>.
+            <strong>Topo e nós</strong>
+            O topo é o único ponto de acesso e cada nó aponta para o elemento abaixo.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/pilha/02-push-no-topo.svg" alt="Operação push inserindo um novo nó no topo da pilha" loading="lazy">
+          <figcaption>
+            <strong>Push: empilhar</strong>
+            O novo nó aponta para o topo antigo e depois assume o topo da pilha.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/pilha/03-pop-no-topo.svg" alt="Operação pop removendo o nó do topo da pilha" loading="lazy">
+          <figcaption>
+            <strong>Pop: desempilhar</strong>
+            O nó do topo é removido e o elemento logo abaixo se torna o novo topo.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-card">
+          <img src="../assets/img/pilha/04-pilha-de-chamadas.svg" alt="Pilha de chamadas com funções Main, calcular e validar" loading="lazy">
+          <figcaption>
+            <strong>Pilha de chamadas</strong>
+            As funções são chamadas em uma ordem e retornam na ordem inversa.
           </figcaption>
         </figure>
 
@@ -760,6 +784,7 @@ public static void transferirPreservandoOrdem(Pilha pilhaOrigem, Pilha pilhaDest
 
   <script src="../assets/js/typed-title.js"></script>
   <script src="../assets/js/code-tools.js"></script>
+  <script src="../assets/js/image-lightbox.js"></script>
 </body>
 </html>
 

@@ -13,7 +13,7 @@ use App\Models\Usuario;
  */
 class PerfilController
 {
-    public function editar(): void
+    public function editar()
     {
         exigirLogin();
 
@@ -26,11 +26,11 @@ class PerfilController
         $email = $usuario['email'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nome = trim($_POST['nome'] ?? '');
+            $nome = trim(isset($_POST['nome']) ? $_POST['nome'] : '');
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) ?: '';
-            $senhaAtual = $_POST['senha_atual'] ?? '';
-            $novaSenha = $_POST['nova_senha'] ?? '';
-            $confirmaNovaSenha = $_POST['confirma_nova_senha'] ?? '';
+            $senhaAtual = isset($_POST['senha_atual']) ? $_POST['senha_atual'] : '';
+            $novaSenha = isset($_POST['nova_senha']) ? $_POST['nova_senha'] : '';
+            $confirmaNovaSenha = isset($_POST['confirma_nova_senha']) ? $_POST['confirma_nova_senha'] : '';
             $querTrocarSenha = $novaSenha !== '' || $confirmaNovaSenha !== '';
 
             if ($nome === '') {

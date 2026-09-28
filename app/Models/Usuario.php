@@ -11,7 +11,7 @@ use App\Config\Database;
  */
 class Usuario
 {
-    public static function buscarPorEmail(string $email): ?array
+    public static function buscarPorEmail($email)
     {
         $stmt = Database::conexao()->prepare(
             'SELECT id, nome, email, senha_hash FROM usuarios WHERE email = ?'
@@ -22,7 +22,7 @@ class Usuario
         return $usuario ?: null;
     }
 
-    public static function emailExiste(string $email): bool
+    public static function emailExiste($email)
     {
         $stmt = Database::conexao()->prepare('SELECT id FROM usuarios WHERE email = ?');
         $stmt->execute([$email]);
@@ -34,7 +34,7 @@ class Usuario
      * Igual a emailExiste(), mas ignora o proprio usuario (usado ao editar o perfil,
      * onde o usuario pode "trocar" o e-mail para o mesmo que ja tinha).
      */
-    public static function emailPertenceAOutroUsuario(string $email, int $usuarioId): bool
+    public static function emailPertenceAOutroUsuario($email, $usuarioId)
     {
         $stmt = Database::conexao()->prepare(
             'SELECT id FROM usuarios WHERE email = ? AND id != ?'
@@ -44,7 +44,7 @@ class Usuario
         return (bool) $stmt->fetch();
     }
 
-    public static function buscarPorId(int $id): ?array
+    public static function buscarPorId($id)
     {
         $stmt = Database::conexao()->prepare(
             'SELECT id, nome, email, senha_hash FROM usuarios WHERE id = ?'
@@ -55,7 +55,7 @@ class Usuario
         return $usuario ?: null;
     }
 
-    public static function criar(string $nome, string $email, string $senha): int
+    public static function criar($nome, $email, $senha)
     {
         $hash = password_hash($senha, PASSWORD_BCRYPT);
         $stmt = Database::conexao()->prepare(
@@ -66,7 +66,7 @@ class Usuario
         return (int) Database::conexao()->lastInsertId();
     }
 
-    public static function registrarAcesso(int $usuarioId, string $ip): void
+    public static function registrarAcesso($usuarioId, $ip)
     {
         $stmt = Database::conexao()->prepare(
             'INSERT INTO sessoes_log (usuario_id, ip) VALUES (?, ?)'
@@ -74,7 +74,7 @@ class Usuario
         $stmt->execute([$usuarioId, $ip]);
     }
 
-    public static function atualizarPerfil(int $id, string $nome, string $email): void
+    public static function atualizarPerfil($id, $nome, $email)
     {
         $stmt = Database::conexao()->prepare(
             'UPDATE usuarios SET nome = ?, email = ? WHERE id = ?'
@@ -82,7 +82,7 @@ class Usuario
         $stmt->execute([$nome, $email, $id]);
     }
 
-    public static function atualizarSenha(int $id, string $novaSenha): void
+    public static function atualizarSenha($id, $novaSenha)
     {
         $hash = password_hash($novaSenha, PASSWORD_BCRYPT);
         $stmt = Database::conexao()->prepare(
