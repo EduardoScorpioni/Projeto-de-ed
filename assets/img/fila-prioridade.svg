@@ -73,7 +73,7 @@
 
     <!-- Rodapé -->
     <text x="410" y="315" fill="#2d3436" font-size="14" font-weight="600">
-      Remoção rápida do elemento prioritário no início O(1) &bull; Inserção na posição ordenada O(n) &bull; Estabilidade FIFO
+      Remoção rápida do elemento prioritário no início O(1) &#8226; Inserção na posição ordenada O(n) &#8226; Estabilidade FIFO
     </text>
   </g>
 </svg>

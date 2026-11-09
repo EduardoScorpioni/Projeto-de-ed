@@ -94,3 +94,12 @@
         grid-template-columns: 1fr;
     }
 }
+
+.link-more {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.link-more:hover {
+  text-decoration: underline;
+}

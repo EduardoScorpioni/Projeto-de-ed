@@ -41,7 +41,6 @@
           allowfullscreen>
         </iframe>
       </figure>
-      </figure>
     </section>
 
     <!-- ===== Integrantes ===== -->
@@ -212,6 +211,12 @@ public void InserirInicio(int valor)
           <span>Pilha</span>
           <h3>Pilha Encadeada (LIFO)</h3>
           <p>O último elemento a entrar é o primeiro a sair.</p>
+        </a>
+
+        <a class="module-card" href="pages/arvores.php">
+          <span>Árvores</span>
+          <h3>Árvore Genérica e Binária</h3>
+          <p>Hierarquia, inserção e remoção passo a passo em um simulador animado.</p>
         </a>
       </div>
     </section>

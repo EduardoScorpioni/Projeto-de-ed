@@ -3,6 +3,35 @@
  * (nao usa o tema de jogo, que fica restrito a gamificacao.css).
  */
 
+/* === Hero da página (mesmo padrão de lista-simples/lista-dupla/tad) === */
+.page-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 520px);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(36px, 7vw, 88px) clamp(18px, 5vw, 72px);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-hero > div {
+  max-width: 720px;
+}
+
+.page-hero p {
+  max-width: 680px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+.page-hero img {
+  width: 100%;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
 .page-hero--sem-imagem {
   padding: clamp(36px, 7vw, 88px) clamp(18px, 5vw, 72px);
   border-bottom: 1px solid var(--line);
@@ -62,6 +91,7 @@
 }
 
 @media (max-width: 900px) {
+  .page-hero,
   .content-layout {
     grid-template-columns: 1fr;
   }

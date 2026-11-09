@@ -35,11 +35,11 @@
     <text x="400" y="55" fill="#18201d" font-size="20" font-weight="800" text-anchor="middle">Pilha Encadeada LIFO (Last In, First Out)</text>
 
     <!-- Indicadores Push e Pop -->
-    <text x="160" y="80" fill="#c0392b" font-size="14" font-weight="800" text-anchor="end">&uarr; POP (Desempilhar)</text>
-    <text x="160" y="125" fill="#27ae60" font-size="14" font-weight="800" text-anchor="end">&darr; PUSH (Empilhar)</text>
+    <text x="160" y="80" fill="#c0392b" font-size="14" font-weight="800" text-anchor="end">&#8593; POP (Desempilhar)</text>
+    <text x="160" y="125" fill="#27ae60" font-size="14" font-weight="800" text-anchor="end">&#8595; PUSH (Empilhar)</text>
 
     <!-- Rótulo do Topo -->
-    <text x="315" y="105" fill="#2980b9" font-size="15" font-weight="800" text-anchor="middle">&darr; TOPO</text>
+    <text x="315" y="105" fill="#2980b9" font-size="15" font-weight="800" text-anchor="middle">&#8595; TOPO</text>
 
     <!-- Nó 1 (Topo) -->
     <g>
@@ -70,7 +70,7 @@
 
     <!-- Rodapé -->
     <text x="400" y="305" fill="#2c3e50" font-size="14" font-weight="600" text-anchor="middle">
-      Acesso exclusivo pelo Topo: Push O(1) e Pop O(1) &bull; O último nó aponta para null
+      Acesso exclusivo pelo Topo: Push O(1) e Pop O(1) &#8226; O último nó aponta para null
     </text>
   </g>
 </svg>

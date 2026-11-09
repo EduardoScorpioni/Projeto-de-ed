@@ -43,5 +43,10 @@ class ConteudoController
     {
         require APP_PATH . '/Views/fila-prioridade.php';
     }
+
+    public function arvores($urlInicio, $urlPaginas)
+    {
+        require APP_PATH . '/Views/arvores.php';
+    }
 }
 

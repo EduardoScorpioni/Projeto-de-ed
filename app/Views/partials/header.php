@@ -23,6 +23,7 @@ $paginaAtual = isset($paginaAtual) ? $paginaAtual : '';
     <a href="<?php echo $urlPaginas; ?>fila.php"<?php echo $paginaAtual === 'fila' ? ' aria-current="page"' : ''; ?>>Fila</a>
     <a href="<?php echo $urlPaginas; ?>fila-prioridade.php"<?php echo $paginaAtual === 'fila-prioridade' ? ' aria-current="page"' : ''; ?>>Fila de Prioridades</a>
     <a href="<?php echo $urlPaginas; ?>pilha.php"<?php echo $paginaAtual === 'pilha' ? ' aria-current="page"' : ''; ?>>Pilha</a>
+    <a href="<?php echo $urlPaginas; ?>arvores.php"<?php echo $paginaAtual === 'arvores' ? ' aria-current="page"' : ''; ?>>Árvores</a>
     <a href="<?php echo $urlPaginas; ?>gamificacao.php"<?php echo $paginaAtual === 'gamificacao' ? ' aria-current="page"' : ''; ?>>PonteiroQuest</a>
     <?php if (estaLogado()): ?>
       <a href="<?php echo $urlPaginas; ?>dashboard.php">Dashboard</a>

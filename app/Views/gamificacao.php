@@ -106,9 +106,15 @@
             <p>Pronto pra testar o que sabe de Estrutura de Dados?</p>
             <button id="startQuiz" class="button primary" type="button">Iniciar Quiz</button>
           </div>
+          <div id="quizResultScreen" class="quiz-start-screen quiz-result-screen is-hidden">
+            <h3 id="quizResultTitle">Quiz finalizado!</h3>
+            <p id="quizResultScore">Voce acertou 0 de 0 perguntas.</p>
+            <button id="restartQuiz" class="button primary" type="button">Jogar novamente com novas perguntas</button>
+          </div>
           <div id="quizPlayArea" class="quiz-play-area is-hidden">
             <div class="challenge-top-row">
               <span id="challengeCategory" class="category-tag">ED</span>
+              <span id="quizProgress" class="category-tag">1/10</span>
               <div id="timerBar" class="timer-bar" aria-label="Tempo restante">
                 <span id="timerFill"></span>
               </div>
@@ -119,7 +125,7 @@
         </div>
 
         <div id="quizActions" class="action-row is-hidden">
-          <button id="nextChallenge" class="button primary" type="button">Novo desafio</button>
+          <button id="nextChallenge" class="button primary" type="button">Proxima pergunta</button>
           <button id="claimChest" class="button secondary" type="button">Abrir cofre</button>
         </div>
 

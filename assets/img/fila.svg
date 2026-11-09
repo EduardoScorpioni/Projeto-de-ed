@@ -70,7 +70,7 @@
 
     <!-- Rodapé explicativo -->
     <text x="400" y="300" fill="#2c3e50" font-size="14" font-weight="600">
-      Remover (Desenfileirar) = no Início O(1) &bull; Inserir (Enfileirar) = no Fim O(1)
+      Remover (Desenfileirar) = no Início O(1) &#8226; Inserir (Enfileirar) = no Fim O(1)
     </text>
   </g>
 </svg>

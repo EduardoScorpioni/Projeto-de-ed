@@ -8,6 +8,8 @@
   const MAX_UPGRADE = 3;
   const CHEST_DELAY = 6 * 60 * 60 * 1000;
   const QUESTION_TIME_MS = 20000;
+  // Quantidade de perguntas por rodada do quiz (a rodada termina depois disso).
+  const QUIZ_ROUND_SIZE = 10;
   const ABILITY_CHARGE_REGEN_EVERY = 6;
   const SECRET_ITEM_ID = 'camiseta-bruno-secreta';
   const SECRET_CHANCE = 0.1;
@@ -493,6 +495,11 @@
     quizPlayArea: document.getElementById('quizPlayArea'),
     quizActions: document.getElementById('quizActions'),
     startQuiz: document.getElementById('startQuiz'),
+    quizResultScreen: document.getElementById('quizResultScreen'),
+    quizResultTitle: document.getElementById('quizResultTitle'),
+    quizResultScore: document.getElementById('quizResultScore'),
+    restartQuiz: document.getElementById('restartQuiz'),
+    quizProgress: document.getElementById('quizProgress'),
     nextChallenge: document.getElementById('nextChallenge'),
     claimChest: document.getElementById('claimChest'),
     gameMessage: document.getElementById('gameMessage'),
@@ -513,6 +520,31 @@
   let timerInterval = null;
   let timerStartedAt = 0;
   let timerFrozen = false;
+
+  // Rodada atual do quiz: fila de indices ja sorteados (sem repeticao), quantas
+  // perguntas ja foram mostradas e quantas foram acertadas. Vive so em memoria.
+  let roundQueue = [];
+  let roundShown = 0;
+  let roundCorrect = 0;
+  let roundFinished = false;
+  let previousRoundIndexes = new Set();
+
+  function shuffle(list) {
+    const copy = list.slice();
+    for (let i = copy.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  }
+
+  // Sorteia as perguntas da rodada, priorizando as que nao apareceram na rodada anterior.
+  function buildRoundQueue() {
+    const all = challenges.map((_, index) => index);
+    const fresh = shuffle(all.filter((index) => !previousRoundIndexes.has(index)));
+    const repeated = shuffle(all.filter((index) => previousRoundIndexes.has(index)));
+    return fresh.concat(repeated).slice(0, Math.min(QUIZ_ROUND_SIZE, all.length));
+  }
 
   function freshState() {
     return {
@@ -1032,6 +1064,10 @@
     };
     window.clearInterval(timerInterval);
 
+    if (correct) {
+      roundCorrect += 1;
+    }
+
     if (accepted) {
       state.correct += 1;
       state.combo += 1;
@@ -1059,21 +1095,84 @@
     renderAll();
   }
 
+  function showQuizScreen(screen) {
+    const showPlay = screen === 'play';
+    const showResult = screen === 'result';
+    if (elements.quizStartScreen) {
+      elements.quizStartScreen.classList.toggle('is-hidden', screen !== 'start');
+    }
+    if (elements.quizPlayArea) {
+      elements.quizPlayArea.classList.toggle('is-hidden', !showPlay);
+    }
+    if (elements.quizResultScreen) {
+      elements.quizResultScreen.classList.toggle('is-hidden', !showResult);
+    }
+    if (elements.quizActions) {
+      elements.quizActions.classList.toggle('is-hidden', screen === 'start');
+    }
+    if (elements.nextChallenge) {
+      elements.nextChallenge.classList.toggle('is-hidden', !showPlay);
+    }
+  }
+
+  function finishRound() {
+    roundFinished = true;
+    window.clearInterval(timerInterval);
+    previousRoundIndexes = new Set(roundQueue);
+
+    const total = roundQueue.length;
+    const ratio = total ? roundCorrect / total : 0;
+    if (elements.quizResultTitle) {
+      elements.quizResultTitle.textContent = ratio >= 0.7 ? 'Mandou bem!' : ratio >= 0.4 ? 'Quase la!' : 'Quiz finalizado!';
+    }
+    if (elements.quizResultScore) {
+      elements.quizResultScore.textContent = `Voce acertou ${roundCorrect} de ${total} perguntas.`;
+    }
+
+    showQuizScreen('result');
+    showMessage('Rodada concluida. Jogue de novo para receber perguntas novas.');
+  }
+
+  function startRound() {
+    roundQueue = buildRoundQueue();
+    roundShown = 0;
+    roundCorrect = 0;
+    roundFinished = false;
+    showQuizScreen('play');
+    nextChallenge();
+  }
+
+  function updateRoundUI() {
+    const total = roundQueue.length;
+    if (elements.quizProgress) {
+      elements.quizProgress.textContent = `${Math.min(roundShown, total)}/${total}`;
+    }
+    if (elements.nextChallenge) {
+      elements.nextChallenge.textContent = roundShown >= total ? 'Ver resultado' : 'Proxima pergunta';
+    }
+  }
+
   function nextChallenge(options = {}) {
+    if (roundFinished) {
+      return;
+    }
+
+    if (roundShown >= roundQueue.length) {
+      finishRound();
+      return;
+    }
+
     questionEffects = { eliminated: [], doublePoints: false, shielded: false };
 
+    // A pergunta secreta e' um bonus: nao consome nenhuma vaga da rodada.
     const canRollSecret = !isOwned(SECRET_ITEM_ID);
     isSecretChallengeActive = canRollSecret && Math.random() < SECRET_CHANCE;
 
     if (!isSecretChallengeActive) {
-      let nextIndex = randomChallengeIndex();
-      if (challenges.length > 1) {
-        while (nextIndex === state.challengeIndex) {
-          nextIndex = randomChallengeIndex();
-        }
-      }
-      state.challengeIndex = nextIndex;
+      state.challengeIndex = roundQueue[roundShown];
+      roundShown += 1;
     }
+    updateRoundUI();
 
     state.answeredCurrent = false;
     state.lastAnswer = null;
@@ -1690,21 +1789,12 @@
     }
   });
 
-  function startQuizNow() {
-    if (elements.quizStartScreen) {
-      elements.quizStartScreen.classList.add('is-hidden');
-    }
-    if (elements.quizPlayArea) {
-      elements.quizPlayArea.classList.remove('is-hidden');
-    }
-    if (elements.quizActions) {
-      elements.quizActions.classList.remove('is-hidden');
-    }
-    nextChallenge();
+  if (elements.startQuiz) {
+    elements.startQuiz.addEventListener('click', startRound);
   }
 
-  if (elements.startQuiz) {
-    elements.startQuiz.addEventListener('click', startQuizNow);
+  if (elements.restartQuiz) {
+    elements.restartQuiz.addEventListener('click', startRound);
   }
 
   if (window.Avatar3D) {

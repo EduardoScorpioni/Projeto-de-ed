@@ -88,6 +88,14 @@ img {
   font-weight: 700;
 }
 
+/* Com 11-12 links o menu estoura uma linha em telas medias: compacta antes de quebrar */
+@media (min-width: 901px) and (max-width: 1400px) {
+  .topbar { gap: 14px; }
+  .brand { white-space: nowrap; }
+  .main-nav { gap: 2px; }
+  .main-nav a { padding: 8px 8px; font-size: 0.88rem; white-space: nowrap; }
+}
+
 .main-nav a:hover,
 .main-nav a[aria-current="page"] {
   background: var(--surface-soft);
