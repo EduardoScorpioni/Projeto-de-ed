@@ -6,8 +6,8 @@
 ![Localhost](https://img.shields.io/badge/Servidor-localhost-2EA44F?style=for-the-badge)
 
 Sistema web acadêmico desenvolvido para apresentar conteúdos de **Estrutura de Dados**.
-O projeto aborda **TAD**, **struct em C#**, **lista simplesmente encadeada** e
-**lista duplamente encadeada**, com páginas explicativas, exemplos de código,
+O projeto aborda **TAD**, **struct em C#**, **listas encadeadas**, **filas**, **pilha**,
+**Árvore Trie** e **Árvore Patricia**, com páginas explicativas, exemplos de código,
 imagens de apoio, PDFs e área de login.
 
 O projeto roda localmente com **EasyPHP** ou **XAMPP**, usando PHP, Apache e MySQL.
@@ -100,6 +100,8 @@ Projeto-de-ed/
 |   |-- tad.php
 |   |-- lista-simples.php
 |   |-- lista-dupla.php
+|   |-- arvore-trie.php
+|   |-- arvore-patricia.php
 |   |-- login.php
 |   |-- cadastro.php
 |   |-- dashboard.php
@@ -131,6 +133,8 @@ Projeto-de-ed/
 | `pages/tad.php` | Explica TAD, struct e exercícios de modelagem |
 | `pages/lista-simples.php` | Explica lista simplesmente encadeada |
 | `pages/lista-dupla.php` | Explica lista duplamente encadeada |
+| `pages/arvore-trie.php` | Explica e simula uma Árvore Trie |
+| `pages/arvore-patricia.php` | Explica e simula uma Árvore Patricia compactada |
 | `pages/login.php` | Entrada de usuários |
 | `pages/cadastro.php` | Criação de novas contas |
 | `pages/dashboard.php` | Área restrita depois do login |

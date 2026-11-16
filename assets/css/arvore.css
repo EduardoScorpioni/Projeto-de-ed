@@ -1,0 +1,31 @@
+/* Modulos de arvores de prefixos: Trie e Patricia */
+.tree-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,480px);gap:clamp(28px,5vw,72px);align-items:center;padding:clamp(36px,7vw,82px) clamp(18px,5vw,72px);border-bottom:1px solid var(--line)}
+.tree-hero p{max-width:760px;color:var(--muted);font-size:clamp(1rem,1.3vw,1.16rem)}
+.tree-hero img{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:var(--shadow)}
+.tree-content{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);gap:28px;padding:clamp(38px,6vw,76px) clamp(18px,5vw,72px)}
+.tree-content article{max-width:900px}.tree-content article p,.tree-content article li,.tree-note{color:var(--muted)}
+.tree-note{align-self:start;padding:24px;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:0 10px 24px rgba(25,36,31,.05)}
+.tree-note ul{margin:0;padding-left:18px}.tree-note li+li{margin-top:8px}
+.comparison-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.comparison-card{padding:22px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.comparison-card strong{display:block;margin-bottom:8px;color:var(--green);font-size:1.05rem}.comparison-card p{margin:0;color:var(--muted)}
+.tree-lab{max-width:1220px;margin:0 auto;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);box-shadow:var(--shadow)}
+.tree-lab__toolbar{display:grid;grid-template-columns:minmax(180px,1fr) repeat(3,auto);gap:10px;padding:18px;border-bottom:1px solid var(--line);background:var(--surface-soft)}
+.tree-lab__input{min-height:44px;padding:10px 13px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);font:inherit}
+.tree-lab__input:focus{border-color:var(--green);outline:3px solid rgba(47,125,90,.15)}
+.tree-lab__button{min-height:44px;padding:10px 15px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text);font:inherit;font-weight:800;cursor:pointer}
+.tree-lab__button:hover{border-color:var(--green);color:var(--green)}.tree-lab__button--primary{border-color:var(--green);background:var(--green);color:#fff}.tree-lab__button--primary:hover{color:#fff;filter:brightness(.94)}
+.tree-lab__status{min-height:48px;margin:0;padding:13px 18px;border-bottom:1px solid var(--line);color:var(--muted)}
+.tree-lab__status[data-kind=success]{color:var(--green)}.tree-lab__status[data-kind=error]{color:var(--red)}
+.tree-lab__viewport{min-height:340px;padding:30px 18px;overflow:auto;background:linear-gradient(rgba(47,125,90,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(47,125,90,.035) 1px,transparent 1px);background-size:24px 24px}
+.prefix-tree,.prefix-tree ul{position:relative;display:flex;justify-content:center;gap:14px;width:max-content;min-width:100%;margin:0;padding:0;list-style:none}
+.prefix-tree ul{align-items:flex-start;min-width:0;padding-top:38px}.prefix-tree li{position:relative;display:flex;flex-direction:column;align-items:center}
+.prefix-tree ul>li::before{content:"";position:absolute;top:-20px;left:50%;width:1px;height:20px;background:#aebbb2}
+.prefix-tree ul::before{content:"";position:absolute;top:18px;left:12%;right:12%;height:1px;background:#aebbb2}
+.tree-node{position:relative;z-index:1;display:inline-grid;min-width:44px;min-height:44px;padding:7px 10px;place-items:center;border:2px solid var(--green);border-radius:999px;background:var(--surface);color:var(--text);font-weight:800;box-shadow:0 5px 12px rgba(25,36,31,.09)}
+.tree-node--root{border-style:dashed;color:var(--muted)}.tree-node--word{background:var(--green);color:#fff}.tree-node--match{outline:4px solid rgba(196,120,43,.24);border-color:var(--amber)}
+.tree-node__edge{position:absolute;top:-32px;left:50%;z-index:2;padding:1px 5px;border-radius:4px;transform:translateX(-50%);background:var(--bg);color:var(--blue);font-size:.73rem;font-weight:800;white-space:nowrap}
+.tree-lab__legend{display:flex;flex-wrap:wrap;gap:14px;padding:12px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem}
+.tree-lab__legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:6px;border:2px solid var(--green);border-radius:50%}.tree-lab__legend .is-word::before{background:var(--green)}.tree-lab__legend .is-match::before{border-color:var(--amber)}
+@media(max-width:900px){.tree-hero,.tree-content,.comparison-grid{grid-template-columns:1fr}.tree-hero img{max-width:620px}}
+@media(max-width:680px){.tree-lab__toolbar{grid-template-columns:1fr 1fr}.tree-lab__input{grid-column:1/-1}.tree-lab__button:last-child{grid-column:1/-1}}

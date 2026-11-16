@@ -280,6 +280,38 @@ class GamificacaoPerfil
                 'xp' => 64,
                 'categoria' => 'Pilha',
             ],
-        ];
+            // ===== Arvores de prefixos: Trie e Patricia =====
+            [
+                'question' => 'Em uma Arvore Trie, o caminho da raiz ate um no representa:',
+                'options' => ['Um prefixo', 'Uma prioridade', 'Uma pilha', 'Um indice numerico fixo'],
+                'answer' => 0,
+                'reward' => 120,
+                'xp' => 64,
+                'categoria' => 'Arvore Trie',
+            ],
+            [
+                'question' => 'Buscar uma palavra de tamanho m em uma Trie custa, em funcao da palavra:',
+                'options' => ['O(1)', 'O(log m)', 'O(m)', 'O(m2)'],
+                'answer' => 2,
+                'reward' => 135,
+                'xp' => 70,
+                'categoria' => 'Arvore Trie',
+            ],
+            [
+                'question' => 'A principal diferenca da Arvore Patricia para a Trie convencional e:',
+                'options' => ['Usar apenas numeros', 'Comprimir caminhos sem ramificacoes', 'Remover a raiz', 'Ordenar por prioridade'],
+                'answer' => 1,
+                'reward' => 145,
+                'xp' => 76,
+                'categoria' => 'Arvore Patricia',
+            ],
+            [
+                'question' => 'Em uma Trie, marcar fimDaPalavra serve para distinguir:',
+                'options' => ['Uma palavra completa de apenas um prefixo', 'O maior no do menor', 'A raiz de uma folha', 'Uma fila de uma pilha'],
+                'answer' => 0,
+                'reward' => 130,
+                'xp' => 68,
+                'categoria' => 'Arvore Trie',
+            ],        ];
     }
 }

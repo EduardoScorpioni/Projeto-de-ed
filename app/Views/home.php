@@ -22,7 +22,7 @@
         <p>
           Base do sistema web do Grupo 6 para apresentar conceitos de
           TAD, listas simplesmente encadeadas, listas duplamente encadeadas,
-          fila FIFO, pilha, diagramas e exemplos em C#.
+          fila FIFO, pilha, arvores de prefixos, diagramas e exemplos em C#.
         </p>
         <div class="intro-actions" aria-label="Acoes principais">
           <a class="button primary" href="pages/lista-simples.php">Ver lista simples</a>
@@ -212,11 +212,22 @@ public void InserirInicio(int valor)
           <h3>Pilha Encadeada (LIFO)</h3>
           <p>O último elemento a entrar é o primeiro a sair.</p>
         </a>
-
         <a class="module-card" href="pages/arvores.php">
           <span>Árvores</span>
           <h3>Árvore Genérica e Binária</h3>
           <p>Hierarquia, inserção e remoção passo a passo em um simulador animado.</p>
+        </a>
+
+        <a class="module-card" href="pages/arvore-trie.php">
+          <span>Árvore 01</span>
+          <h3>Árvore Trie</h3>
+          <p>Busca palavras por prefixos compartilhados, caractere por caractere.</p>
+        </a>
+
+        <a class="module-card" href="pages/arvore-patricia.php">
+          <span>Árvore 02</span>
+          <h3>Árvore Patricia</h3>
+          <p>Uma Trie compactada que agrupa caminhos sem ramificações.</p>
         </a>
       </div>
     </section>

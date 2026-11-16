@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" role="img" aria-labelledby="title desc">
+  <title id="title">Árvore Trie</title><desc id="desc">Palavras casa, caso e carro compartilhando prefixos.</desc>
+  <rect width="760" height="430" rx="24" fill="#f8fbf8"/>
+  <g stroke="#9bb7a7" stroke-width="3" fill="none">
+    <path d="M380 70V120M380 170V220M380 270L255 320M380 270L505 320M255 370H175M255 370H335"/>
+  </g>
+  <g font-family="Arial" font-weight="700" text-anchor="middle">
+    <g fill="#fff" stroke="#2f7d5a" stroke-width="4">
+      <circle cx="380" cy="50" r="26"/><circle cx="380" cy="145" r="26"/><circle cx="380" cy="245" r="26"/>
+      <circle cx="255" cy="345" r="26"/><circle cx="505" cy="345" r="26"/><circle cx="175" cy="395" r="24"/><circle cx="335" cy="395" r="24"/>
+    </g>
+    <g fill="#18201d" font-size="20"><text x="380" y="57">raiz</text><text x="380" y="152">c</text><text x="380" y="252">a</text><text x="255" y="352">s</text><text x="505" y="352">r</text><text x="175" y="402">a</text><text x="335" y="402">o</text></g>
+    <text x="610" y="90" fill="#2f7d5a" font-size="26">um caractere por nó</text>
+    <text x="610" y="124" fill="#5c685f" font-size="17">prefixos são reutilizados</text>
+  </g>
+</svg>

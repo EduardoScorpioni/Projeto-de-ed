@@ -4,7 +4,7 @@
 namespace App\Controllers;
 
 /**
- * Paginas de conteudo didatico (TAD, listas, fila, pilha, home).
+ * Paginas de conteudo didatico (TAD, listas, filas, pilha, arvores, home).
  * Sao views essencialmente estaticas; o controller so decide o que exibir.
  */
 class ConteudoController
@@ -48,5 +48,14 @@ class ConteudoController
     {
         require APP_PATH . '/Views/arvores.php';
     }
-}
 
+    public function arvoreTrie($urlInicio, $urlPaginas)
+    {
+        require APP_PATH . '/Views/arvore-trie.php';
+    }
+
+    public function arvorePatricia($urlInicio, $urlPaginas)
+    {
+        require APP_PATH . '/Views/arvore-patricia.php';
+    }
+}

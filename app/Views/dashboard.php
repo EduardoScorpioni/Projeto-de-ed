@@ -75,6 +75,19 @@
                     <p>O último elemento a entrar é o primeiro a sair: empilhar e desempilhar pelo topo.</p>
                     <div class="card-action">Acessar conteúdo</div>
                 </a>
+                <a href="arvore-trie.php" class="module-card">
+                    <span>Módulo 06</span>
+                    <h3>Árvore Trie</h3>
+                    <p>Insira, busque e remova palavras explorando prefixos compartilhados.</p>
+                    <div class="card-action">Acessar conteúdo</div>
+                </a>
+
+                <a href="arvore-patricia.php" class="module-card">
+                    <span>Módulo 07</span>
+                    <h3>Árvore Patricia</h3>
+                    <p>Entenda a compressão de caminhos e compare-a com uma Trie convencional.</p>
+                    <div class="card-action">Acessar conteúdo</div>
+                </a>
             </div>
         </section>
         <section class="gamification-cta">
