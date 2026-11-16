@@ -138,6 +138,8 @@ Projeto-de-ed/
 | `pages/login.php` | Entrada de usuários |
 | `pages/cadastro.php` | Criação de novas contas |
 | `pages/dashboard.php` | Área restrita depois do login |
+| `pages/dashboard-perguntas.php` | Dashboard interativo de perguntas e simulados |
+| `dashboard-perguntas.html` | Versão independente (offline/sem servidor) do dashboard de questões |
 
 ## Materiais de apoio
 

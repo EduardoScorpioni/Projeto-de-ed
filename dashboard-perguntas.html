@@ -1,0 +1,3185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Perguntas & Desafios | Estrutura de Dados</title>
+  <style>
+/* === Variáveis globais === */
+:root {
+  --bg: #f6f7f2;
+  --surface: #ffffff;
+  --surface-soft: #ecf2ed;
+  --text: #18201d;
+  --muted: #5c685f;
+  --line: #d8ddd4;
+  --green: #2f7d5a;
+  --blue: #2e5e8c;
+  --amber: #c4782b;
+  --red: #b84a4a;
+  --code-bg: #162019;
+  --code-text: #e8f5e9;
+  --shadow: 0 18px 40px rgba(25, 36, 31, 0.09);
+}
+
+/* === Reset === */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* === Cabeçalho === */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 72px;
+  padding: 14px clamp(18px, 5vw, 72px);
+  background: rgba(246, 247, 242, 0.96);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+}
+
+.brand-mark {
+  display: inline-grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--text);
+  color: var(--surface);
+  letter-spacing: 0;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.main-nav a {
+  min-height: 38px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+/* Com 11-12 links o menu estoura uma linha em telas medias: compacta antes de quebrar */
+@media (min-width: 901px) and (max-width: 1400px) {
+  .topbar { gap: 14px; }
+  .brand { white-space: nowrap; }
+  .main-nav { gap: 2px; }
+  .main-nav a { padding: 8px 8px; font-size: 0.88rem; white-space: nowrap; }
+}
+
+.main-nav a:hover,
+.main-nav a[aria-current="page"] {
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+/* === Tipografia === */
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 18px;
+  font-size: clamp(2.2rem, 6vw, 5.2rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+h2 {
+  margin-bottom: 14px;
+  font-size: clamp(1.7rem, 3vw, 2.7rem);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 1.16rem;
+  line-height: 1.25;
+}
+
+/* === Efeito de digitação nos títulos (data-typed) === */
+[data-typed] {
+  position: relative;
+}
+
+[data-typed]::after {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  margin-left: 6px;
+  vertical-align: -0.12em;
+  background: var(--green);
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-typed]::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* === Botões === */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 18px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.button.primary {
+  background: var(--green);
+  color: var(--surface);
+}
+
+.button.secondary {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* === Seções genéricas === */
+.section {
+  padding: clamp(42px, 6vw, 82px) clamp(18px, 5vw, 72px);
+}
+
+.alt-section {
+  background: var(--surface-soft);
+  border-block: 1px solid var(--line);
+}
+
+.section.compact {
+  padding-top: 42px;
+}
+
+.section-heading {
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+}
+
+/* === Materiais visuais === */
+.visual-section {
+  border-top: 1px solid var(--line);
+}
+
+.visual-section .section-heading {
+  max-width: 860px;
+}
+
+.visual-section .section-heading p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.visual-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.visual-card {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(25, 36, 31, 0.06);
+}
+
+.visual-card img {
+  width: 100%;
+  aspect-ratio: 1600 / 1130;
+  object-fit: cover;
+  background: #fbfcff;
+  border-bottom: 1px solid var(--line);
+  cursor: zoom-in;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.page-hero img[src*="docs/imagens-pdfs"] {
+  cursor: zoom-in;
+}
+
+.visual-card:hover img {
+  filter: saturate(1.04);
+  transform: scale(1.018);
+}
+
+.visual-card figcaption {
+  min-height: 74px;
+  padding: 14px 16px 16px;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.visual-card strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 3vw, 38px);
+  background: rgba(15, 24, 20, 0.78);
+  backdrop-filter: blur(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.image-lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.image-lightbox.is-closing {
+  opacity: 0;
+}
+
+.image-lightbox__dialog {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  width: min(1320px, 96vw);
+  max-height: 94vh;
+  animation: imageLightboxOpen 240ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.image-lightbox.is-closing .image-lightbox__dialog {
+  animation: imageLightboxClose 160ms ease both;
+}
+
+.image-lightbox__image {
+  width: 100%;
+  max-height: 84vh;
+  object-fit: contain;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: #fbfcff;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+}
+
+.image-lightbox__caption {
+  margin: 0;
+  padding: 0 54px 0 2px;
+  color: #f4f8f5;
+  font-size: clamp(0.92rem, 1.6vw, 1.05rem);
+}
+
+.image-lightbox__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 50%;
+  background: rgba(24, 32, 29, 0.82);
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.image-lightbox__close:hover,
+.image-lightbox__close:focus-visible {
+  background: var(--green);
+  outline: none;
+}
+
+body.lightbox-lock {
+  overflow: hidden;
+}
+
+@keyframes imageLightboxOpen {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes imageLightboxClose {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-card img,
+  .image-lightbox,
+  .image-lightbox__dialog {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* === Bloco de código === */
+.code-block {
+  max-width: 980px;
+  margin: 0;
+  overflow-x: auto;
+  padding: 22px;
+  border-radius: 8px;
+  background: var(--code-bg);
+  color: var(--code-text);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+/* === Cartao de codigo com copiar/colapsar (compartilhado entre paginas de conteudo) === */
+.code-card {
+  max-width: 980px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--code-bg);
+  box-shadow: 0 14px 30px rgba(25, 36, 31, 0.10);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.code-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--green);
+  box-shadow: 0 24px 48px rgba(25, 36, 31, 0.18);
+}
+
+.code-card__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.code-card__lang {
+  padding: 3px 9px;
+  border-radius: 5px;
+  background: #7fd1a3;
+  color: #0f2a1f;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.code-card__name {
+  margin-right: auto;
+  color: #9fb4a8;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.code-card__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e8f5e9;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.code-card__copy:hover {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.code-card__copy:active {
+  transform: scale(0.96);
+}
+
+.code-card__copy.is-done {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.code-card__copy svg {
+  width: 15px;
+  height: 15px;
+}
+
+.code-card .code-block {
+  max-width: none;
+  margin: 0;
+  max-height: 440px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* === Realce de sintaxe (usado por assets/js/code-tools.js) === */
+.tok-kw {
+  color: #7fd1a3;
+  font-weight: 700;
+}
+
+.tok-type {
+  color: #79c0ff;
+}
+
+.tok-str {
+  color: #f0b86e;
+}
+
+.tok-com {
+  color: #6f8a7d;
+  font-style: italic;
+}
+
+.tok-num {
+  color: #e6a06b;
+}
+
+.tok-fn {
+  color: #d2a8ff;
+}
+
+/* === Exercicios com "Hora de Praticar" + resolucao colapsavel === */
+.exercise__panel {
+  display: grid;
+  gap: 18px;
+}
+
+.exercise + .exercise {
+  margin-top: clamp(34px, 5vw, 56px);
+  padding-top: clamp(34px, 5vw, 56px);
+  border-top: 1px dashed var(--line);
+}
+
+.practice {
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 10px 24px rgba(25, 36, 31, 0.05);
+}
+
+.practice__tag {
+  margin: 0 0 10px;
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.practice__goal {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.practice__goal code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-size: 0.92em;
+}
+
+.practice__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  background: var(--green);
+  color: var(--surface);
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.practice__toggle::before {
+  content: "\25B8";
+  font-size: 0.9em;
+  transition: transform 0.2s ease;
+}
+
+.practice__toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.practice__toggle:hover {
+  background: #276a4c;
+  box-shadow: 0 10px 22px rgba(47, 125, 90, 0.28);
+}
+
+.practice__toggle:active {
+  transform: scale(0.97);
+}
+
+.code-card.is-collapsed {
+  display: none;
+}
+
+.code-card.is-revealing {
+  animation: codeReveal 0.32s ease both;
+}
+
+@keyframes codeReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Animacao sutil de entrada ao rolar (usada por assets/js/code-tools.js) === */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* === Rodapé === */
+.footer {
+  padding: 26px clamp(18px, 5vw, 72px);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer a {
+  color: var(--green);
+  font-weight: 800;
+}
+
+/* === Responsivo === */
+@media (max-width: 900px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 13vw, 4.1rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .main-nav {
+    width: 100%;
+  }
+
+  .main-nav a {
+    flex: 1 1 130px;
+    text-align: center;
+  }
+
+  .visual-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-card figcaption {
+    min-height: 0;
+  }
+}
+
+/* === Chamada para a gamificacao === */
+.gamification-cta {
+  padding: clamp(34px, 5vw, 64px) clamp(18px, 5vw, 72px);
+  border-top: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+
+.gamification-cta__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 18px;
+  align-items: center;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 16px 34px rgba(25, 36, 31, 0.07);
+}
+
+.gamification-cta h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+}
+
+.gamification-cta p {
+  max-width: 760px;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.gamification-cta__coins {
+  display: inline-grid;
+  min-width: 112px;
+  min-height: 86px;
+  place-items: center;
+  border: 2px solid rgba(196, 120, 43, 0.34);
+  border-radius: 8px;
+  background: #fff8eb;
+  color: var(--amber);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.gamification-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+@media (max-width: 560px) {
+  .gamification-cta__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .gamification-cta__coins {
+    width: 100%;
+  }
+}
+
+/* assets/css/dashboard-perguntas.css
+   Estilo charmoso, moderno e interativo para o Dashboard de Perguntas de ED
+*/
+
+:root {
+  --dp-bg: #f7faf8;
+  --dp-card-bg: #ffffff;
+  --dp-text: #19241e;
+  --dp-muted: #5e6d63;
+  --dp-line: #e3eae5;
+  --dp-primary: #1f7a55;
+  --dp-primary-soft: #e8f5ef;
+  --dp-primary-hover: #166042;
+  --dp-accent: #f59e0b;
+  --dp-accent-soft: #fef3c7;
+  --dp-correct: #10b981;
+  --dp-correct-soft: #ecfdf5;
+  --dp-wrong: #ef4444;
+  --dp-wrong-soft: #fef2f2;
+  --dp-shadow-sm: 0 4px 12px rgba(25, 36, 30, 0.04);
+  --dp-shadow: 0 10px 30px rgba(25, 36, 30, 0.07);
+  --dp-shadow-hover: 0 16px 36px rgba(25, 36, 30, 0.12);
+  --dp-radius: 18px;
+  --dp-radius-sm: 12px;
+}
+
+body {
+  background-color: var(--dp-bg);
+  color: var(--dp-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Hero & Mascote Bonitinho === */
+.questions-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #edf6f0 50%, #f4f8f5 100%);
+  border-bottom: 1px solid var(--dp-line);
+  padding: clamp(28px, 4vw, 48px) clamp(18px, 5vw, 64px);
+  position: relative;
+  overflow: hidden;
+}
+
+.questions-hero::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(47, 125, 90, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  flex: 1 1 540px;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #e6f4ed;
+  color: #1a6f4a;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 6px rgba(31, 122, 85, 0.1);
+}
+
+.hero-pill .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulseDot 1.8s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+.hero-title {
+  font-size: clamp(2rem, 3.8vw, 2.8rem);
+  font-weight: 900;
+  line-height: 1.15;
+  margin: 0 0 12px 0;
+  color: #14241c;
+}
+
+.hero-title .gradient-text {
+  background: linear-gradient(120deg, #1f7a55 0%, #2e5e8c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  color: var(--dp-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  max-width: 620px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-game-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1.5px solid rgba(16, 185, 129, 0.35);
+  font-size: 0.88rem;
+  color: var(--dp-text);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.12);
+  transition: all 0.2s ease;
+}
+
+.hero-game-pill:hover {
+  transform: translateY(-1px);
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.18);
+}
+
+.hero-game-pill .game-pill-icon {
+  font-size: 1.1rem;
+}
+
+.hero-game-pill .game-pill-text {
+  font-weight: 600;
+  color: #19241e;
+}
+
+.hero-game-pill .game-pill-text strong {
+  color: #059669;
+}
+
+.hero-game-pill .game-pill-sync {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Mascote animado (Nóbinho) */
+.hero-mascot-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  padding: 16px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(47, 125, 90, 0.18);
+  box-shadow: 0 12px 32px rgba(25, 36, 30, 0.08);
+  position: relative;
+  max-width: 380px;
+}
+
+.mascot-avatar {
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+  animation: floatMascot 3.2s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes floatMascot {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(2deg); }
+}
+
+.mascot-bubble {
+  font-size: 0.92rem;
+  color: #27382f;
+  line-height: 1.45;
+}
+
+.mascot-bubble strong {
+  display: block;
+  color: #1a6f4a;
+  font-size: 0.98rem;
+  margin-bottom: 2px;
+}
+
+/* === Layout Principal === */
+.questions-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px clamp(16px, 4vw, 48px) 80px;
+}
+
+/* === KPIs / Cards de Resumo Bonitinhos === */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.kpi-card {
+  background: var(--dp-card-bg);
+  border: 1px solid var(--dp-line);
+  border-radius: var(--dp-radius);
+  padding: 22px 24px;
+  box-shadow: var(--dp-shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--dp-shadow);
+  border-color: #cbd8cf;
+}
+
+.kpi-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--card-color, var(--dp-primary));
+  border-radius: var(--dp-radius) 0 0 var(--dp-radius);
+}
+
+.kpi-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  background: var(--icon-bg, #ecf6f1);
+  color: var(--icon-color, var(--dp-primary));
+  flex-shrink: 0;
+}
+
+.kpi-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--dp-muted);
+  margin-bottom: 4px;
+}
+
+.kpi-value {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--dp-text);
+  line-height: 1.1;
+}
+
+.kpi-sub {
+  font-size: 0.8rem;
+  color: var(--dp-muted);
+  margin-top: 4px;
+}
+
+/* === Abas de Navegação (Tabs) === */
+.nav-tabs-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 2px solid var(--dp-line);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.tabs-group {
+  display: flex;
+  gap: 8px;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dp-muted);
+  padding: 12px 18px;
+  cursor: pointer;
+  border-radius: 10px 10px 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  color: var(--dp-primary);
+  background: rgba(47, 125, 90, 0.05);
+}
+
+.tab-btn.is-active {
+  color: var(--dp-primary);
+  font-weight: 800;
+}
+
+.tab-btn.is-active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--dp-primary);
+  border-radius: 3px 3px 0 0;
+}
+
+.tab-counter {
+  background: var(--dp-line);
+  color: var(--dp-muted);
+  font-size: 0.78rem;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.tab-btn.is-active .tab-counter {
+  background: var(--dp-primary-soft);
+  color: var(--dp-primary);
+}
+
+.tab-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tool-toggle-btn {
+  background: #ffffff;
+  border: 1px solid var(--dp-line);
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--dp-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.tool-toggle-btn:hover {
+  border-color: var(--dp-primary);
+  color: var(--dp-primary);
+}
+
+/* === Barra de Busca e Filtros === */
+.filters-container {
+  background: var(--dp-card-bg);
+  border: 1px solid var(--dp-line);
+  border-radius: var(--dp-radius);
+  padding: 20px 24px;
+  box-shadow: var(--dp-shadow-sm);
+  margin-bottom: 28px;
+}
+
+.search-box-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrap {
+  position: relative;
+  flex: 1 1 320px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--dp-muted);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border: 1.5px solid var(--dp-line);
+  border-radius: var(--dp-radius-sm);
+  background: #fbfdfc;
+  color: var(--dp-text);
+  font-size: 0.96rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--dp-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(47, 125, 90, 0.12);
+}
+
+.filter-select {
+  padding: 11px 16px;
+  border: 1.5px solid var(--dp-line);
+  border-radius: var(--dp-radius-sm);
+  background: #fbfdfc;
+  color: var(--dp-text);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.filter-select:focus {
+  border-color: var(--dp-primary);
+}
+
+.category-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cat-pill {
+  background: #f3f7f4;
+  border: 1px solid transparent;
+  color: #37463f;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cat-pill:hover {
+  background: #e7f0ea;
+  color: var(--dp-primary);
+}
+
+.cat-pill.is-active {
+  background: var(--dp-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(31, 122, 85, 0.25);
+}
+
+.cat-pill-count {
+  font-size: 0.74rem;
+  opacity: 0.85;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+.cat-pill.is-active .cat-pill-count {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* === Grade de Perguntas (Cards) === */
+.questions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+.question-card {
+  background: var(--dp-card-bg);
+  border: 1.5px solid var(--dp-line);
+  border-radius: var(--dp-radius);
+  padding: 24px;
+  box-shadow: var(--dp-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.question-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--dp-shadow-hover);
+  border-color: #cbd8cf;
+}
+
+.question-card.status-correct {
+  border-color: rgba(16, 185, 129, 0.45);
+  background: linear-gradient(180deg, #ffffff 0%, #f6fdf9 100%);
+}
+
+.question-card.status-wrong {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: linear-gradient(180deg, #ffffff 0%, #fffafa 100%);
+}
+
+.card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Paletas por categoria */
+.badge-tad { background: #f3e8ff; color: #7e22ce; }
+.badge-lista-simples { background: #ecfdf5; color: #047857; }
+.badge-lista-dupla { background: #cffafe; color: #0e7490; }
+.badge-fila { background: #eff6ff; color: #1d4ed8; }
+.badge-fila-de-prioridades { background: #fef3c7; color: #b45309; }
+.badge-pilha { background: #ffe4e6; color: #be123c; }
+.badge-arvore-trie { background: #ccfbf1; color: #0f766e; }
+.badge-arvore-patricia { background: #e0e7ff; color: #4338ca; }
+
+.difficulty-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--dp-muted);
+}
+
+.diff-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.diff-facil .diff-dot { background: #10b981; }
+.diff-medio .diff-dot { background: #f59e0b; }
+.diff-dificil .diff-dot { background: #ef4444; }
+
+.card-question-text {
+  font-size: 1.04rem;
+  font-weight: 700;
+  color: #17241d;
+  line-height: 1.45;
+  margin: 0 0 18px 0;
+  flex-grow: 1;
+}
+
+.card-options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.option-btn {
+  background: #fbfdfc;
+  border: 1.5px solid var(--dp-line);
+  border-radius: var(--dp-radius-sm);
+  padding: 10px 14px;
+  font-size: 0.91rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #27362e;
+  transition: all 0.18s ease;
+  width: 100%;
+}
+
+.option-btn:hover:not(:disabled) {
+  background: #f0f7f2;
+  border-color: var(--dp-primary);
+  transform: translateX(2px);
+}
+
+.opt-letter {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: #e9f0eb;
+  color: #3b4e43;
+  font-weight: 800;
+  font-size: 0.78rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.option-btn:hover:not(:disabled) .opt-letter {
+  background: var(--dp-primary);
+  color: #ffffff;
+}
+
+.option-btn.is-selected-correct {
+  background: #ecfdf5 !important;
+  border-color: #10b981 !important;
+  color: #065f46 !important;
+  font-weight: 700;
+}
+
+.option-btn.is-selected-correct .opt-letter {
+  background: #10b981 !important;
+  color: #ffffff !important;
+}
+
+.option-btn.is-selected-wrong {
+  background: #fef2f2 !important;
+  border-color: #ef4444 !important;
+  color: #991b1b !important;
+  text-decoration: line-through;
+}
+
+.option-btn.is-selected-wrong .opt-letter {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+.option-btn.is-revealed-correct {
+  background: #ecfdf5 !important;
+  border-color: #34d399 !important;
+  color: #065f46 !important;
+  font-weight: 700;
+}
+
+.option-btn.is-revealed-correct .opt-letter {
+  background: #34d399 !important;
+  color: #ffffff !important;
+}
+
+/* Caixa de Explicação Didática */
+.explanation-box {
+  background: #f5f8f6;
+  border-left: 4px solid var(--dp-primary);
+  border-radius: 0 10px 10px 0;
+  padding: 12px 14px;
+  margin-top: 12px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #23342a;
+  animation: fadeIn 0.3s ease;
+}
+
+.explanation-box strong {
+  display: block;
+  color: var(--dp-primary);
+  font-size: 0.88rem;
+  margin-bottom: 4px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed var(--dp-line);
+  padding-top: 14px;
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--dp-muted);
+}
+
+.reward-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 700;
+  color: #d97706;
+}
+
+.card-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--dp-primary);
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.card-action-btn:hover {
+  background: var(--dp-primary-soft);
+}
+
+/* === Modo Simulado Rápido (Focus Quiz) === */
+.quiz-mode-container {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--dp-card-bg);
+  border: 1.5px solid var(--dp-line);
+  border-radius: 24px;
+  padding: clamp(24px, 4vw, 40px);
+  box-shadow: var(--dp-shadow);
+  position: relative;
+}
+
+.simulado-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.simulado-progress-bar {
+  height: 10px;
+  background: var(--dp-line);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.simulado-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 999px;
+}
+
+.simulado-question-box {
+  margin-bottom: 24px;
+}
+
+.simulado-question-title {
+  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+  font-weight: 800;
+  color: #17241d;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.simulado-options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.simulado-option-btn {
+  background: #fbfdfc;
+  border: 2px solid var(--dp-line);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s ease;
+}
+
+.simulado-option-btn:hover:not(:disabled) {
+  border-color: var(--dp-primary);
+  background: #f4f9f6;
+  transform: translateX(4px);
+}
+
+.simulado-footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 28px;
+  gap: 12px;
+}
+
+/* Tela de Resultados do Simulado */
+.simulado-result-screen {
+  text-align: center;
+  padding: 24px 12px;
+}
+
+.result-trophy {
+  font-size: 4rem;
+  margin-bottom: 12px;
+  display: inline-block;
+  animation: bounceTrophy 1.4s infinite alternate ease-in-out;
+}
+
+@keyframes bounceTrophy {
+  from { transform: translateY(0) scale(1); }
+  to { transform: translateY(-10px) scale(1.08); }
+}
+
+.result-score-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #14241c;
+  margin: 0 0 8px 0;
+}
+
+.result-score-desc {
+  color: var(--dp-muted);
+  font-size: 1.05rem;
+  margin: 0 0 24px 0;
+}
+
+.result-stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.result-stat-pill {
+  background: #f3f7f4;
+  border-radius: 14px;
+  padding: 14px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-stat-pill span {
+  font-size: 0.8rem;
+  color: var(--dp-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.result-stat-pill strong {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #1a6f4a;
+}
+
+/* === Aba de Estatísticas & Maestria === */
+.mastery-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.mastery-card {
+  background: var(--dp-card-bg);
+  border: 1.5px solid var(--dp-line);
+  border-radius: var(--dp-radius);
+  padding: 24px;
+  box-shadow: var(--dp-shadow-sm);
+}
+
+.mastery-card h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+}
+
+.mastery-card p {
+  color: var(--dp-muted);
+  font-size: 0.9rem;
+  margin: 0 0 20px 0;
+}
+
+.mastery-bar-item {
+  margin-bottom: 18px;
+}
+
+.mastery-bar-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.mastery-track {
+  height: 10px;
+  background: #eef3ef;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.mastery-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Cores das barras de maestria */
+.fill-tad { background: linear-gradient(90deg, #9333ea, #c084fc); }
+.fill-lista-simples { background: linear-gradient(90deg, #059669, #34d399); }
+.fill-lista-dupla { background: linear-gradient(90deg, #0891b2, #38bdf8); }
+.fill-fila { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+.fill-fila-de-prioridades { background: linear-gradient(90deg, #d97706, #fbbf24); }
+.fill-pilha { background: linear-gradient(90deg, #e11d48, #fb7185); }
+.fill-arvore-trie { background: linear-gradient(90deg, #0d9488, #2dd4bf); }
+.fill-arvore-patricia { background: linear-gradient(90deg, #4f46e5, #818cf8); }
+
+/* Botões Genéricos Fofos */
+.button-cute {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 0.94rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.button-cute.primary {
+  background: var(--dp-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(31, 122, 85, 0.25);
+}
+
+.button-cute.primary:hover {
+  background: var(--dp-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(31, 122, 85, 0.35);
+}
+
+.button-cute.secondary {
+  background: #ffffff;
+  border: 1.5px solid var(--dp-line);
+  color: var(--dp-text);
+}
+
+.button-cute.secondary:hover {
+  border-color: var(--dp-primary);
+  color: var(--dp-primary);
+  background: #fbfdfc;
+}
+
+/* Canvas de Confetes */
+#confettiCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Toast de Notificação Fofo */
+.cute-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #14241c;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 14px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10000;
+}
+
+.cute-toast.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .questions-hero {
+    padding: 24px 16px;
+  }
+  .hero-mascot-box {
+    max-width: 100%;
+  }
+  .questions-grid {
+    grid-template-columns: 1fr;
+  }
+  .nav-tabs-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Header Minimalista com Navegacao -->
+  <header class="topbar">
+    <a class="brand" href="index.php" aria-label="Início">
+      <span class="brand-mark">ED</span>
+      <span>Grupo 6</span>
+    </a>
+    <nav class="main-nav" aria-label="Navegação">
+      <a href="index.php">Início</a>
+      <a href="pages/tad.php">TAD</a>
+      <a href="pages/lista-simples.php">Lista Simples</a>
+      <a href="pages/lista-dupla.php">Lista Dupla</a>
+      <a href="pages/fila.php">Fila</a>
+      <a href="pages/pilha.php">Pilha</a>
+      <a href="pages/arvores.php">Árvores</a>
+      <a href="#" aria-current="page" style="color: var(--dp-primary); font-weight: 800;">Questões</a>
+      <a href="pages/gamificacao.php">PonteiroQuest</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section com Mascote Fofo -->
+  <header class="questions-hero">
+    <div class="hero-wrapper">
+      <div class="hero-text">
+        <div class="hero-pill">
+          <span class="dot"></span>
+          <span>Central de Prática & Fixação</span>
+        </div>
+        <h1 class="hero-title">
+          Dashboard de <span class="gradient-text">Perguntas & Desafios</span>
+        </h1>
+        <p class="hero-subtitle">
+          Pratique conceitos fundamentais de TAD, Listas, Filas, Pilhas e Árvores. 
+          Resolva questões interativas com feedback didático imediato e ganhe BrunoCoins!
+        </p>
+        <div class="hero-actions">
+          <button type="button" class="button-cute primary" onclick="document.querySelector('[data-tab=simulado]').click();">
+            ⚡ Fazer Simulado Rápido
+          </button>
+          <a href="pages/gamificacao.php" class="button-cute secondary">
+            🎮 Ir para o PonteiroQuest
+          </a>
+          <div class="hero-game-pill" id="heroGamePill" title="Progresso sincronizado com o PonteiroQuest">
+            <span class="game-pill-icon">🎮</span>
+            <span class="game-pill-text">PonteiroQuest: <strong id="pqPlayerCoins">0</strong> BC &bull; Nível <strong id="pqPlayerLevel">1</strong></span>
+            <span class="game-pill-sync" id="pqSyncStatus">● Conectado</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mascote Nóbinho -->
+      <div class="hero-mascot-box" id="mascotWrapper" style="cursor: pointer;" title="Clique no Nóbinho para ouvir uma dica!">
+        <div class="mascot-avatar">
+          <svg width="74" height="74" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="44" fill="#E8F5EF" stroke="#10B981" stroke-width="4"/>
+            <line x1="50" y1="20" x2="50" y2="10" stroke="#1F7A55" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="50" cy="8" r="5" fill="#F59E0B"/>
+            <rect x="26" y="24" width="48" height="42" rx="14" fill="#14241C"/>
+            <circle cx="40" cy="42" r="5.5" fill="#34D399"/>
+            <circle cx="60" cy="42" r="5.5" fill="#34D399"/>
+            <path d="M43 54C47 58 53 58 57 54" stroke="#34D399" stroke-width="3" stroke-linecap="round"/>
+            <path d="M20 74C20 74 34 88 50 88C66 88 80 74 80 74" stroke="#1F7A55" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="20" cy="74" r="4" fill="#10B981"/>
+            <circle cx="80" cy="74" r="4" fill="#10B981"/>
+          </svg>
+        </div>
+        <div class="mascot-bubble" id="mascotBubbleText">
+          <strong>Nóbinho:</strong>
+          Pronto para testar seus ponteiros? Clique em uma alternativa para ver a explicação na hora! ✨
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main
+    class="questions-container"
+    data-gamification-root
+    data-player-name="Aluno"
+    data-initial-coins="350"
+    data-force-admin-coins="false"
+    data-logged-in="false"
+    data-api-url="api/gamificacao.php"
+  >
+    <!-- KPIs / Cards de Resumo -->
+    <section class="kpi-grid" aria-label="Estatísticas de Resolução">
+      <div class="kpi-card" style="--card-color: #10b981; --icon-bg: #ecfdf5; --icon-color: #059669;">
+        <div class="kpi-icon-wrap">📚</div>
+        <div class="kpi-info">
+          <span class="kpi-label">Banco de Questões</span>
+          <strong class="kpi-value" id="kpiTotalQuestions">30</strong>
+          <span class="kpi-sub">Questões comentadas</span>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="--card-color: #3b82f6; --icon-bg: #eff6ff; --icon-color: #2563eb;">
+        <div class="kpi-icon-wrap">🎯</div>
+        <div class="kpi-info">
+          <span class="kpi-label">Taxa de Acerto</span>
+          <strong class="kpi-value" id="kpiAccuracy">0%</strong>
+          <span class="kpi-sub" id="kpiStreak">0 acertos</span>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="--card-color: #f59e0b; --icon-bg: #fef3c7; --icon-color: #d97706;">
+        <div class="kpi-icon-wrap">🪙</div>
+        <div class="kpi-info">
+          <span class="kpi-label">Saldo BrunoCoins</span>
+          <strong class="kpi-value" id="kpiCoins">0</strong>
+          <span class="kpi-sub" id="kpiCoinsSub">Sincronizado com PonteiroQuest</span>
+        </div>
+      </div>
+
+      <div class="kpi-card" style="--card-color: #8b5cf6; --icon-bg: #f3e8ff; --icon-color: #7c3aed;">
+        <div class="kpi-icon-wrap">🏆</div>
+        <div class="kpi-info">
+          <span class="kpi-label">Nível no PonteiroQuest</span>
+          <strong class="kpi-value" id="kpiMastery" style="font-size: 1.3rem;">Iniciante 🌱</strong>
+          <span class="kpi-sub" id="kpiAnswered">0 / 30</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Abas de Navegação -->
+    <nav class="nav-tabs-bar" aria-label="Abas do Dashboard">
+      <div class="tabs-group">
+        <button type="button" class="tab-btn is-active" data-tab="banco">
+          📑 Banco de Questões
+          <span class="tab-counter" id="tabBankCount">30</span>
+        </button>
+        <button type="button" class="tab-btn" data-tab="simulado">
+          ⚡ Simulado Rápido
+        </button>
+        <button type="button" class="tab-btn" data-tab="maestria">
+          📊 Maestria & Desempenho
+        </button>
+      </div>
+
+      <div class="tab-tools">
+        <button type="button" class="tool-toggle-btn" id="btnToggleSound">
+          🔊 Sons: Ligados
+        </button>
+        <button type="button" class="tool-toggle-btn" id="btnResetProgress" title="Zerar respostas locais">
+          🧹 Zerar Progresso
+        </button>
+      </div>
+    </nav>
+
+    <!-- ABA 1: Banco de Questões -->
+    <section id="tabContentBanco" class="tab-panel">
+      <!-- Filtros e Busca -->
+      <div class="filters-container">
+        <div class="search-box-row">
+          <div class="search-input-wrap">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="searchQuestions" 
+              class="search-input" 
+              placeholder="Pesquisar por enunciado, complexidade O(n), código ou conceito..." 
+              autocomplete="off"
+            >
+          </div>
+
+          <select id="selectDifficulty" class="filter-select" aria-label="Filtrar por dificuldade">
+            <option value="todas">Dificuldade: Todas</option>
+            <option value="facil">Fácil</option>
+            <option value="medio">Médio</option>
+            <option value="dificil">Difícil</option>
+          </select>
+
+          <select id="selectStatus" class="filter-select" aria-label="Filtrar por status">
+            <option value="todas">Status: Todas</option>
+            <option value="nao-respondidas">Não respondidas</option>
+            <option value="acertadas">Acertadas ✨</option>
+            <option value="erradas">A revisar 💡</option>
+          </select>
+        </div>
+
+        <!-- Pílulas de Categoria -->
+        <div class="category-pills-row" aria-label="Filtro de categorias">
+          <button type="button" class="cat-pill is-active" data-cat="todas">
+            Todas <span class="cat-pill-count">30</span>
+          </button>
+          <button type="button" class="cat-pill" data-cat="tad">
+            TAD & Struct
+          </button>
+          <button type="button" class="cat-pill" data-cat="lista-simples">
+            Lista Simples
+          </button>
+          <button type="button" class="cat-pill" data-cat="lista-dupla">
+            Lista Dupla
+          </button>
+          <button type="button" class="cat-pill" data-cat="fila">
+            Fila (FIFO)
+          </button>
+          <button type="button" class="cat-pill" data-cat="fila-de-prioridades">
+            Fila de Prioridades
+          </button>
+          <button type="button" class="cat-pill" data-cat="pilha">
+            Pilha (LIFO)
+          </button>
+          <button type="button" class="cat-pill" data-cat="arvore-trie">
+            Árvore Trie
+          </button>
+          <button type="button" class="cat-pill" data-cat="arvore-patricia">
+            Árvore Patricia
+          </button>
+        </div>
+      </div>
+
+      <!-- Grade Dinâmica de Perguntas -->
+      <div id="questionsGrid" class="questions-grid"></div>
+
+      <!-- Estado vazio -->
+      <div id="questionsEmptyState" style="display: none; text-align: center; padding: 60px 20px; background: #fff; border-radius: 18px; border: 1px dashed var(--dp-line);">
+        <p style="font-size: 2.5rem; margin: 0 0 12px 0;">🔍</p>
+        <h3 style="margin: 0 0 8px 0; font-size: 1.3rem;">Nenhuma pergunta encontrada</h3>
+        <p style="color: var(--dp-muted); margin: 0 0 16px 0;">Tente alterar os termos da busca ou redefinir os filtros.</p>
+        <button type="button" class="button-cute secondary" onclick="document.getElementById('searchQuestions').value = ''; document.querySelector('.cat-pill[data-cat=todas]').click();">
+          Limpar filtros
+        </button>
+      </div>
+    </section>
+
+    <!-- ABA 2: Simulado Rápido -->
+    <section id="tabContentSimulado" class="tab-panel" style="display: none;">
+      <div id="simuladoViewArea"></div>
+    </section>
+
+    <!-- ABA 3: Maestria & Desempenho -->
+    <section id="tabContentMaestria" class="tab-panel" style="display: none;">
+      <div id="masteryContentArea"></div>
+    </section>
+  </main>
+
+  <script id="dados-questoes" type="application/json">
+    [{"id": "tad-01", "question": "Um Tipo Abstrato de Dados (TAD) ajuda porque separa:", "options": ["Tela e CSS", "Contrato (o que faz) e implementação (como faz)", "Banco de dados e senha", "Loop e variável"], "answer": 1, "reward": 110, "xp": 62, "categoria": "TAD", "dificuldade": "Fácil", "explicacao": "O TAD define a especificação das operações disponíveis e o comportamento esperado, ocultando os detalhes internos de armazenamento na memória."}, {"id": "tad-02", "question": "Uma struct em linguagens como C e C# costuma ser usada para:", "options": ["Agrupar dados e campos relacionados sob um único tipo", "Abrir páginas e rotas HTML", "Substituir todo o banco relacional", "Executar scripts de animação"], "answer": 0, "reward": 105, "xp": 58, "categoria": "TAD", "dificuldade": "Fácil", "explicacao": "A struct permite definir registros heterogêneos personalizados (como Nós contendo valor e ponteiros) em uma única unidade estruturada."}, {"id": "lista-s-01", "question": "Em uma lista simplesmente encadeada com ponteiro inicio, inserir no inicio custa:", "options": ["O(1)", "O(n)", "O(n log n)", "O(n²)"], "answer": 0, "reward": 95, "xp": 55, "categoria": "Lista simples", "dificuldade": "Fácil", "explicacao": "Inserir no início envolve apenas fazer o novo nó apontar para o antigo início e atualizar o ponteiro início. Operação direta em tempo constante O(1)."}, {"id": "lista-s-02", "question": "Buscar um valor que está no último nó de uma lista simples normalmente custa:", "options": ["O(1)", "O(log n)", "O(n)", "O(n²)"], "answer": 2, "reward": 120, "xp": 65, "categoria": "Lista simples", "dificuldade": "Fácil", "explicacao": "Como listas encadeadas não possuem indexação posicional direta na memória, é necessário percorrer nó a nó a partir do início até o fim (O(n))."}, {"id": "lista-s-03", "question": "Se uma lista encadeada está vazia, normalmente o ponteiro inicio aponta para:", "options": ["fim", "null", "primeiro valor zero", "um vetor estático"], "answer": 1, "reward": 90, "xp": 52, "categoria": "Lista simples", "dificuldade": "Fácil", "explicacao": "Ao ser criada e antes de receber nós, a lista vazia não possui nós alocados na heap, de modo que inicio == null."}, {"id": "lista-s-04", "question": "Na remoção de um nó no meio de uma lista simples, o passo essencial é:", "options": ["Ordenar a lista toda", "Religar o nó anterior ao próximo do nó removido", "Duplicar os dados da lista", "Criar uma nova struct"], "answer": 1, "reward": 145, "xp": 74, "categoria": "Lista simples", "dificuldade": "Médio", "explicacao": "Para desvincular o nó sem perder o encadeamento, o nó anterior passa a apontar diretamente para anterior.prox = atual.prox."}, {"id": "lista-s-05", "question": "O ponteiro fim em uma lista encadeada ajuda principalmente a:", "options": ["Buscar qualquer nó em O(1)", "Inserir no final da lista em O(1)", "Remover nós do meio sem percurso", "Trocar o tipo dos dados"], "answer": 1, "reward": 135, "xp": 70, "categoria": "Lista simples", "dificuldade": "Médio", "explicacao": "Manter uma referência direta para o último nó evita a necessidade de percorrer todos os n elementos para realizar inserções na cauda."}, {"id": "lista-s-06", "question": "O melhor caso de busca em uma lista simplesmente encadeada acontece quando o valor está:", "options": ["No início da lista", "No último nó", "Em nenhum nó", "Fora da memória"], "answer": 0, "reward": 100, "xp": 54, "categoria": "Lista simples", "dificuldade": "Fácil", "explicacao": "Se o elemento desejado for o primeiro nó referenciado por início, a busca encerra imediatamente na primeira checagem: custo O(1)."}, {"id": "lista-s-07", "question": "Qual operação em lista simplesmente encadeada SEM ponteiro de fim é a mais lenta?", "options": ["Inserir no início", "Inserir no final", "Ler o primeiro elemento", "Verificar se está vazia"], "answer": 1, "reward": 110, "xp": 58, "categoria": "Lista simples", "dificuldade": "Fácil", "explicacao": "Sem ponteiro de cauda, para inserir no final é obrigatório iniciar na cabeça e saltar de nó em nó até achar o último (O(n))."}, {"id": "lista-s-08", "question": "Qual o principal overhead de memória de uma lista encadeada frente a um vetor?", "options": ["Cada nó consome memória adicional para armazenar os ponteiros", "A lista consome menos memória sempre", "A lista ocupa espaço fixo e estático", "Ambos usam exatamente os mesmos bytes"], "answer": 0, "reward": 120, "xp": 62, "categoria": "Lista simples", "dificuldade": "Médio", "explicacao": "Além do valor útil guardado, cada nó aloca bytes extras na heap para os ponteiros de encadeamento e cabeçalhos de alocação."}, {"id": "lista-d-01", "question": "Em uma lista duplamente encadeada, cada nó guarda:", "options": ["Apenas o valor", "Valor, ponteiro anterior e ponteiro próximo", "Valor e tamanho total", "Apenas um índice numérico"], "answer": 1, "reward": 125, "xp": 68, "categoria": "Lista dupla", "dificuldade": "Fácil", "explicacao": "A lista dupla permite caminhar para frente e para trás porque cada nó guarda ponteiros para seu predecessor (ant) e sucessor (prox)."}, {"id": "lista-d-02", "question": "Em uma lista duplamente encadeada, navegar para trás é possível devido ao ponteiro:", "options": ["proximo", "valor", "anterior", "tamanho"], "answer": 2, "reward": 130, "xp": 66, "categoria": "Lista dupla", "dificuldade": "Fácil", "explicacao": "O ponteiro anterior (ou prev) aponta diretamente para o nó que veio antes, viabilizando percursos no sentido inverso."}, {"id": "lista-d-03", "question": "Tendo em mãos a referência direta de um nó em uma Lista Dupla, sua remoção custa:", "options": ["O(1)", "O(n)", "O(log n)", "O(n²)"], "answer": 0, "reward": 140, "xp": 72, "categoria": "Lista dupla", "dificuldade": "Médio", "explicacao": "Como o nó já conhece nó.ant e nó.prox, podemos religar ambos diretamente em O(1), sem precisar varrer a lista procurando o antecessor."}, {"id": "fila-01", "question": "Uma Fila (Queue) segue a política de atendimento:", "options": ["LIFO (Last-In, First-Out)", "FIFO (First-In, First-Out)", "Ordem aleatória", "Sempre invertida"], "answer": 1, "reward": 100, "xp": 56, "categoria": "Fila", "dificuldade": "Fácil", "explicacao": "FIFO significa \"Primeiro a Entrar, Primeiro a Sair\". O primeiro elemento enfileirado é o primeiro a ser atendido e desenfileirado."}, {"id": "fila-02", "question": "No método enfileirar (enqueue), quando a fila já contém nós, a ligação correta é:", "options": ["inicio.prox = novoNo", "fim.prox = novoNo e depois fim = novoNo", "fim = inicio", "Criar o nó sem ligar aos anteriores"], "answer": 1, "reward": 120, "xp": 64, "categoria": "Fila", "dificuldade": "Médio", "explicacao": "O último elemento atual liga-se ao novo nó através de fim.prox = novoNo, e o ponteiro fim avança para o novo nó."}, {"id": "fila-03", "question": "No desenfileirar (dequeue), se a fila possui apenas 1 elemento (inicio == fim), deve-se:", "options": ["Alterar apenas inicio", "Zerar ambos: inicio = null e fim = null", "Não fazer nada", "Duplicar o ponteiro"], "answer": 1, "reward": 120, "xp": 64, "categoria": "Fila", "dificuldade": "Médio", "explicacao": "Ao remover o único nó existente, a fila passa a ficar completamente vazia, devendo ambos os ponteiros apontar para null."}, {"id": "fila-04", "question": "Qual aplicação do mundo real ou computacional opera por padrão como uma Fila FIFO?", "options": ["Pilha de livros lavados", "Fila de impressão de documentos (spooler)", "Histórico de Desfazer de editores de texto", "Navegação \"Voltar\" do navegador"], "answer": 1, "reward": 95, "xp": 52, "categoria": "Fila", "dificuldade": "Fácil", "explicacao": "O spooler de impressão atende os documentos estritamente na ordem em que foram enviados pelos usuários (FIFO)."}, {"id": "fila-p-01", "question": "Em uma Fila de Prioridades, a ordem de saída dos itens é regida por:", "options": ["Apenas a ordem temporal de chegada", "Um critério ou valor de prioridade atribuído", "Sorteio randômico", "A ordem alfabética do autor"], "answer": 1, "reward": 130, "xp": 68, "categoria": "Fila de prioridades", "dificuldade": "Médio", "explicacao": "Elementos com maior prioridade furam a ordem cronológica e são retirados primeiro da fila."}, {"id": "fila-p-02", "question": "Em um pronto-socorro com triagem de risco (Manchester), a ordem de atendimento exemplifica:", "options": ["Pilha LIFO", "Fila de Prioridades", "Árvore Patricia", "Lista Estática Circular"], "answer": 1, "reward": 115, "xp": 60, "categoria": "Fila de prioridades", "dificuldade": "Fácil", "explicacao": "Pacientes em estado crítico (vermelho) são priorizados antes de casos leves, caracterizando uma Fila de Prioridades clássica."}, {"id": "pilha-01", "question": "Uma Pilha (Stack) opera sob a regra fundamental de:", "options": ["FIFO (First-In, First-Out)", "LIFO (Last-In, First-Out)", "Ordenação por chave", "Sempre bidirecional"], "answer": 1, "reward": 100, "xp": 56, "categoria": "Pilha", "dificuldade": "Fácil", "explicacao": "LIFO significa \"Último a Entrar, Primeiro a Sair\". O elemento colocado no topo é o primeiro a ser desempilhado."}, {"id": "pilha-02", "question": "No método push (empilhar) de uma Pilha encadeada, o encadeamento é feito por:", "options": ["novoNo.prox = topo e depois topo = novoNo", "topo.prox = novoNo", "topo = null", "Percorrer toda a pilha até a base"], "answer": 0, "reward": 120, "xp": 64, "categoria": "Pilha", "dificuldade": "Médio", "explicacao": "O novo nó aponta para o antigo topo, e o ponteiro topo é atualizado para o novo nó. Custo O(1)."}, {"id": "pilha-03", "question": "No método pop (desempilhar) de uma Pilha, o ponteiro de topo é reposicionado com:", "options": ["topo = topo.prox", "topo = null sempre", "topo = base", "Nenhuma alteração de ponteiro"], "answer": 0, "reward": 120, "xp": 64, "categoria": "Pilha", "dificuldade": "Médio", "explicacao": "Ao retirar o topo, o novo topo passa a ser o nó imediatamente abaixo dele, obtido via topo = topo.prox."}, {"id": "pilha-04", "question": "A pilha de execução de funções (Call Stack) de um programa atua como:", "options": ["Uma Fila FIFO", "Uma Pilha LIFO", "Uma Fila de Prioridades", "Uma Árvore Trie"], "answer": 1, "reward": 120, "xp": 64, "categoria": "Pilha", "dificuldade": "Fácil", "explicacao": "A função chamada por último é a que precisa terminar e ser desempilhada primeiro para que a função chamadora retome sua execução."}, {"id": "pilha-05", "question": "A validação de parênteses e chaves balanceadas em um compilador é solucionada por:", "options": ["Pilha", "Fila simples", "Árvore Patricia", "Lista circular"], "answer": 0, "reward": 135, "xp": 70, "categoria": "Pilha", "dificuldade": "Médio", "explicacao": "Cada abertura empilha o símbolo; cada fechamento deve casar com o elemento no topo da pilha, desempilhando-o."}, {"id": "trie-01", "question": "Em uma Árvore Trie, o caminho da raiz até determinado nó representa:", "options": ["Um prefixo de caracteres", "Uma chave criptográfica fixa", "Uma prioridade de fila", "Um índice de vetor"], "answer": 0, "reward": 120, "xp": 64, "categoria": "Arvore Trie", "dificuldade": "Médio", "explicacao": "A sequência de arestas/caracteres do caminho até o nó forma o prefixo compartilhado pelas palavras daquela subárvore."}, {"id": "trie-02", "question": "Buscar uma palavra de comprimento m em uma Trie consome tempo da ordem de:", "options": ["O(1)", "O(log m)", "O(m)", "O(m²)"], "answer": 2, "reward": 135, "xp": 70, "categoria": "Arvore Trie", "dificuldade": "Médio", "explicacao": "O tempo de busca é proporcional ao tamanho da palavra (número de caracteres m), sendo independente do total de palavras armazenadas."}, {"id": "trie-03", "question": "Em uma Trie, a marcação fimDaPalavra (isEndOfWord) serve para:", "options": ["Distinguir uma palavra completa de um mero prefixo", "Indicar a raiz", "Sinalizar que a árvore está cheia", "Bloquear novas inserções"], "answer": 0, "reward": 130, "xp": 68, "categoria": "Arvore Trie", "dificuldade": "Fácil", "explicacao": "Indica que os caracteres acumulados até aquele nó formam uma palavra cadastrada por si mesma (ex: \"sol\" dentro de \"solar\")."}, {"id": "trie-04", "question": "A estrutura mais indicada para recursos de auto-completar (autocomplete) e dicionários é:", "options": ["Árvore Trie / Patricia", "Fila FIFO", "Pilha LIFO", "Vetor desordenado"], "answer": 0, "reward": 125, "xp": 65, "categoria": "Arvore Trie", "dificuldade": "Fácil", "explicacao": "Uma vez localizado o nó do prefixo digitado, todas as sugestões válidas estão diretamente sob sua subárvore."}, {"id": "patricia-01", "question": "A principal diferença da Árvore Patricia para a Trie convencional é:", "options": ["Usar apenas inteiros", "Comprimir caminhos longos sem ramificação em um único nó/aresta", "Eliminar a raiz", "Ordenar por prioridade"], "answer": 1, "reward": 145, "xp": 76, "categoria": "Arvore Patricia", "dificuldade": "Difícil", "explicacao": "A Patricia (Radix Tree compactada) comprime sequências de nós que possuem apenas um único filho, economizando nós e ponteiros."}, {"id": "patricia-02", "question": "Na Árvore Patricia compactada, todo nó interno (não-folha) possui grau:", "options": ["Pelo menos 2 (duas ramificações)", "Obrigatoriamente 1", "Sempre nulo", "Apenas ponteiro para a raiz"], "answer": 0, "reward": 150, "xp": 80, "categoria": "Arvore Patricia", "dificuldade": "Difícil", "explicacao": "Como qualquer nó de grau 1 é compactado e mesclado ao pai, nós internos representam pontos de bifurcação reais (grau >= 2)."}]
+  </script>
+
+  <canvas id="confettiCanvas"></canvas>
+  <div id="cuteToast" class="cute-toast" role="status" aria-live="polite"></div>
+
+  <script>
+/**
+ * assets/js/dashboard-perguntas.js
+ * Lógica interativa, fofa e completa do Dashboard de Perguntas de ED
+ */
+
+(function () {
+  'use strict';
+
+  // Chaves de persistência local integradas com o PonteiroQuest
+  const STORAGE_KEY = 'grupo6_brunocoins_v1';
+  const LEGACY_STORAGE_KEY = 'ed_perguntas_respostas_v2';
+  const SOUND_KEY = 'ed_perguntas_sound_enabled';
+
+  // Obter raiz de configuração de gamificação
+  const root = document.querySelector('[data-gamification-root]') || document.body;
+  const apiUrl = root.dataset.apiUrl || null;
+  const isLoggedIn = root.dataset.loggedIn === 'true';
+  const forceAdminCoins = root.dataset.forceAdminCoins === 'true';
+  const initialCoins = parseInt(root.dataset.initialCoins || '350', 10);
+
+  // Obter perguntas embutidas no DOM
+  const rawDataEl = document.getElementById('dados-questoes');
+  let QUESTIONS = [];
+  try {
+    QUESTIONS = rawDataEl ? JSON.parse(rawDataEl.textContent) : [];
+  } catch (e) {
+    console.error('Erro ao ler perguntas:', e);
+    QUESTIONS = [];
+  }
+
+  // Estado do jogo e progresso do usuário
+  let gameState = loadGameState();
+  let userProgress = gameState.questionsProgress || {};
+  let soundEnabled = localStorage.getItem(SOUND_KEY) !== 'false';
+
+  // Filtros ativos
+  let currentFilters = {
+    search: '',
+    category: 'todas',
+    difficulty: 'todas',
+    status: 'todas',
+  };
+
+  // Estado do Simulado Rápido
+  let simuladoState = {
+    active: false,
+    questions: [],
+    currentIndex: 0,
+    answers: {},
+    correctCount: 0,
+  };
+
+  // Frases do mascote Nóbinho
+  const MASCOT_PHRASES = [
+    'Oi! Eu sou o Nóbinho. Cada pergunta respondida fortalece seus neurônios e seus ponteiros! 🤖✨',
+    'Dica de ouro: em listas encadeadas, nunca perca a referência do próximo antes de religar!',
+    'Fila é FIFO, Pilha é LIFO! Lembra da pilha de pratos e da fila do bandejão? 🍽️',
+    'Sabia que a Árvore Patricia compacta nós de grau 1? Pura economia de memória!',
+    'Mandando ver nos estudos! O Grupo 6 está orgulhoso do seu progresso! 🚀',
+  ];
+
+  /* ==========================================================
+     Sons Fofos Nativos via Web Audio API (100% offline)
+  ========================================================== */
+  let audioCtx = null;
+  function getAudioContext() {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) audioCtx = new AudioContext();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function playSound(type) {
+    if (!soundEnabled) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      const now = ctx.currentTime;
+
+      if (type === 'correct') {
+        // Acorde alegre de 2 notas (Mi -> Sol#)
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, now); // C5
+        osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        osc.start(now);
+        osc.stop(now + 0.36);
+      } else if (type === 'wrong') {
+        // Tom suave de erro
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(260, now);
+        osc.frequency.setValueAtTime(220, now + 0.1);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+        osc.start(now);
+        osc.stop(now + 0.29);
+      } else if (type === 'fanfare') {
+        // Fanfarra de conclusão de simulado
+        [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+          const o = ctx.createOscillator();
+          const g = ctx.createGain();
+          o.connect(g);
+          g.connect(ctx.destination);
+          o.type = 'triangle';
+          o.frequency.setValueAtTime(freq, now + i * 0.09);
+          g.gain.setValueAtTime(0.1, now + i * 0.09);
+          g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.09 + 0.3);
+          o.start(now + i * 0.09);
+          o.stop(now + i * 0.09 + 0.31);
+        });
+      }
+    } catch (e) {
+      // Ignora falhas de áudio silenciosamente
+    }
+  }
+
+  /* ==========================================================
+     Confetes Fofos Nativos via Canvas
+  ========================================================== */
+  function launchConfetti() {
+    const canvas = document.getElementById('confettiCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = ['#10b981', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6', '#14b8a6'];
+    const particles = [];
+    const count = 90;
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: canvas.width / 2 + (Math.random() - 0.5) * 200,
+        y: canvas.height * 0.4 + (Math.random() - 0.5) * 100,
+        vx: (Math.random() - 0.5) * 12,
+        vy: (Math.random() - 1.2) * 10,
+        size: Math.random() * 8 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        vRot: (Math.random() - 0.5) * 8,
+        life: 1,
+      });
+    }
+
+    let animationFrame;
+    function render() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      let alive = false;
+
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.28; // gravidade
+        p.rotation += p.vRot;
+        p.life -= 0.012;
+
+        if (p.life > 0) {
+          alive = true;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = Math.max(0, p.life);
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.restore();
+        }
+      });
+
+      if (alive) {
+        animationFrame = requestAnimationFrame(render);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cancelAnimationFrame(animationFrame);
+      }
+    }
+    render();
+  }
+
+  /* ==========================================================
+     Persistência & Integração com PonteiroQuest
+  ========================================================== */
+  function freshGameState() {
+    return {
+      coins: initialCoins,
+      xp: 0,
+      combo: 0,
+      bestCombo: 0,
+      answered: 0,
+      correct: 0,
+      purchases: 0,
+      owned: ['camiseta-grupo-6', 'calca-base-ed'],
+      equipped: {
+        tronco: 'camiseta-grupo-6',
+        pernas: 'calca-base-ed',
+      },
+      upgrades: {},
+      claimedMissions: [],
+      chestReadyAt: 0,
+      abilityCharges: {},
+      questionsProgress: {},
+    };
+  }
+
+  function loadGameState() {
+    let state = freshGameState();
+
+    // 1. Tentar ler do localStorage do PonteiroQuest
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+      if (saved && typeof saved === 'object') {
+        state = {
+          ...state,
+          ...saved,
+          equipped: { ...state.equipped, ...(saved.equipped || {}) },
+          upgrades: { ...(saved.upgrades || {}) },
+          owned: Array.isArray(saved.owned) ? saved.owned : state.owned,
+          claimedMissions: Array.isArray(saved.claimedMissions) ? saved.claimedMissions : [],
+          abilityCharges: { ...(saved.abilityCharges || {}) },
+          questionsProgress: { ...(saved.questionsProgress || {}) },
+        };
+      }
+    } catch (e) {}
+
+    // 2. Se houver perfil injetado pelo PHP no DOM (para usuario logado)
+    const profileEl = document.getElementById('dados-perfil-gamificacao');
+    if (profileEl && profileEl.textContent.trim()) {
+      try {
+        const serverProfile = JSON.parse(profileEl.textContent);
+        if (serverProfile && typeof serverProfile === 'object') {
+          state = {
+            ...state,
+            ...serverProfile,
+            equipped: { ...state.equipped, ...(serverProfile.equipped || {}) },
+            upgrades: { ...(serverProfile.upgrades || {}) },
+            owned: Array.isArray(serverProfile.owned)
+              ? Array.from(new Set([...state.owned, ...serverProfile.owned]))
+              : state.owned,
+            questionsProgress: {
+              ...(state.questionsProgress || {}),
+              ...(serverProfile.questionsProgress || {}),
+            },
+          };
+        }
+      } catch (e) {}
+    }
+
+    // 3. Mesclar progresso legado do dashboard caso exista
+    try {
+      const legacy = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY));
+      if (legacy && typeof legacy === 'object') {
+        state.questionsProgress = { ...legacy, ...(state.questionsProgress || {}) };
+      }
+    } catch (e) {}
+
+    if (forceAdminCoins) {
+      state.coins = Math.max(state.coins, initialCoins);
+    }
+
+    return state;
+  }
+
+  let syncTimeout = null;
+
+  function saveGameState() {
+    if (forceAdminCoins) {
+      gameState.coins = Math.max(gameState.coins, initialCoins);
+    }
+
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+      localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(userProgress));
+    } catch (e) {
+      console.warn('Não foi possível salvar no localStorage');
+    }
+
+    agendarSincronizacaoServidor();
+  }
+
+  function agendarSincronizacaoServidor() {
+    if (!isLoggedIn || !apiUrl) return;
+
+    const syncStatusEl = document.getElementById('pqSyncStatus');
+    if (syncStatusEl) {
+      syncStatusEl.textContent = '⟳ Salvando...';
+      syncStatusEl.style.color = '#f59e0b';
+    }
+
+    clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => {
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(gameState),
+      })
+        .then((r) => {
+          if (syncStatusEl) {
+            if (r.ok) {
+              syncStatusEl.textContent = '● Conectado';
+              syncStatusEl.style.color = '#10b981';
+            } else {
+              syncStatusEl.textContent = '⚠️ Erro sync';
+              syncStatusEl.style.color = '#ef4444';
+            }
+          }
+        })
+        .catch(() => {
+          if (syncStatusEl) {
+            syncStatusEl.textContent = '○ Offline (local)';
+            syncStatusEl.style.color = '#6b7280';
+          }
+        });
+    }, 600);
+  }
+
+  function hidratarComServidor() {
+    if (!isLoggedIn || !apiUrl) return;
+
+    fetch(apiUrl)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((servidor) => {
+        if (!servidor || servidor.erro) return;
+
+        gameState = {
+          ...gameState,
+          ...servidor,
+          equipped: { ...gameState.equipped, ...(servidor.equipped || {}) },
+          upgrades: { ...(gameState.upgrades || {}), ...(servidor.upgrades || {}) },
+          owned: Array.isArray(servidor.owned)
+            ? Array.from(new Set([...gameState.owned, ...servidor.owned]))
+            : gameState.owned,
+          claimedMissions: Array.isArray(servidor.claimedMissions)
+            ? servidor.claimedMissions
+            : gameState.claimedMissions,
+          questionsProgress: {
+            ...(gameState.questionsProgress || {}),
+            ...(servidor.questionsProgress || {}),
+          },
+        };
+
+        if (forceAdminCoins) {
+          gameState.coins = Math.max(gameState.coins, initialCoins);
+        }
+
+        userProgress = gameState.questionsProgress || {};
+
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+          localStorage.setItem(LEGACY_STORAGE_KEY, JSON.stringify(userProgress));
+        } catch (e) {}
+
+        updateKPICards();
+        renderQuestionsGrid();
+
+        const syncStatusEl = document.getElementById('pqSyncStatus');
+        if (syncStatusEl) {
+          syncStatusEl.textContent = '● Conectado';
+          syncStatusEl.style.color = '#10b981';
+        }
+      })
+      .catch(() => {});
+  }
+
+  function getLevel() {
+    return Math.max(1, Math.floor((gameState.xp || 0) / 420) + 1);
+  }
+
+  function calculateStats() {
+    const total = QUESTIONS.length;
+    let answered = 0;
+    let correct = 0;
+    let currentStreak = 0;
+    let maxStreak = 0;
+
+    // Estatísticas por categoria
+    const categoryStats = {};
+
+    QUESTIONS.forEach((q, idx) => {
+      const qId = q.id || 'q-' + idx;
+      const cat = q.categoria;
+
+      if (!categoryStats[cat]) {
+        categoryStats[cat] = { total: 0, correct: 0, answered: 0 };
+      }
+      categoryStats[cat].total++;
+
+      if (userProgress[qId] !== undefined) {
+        answered++;
+        categoryStats[cat].answered++;
+        if (userProgress[qId].correct) {
+          correct++;
+          categoryStats[cat].correct++;
+          currentStreak++;
+          if (currentStreak > maxStreak) maxStreak = currentStreak;
+        } else {
+          currentStreak = 0;
+        }
+      }
+    });
+
+    const effectiveAnswered = Math.max(answered, Number(gameState.answered) || 0);
+    const effectiveCorrect = Math.max(correct, Number(gameState.correct) || 0);
+
+    const accuracy = effectiveAnswered > 0 ? Math.round((effectiveCorrect / effectiveAnswered) * 100) : 0;
+    const progressPct = total > 0 ? Math.round((answered / total) * 100) : 0;
+
+    const level = getLevel();
+    let masteryLevel = `Nível ${level} 🌱`;
+    if (accuracy >= 90 && effectiveAnswered >= 20) masteryLevel = `Nível ${level} • Mestre 🏆`;
+    else if (accuracy >= 75 && effectiveAnswered >= 10) masteryLevel = `Nível ${level} • Explorador ⚡`;
+    else if (effectiveAnswered >= 5) masteryLevel = `Nível ${level} • Praticante 📚`;
+
+    return {
+      total,
+      answered,
+      correct,
+      effectiveAnswered,
+      effectiveCorrect,
+      accuracy,
+      progressPct,
+      coins: gameState.coins || 0,
+      xp: gameState.xp || 0,
+      level,
+      maxStreak,
+      masteryLevel,
+      categoryStats,
+    };
+  }
+
+  function updateKPICards() {
+    const stats = calculateStats();
+
+    const elTotal = document.getElementById('kpiTotalQuestions');
+    const elAccuracy = document.getElementById('kpiAccuracy');
+    const elAnswered = document.getElementById('kpiAnswered');
+    const elStreak = document.getElementById('kpiStreak');
+    const elCoins = document.getElementById('kpiCoins');
+    const elMastery = document.getElementById('kpiMastery');
+
+    if (elTotal) elTotal.textContent = stats.total;
+    if (elAccuracy) elAccuracy.textContent = stats.accuracy + '%';
+    if (elAnswered) elAnswered.textContent = `${stats.answered} / ${stats.total}`;
+    if (elStreak) elStreak.textContent = `${stats.effectiveCorrect} acertos`;
+    if (elCoins) elCoins.textContent = stats.coins.toLocaleString('pt-BR');
+    if (elMastery) elMastery.textContent = stats.masteryLevel;
+
+    // Atualiza pílula no Hero
+    const pqPlayerCoins = document.getElementById('pqPlayerCoins');
+    const pqPlayerLevel = document.getElementById('pqPlayerLevel');
+    if (pqPlayerCoins) pqPlayerCoins.textContent = stats.coins.toLocaleString('pt-BR');
+    if (pqPlayerLevel) pqPlayerLevel.textContent = stats.level;
+
+    // Atualiza badges das abas
+    const tabBankCount = document.getElementById('tabBankCount');
+    if (tabBankCount) tabBankCount.textContent = stats.total;
+
+    // Atualiza frase do mascote se tiver bom aproveitamento
+    const mascotBubble = document.getElementById('mascotBubbleText');
+    if (mascotBubble) {
+      if (stats.effectiveAnswered === 0) {
+        mascotBubble.innerHTML = '<strong>Olá!</strong> Seus dados estão conectados ao PonteiroQuest! Escolha uma questão ou inicie um Simulado para ganhar moedas!';
+      } else if (stats.accuracy >= 80) {
+        mascotBubble.innerHTML = `<strong>Incrível!</strong> Você está com ${stats.accuracy}% de acerto no PonteiroQuest! Continue assim para gabaritar a disciplina! 🎉`;
+      } else if (stats.accuracy >= 50) {
+        mascotBubble.innerHTML = `<strong>Bom ritmo!</strong> Você já respondeu ${stats.effectiveAnswered} questões. Revise as explicações das que errou! 💡`;
+      } else {
+        mascotBubble.innerHTML = '<strong>Não desanime!</strong> Errar faz parte do aprendizado. Leia cada explicação com calma!';
+      }
+    }
+
+    renderMasterySection(stats);
+  }
+
+  /* ==========================================================
+     Renderização do Banco de Questões
+  ========================================================== */
+  function getCategorySlug(cat) {
+    return (cat || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, '-');
+  }
+
+  function renderQuestionsGrid() {
+    const gridEl = document.getElementById('questionsGrid');
+    if (!gridEl) return;
+
+    // Filtrar questões
+    const searchLow = currentFilters.search.toLowerCase().trim();
+
+    const filtered = QUESTIONS.filter((q, idx) => {
+      const qId = q.id || 'q-' + idx;
+      const userRes = userProgress[qId];
+
+      // Filtro de busca
+      if (searchLow) {
+        const matchesQ = q.question.toLowerCase().includes(searchLow);
+        const matchesOpt = q.options.some((o) => o.toLowerCase().includes(searchLow));
+        const matchesCat = q.categoria.toLowerCase().includes(searchLow);
+        if (!matchesQ && !matchesOpt && !matchesCat) return false;
+      }
+
+      // Filtro de categoria
+      if (currentFilters.category !== 'todas') {
+        const slug = getCategorySlug(q.categoria);
+        if (slug !== currentFilters.category) return false;
+      }
+
+      // Filtro de dificuldade
+      if (currentFilters.difficulty !== 'todas') {
+        const diff = (q.dificuldade || 'Médio').toLowerCase();
+        if (diff !== currentFilters.difficulty.toLowerCase()) return false;
+      }
+
+      // Filtro de status
+      if (currentFilters.status === 'nao-respondidas' && userRes !== undefined) return false;
+      if (currentFilters.status === 'acertadas' && (!userRes || !userRes.correct)) return false;
+      if (currentFilters.status === 'erradas' && (!userRes || userRes.correct)) return false;
+
+      return true;
+    });
+
+    const emptyStateEl = document.getElementById('questionsEmptyState');
+    if (filtered.length === 0) {
+      gridEl.innerHTML = '';
+      if (emptyStateEl) emptyStateEl.style.display = 'block';
+      return;
+    }
+
+    if (emptyStateEl) emptyStateEl.style.display = 'none';
+
+    gridEl.innerHTML = filtered
+      .map((q, filteredIndex) => {
+        const globalIndex = QUESTIONS.indexOf(q);
+        const qId = q.id || 'q-' + globalIndex;
+        const userRes = userProgress[qId];
+        const catSlug = getCategorySlug(q.categoria);
+        const difficulty = q.dificuldade || 'Médio';
+        const diffClass = 'diff-' + difficulty.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+        let cardStatusClass = '';
+        if (userRes) {
+          cardStatusClass = userRes.correct ? 'status-correct' : 'status-wrong';
+        }
+
+        const letters = ['A', 'B', 'C', 'D'];
+
+        const optionsHtml = q.options
+          .map((opt, optIndex) => {
+            let optClass = '';
+            let isSelected = false;
+
+            if (userRes) {
+              if (optIndex === userRes.chosen) {
+                isSelected = true;
+                optClass = userRes.correct ? 'is-selected-correct' : 'is-selected-wrong';
+              } else if (!userRes.correct && optIndex === q.answer) {
+                optClass = 'is-revealed-correct';
+              }
+            }
+
+            return `
+              <button 
+                type="button" 
+                class="option-btn ${optClass}" 
+                data-qid="${qId}" 
+                data-opt="${optIndex}"
+                ${userRes ? 'disabled' : ''}
+              >
+                <span class="opt-letter">${letters[optIndex]}</span>
+                <span class="opt-text">${escapeHtml(opt)}</span>
+              </button>
+            `;
+          })
+          .join('');
+
+        const explanationHtml = userRes
+          ? `
+          <div class="explanation-box">
+            <strong>${userRes.correct ? '✨ Excelente! Explicação:' : '💡 Explicação didática:'}</strong>
+            ${escapeHtml(q.explicacao || 'Revise a teoria referente a este módulo nos menus de conteúdo.')}
+          </div>
+        `
+          : '';
+
+        return `
+          <article class="question-card ${cardStatusClass}" id="card-${qId}">
+            <div class="card-topbar">
+              <span class="category-badge badge-${catSlug}">${escapeHtml(q.categoria)}</span>
+              <span class="difficulty-badge ${diffClass}">
+                <span class="diff-dot"></span>
+                ${escapeHtml(difficulty)}
+              </span>
+            </div>
+
+            <h3 class="card-question-text">${escapeHtml(q.question)}</h3>
+
+            <div class="card-options-list">
+              ${optionsHtml}
+            </div>
+
+            ${explanationHtml}
+
+            <div class="card-footer">
+              <span class="reward-tag">🪙 +${q.reward || 100} BC &bull; ${q.xp || 50} XP</span>
+              ${
+                userRes
+                  ? `<button type="button" class="card-action-btn btn-retry" data-qid="${qId}">Refazer questão</button>`
+                  : `<span class="card-status-hint">Selecione uma alternativa</span>`
+              }
+            </div>
+          </article>
+        `;
+      })
+      .join('');
+
+    // Listener para opções de resposta
+    gridEl.querySelectorAll('.option-btn:not(:disabled)').forEach((btn) => {
+      btn.addEventListener('click', handleAnswerClick);
+    });
+
+    // Listener para refazer questão
+    gridEl.querySelectorAll('.btn-retry').forEach((btn) => {
+      btn.addEventListener('click', handleRetryClick);
+    });
+  }
+
+  function handleAnswerClick(e) {
+    const btn = e.currentTarget;
+    const qId = btn.getAttribute('data-qid');
+    const optIndex = parseInt(btn.getAttribute('data-opt'), 10);
+
+    const question = QUESTIONS.find((q, i) => (q.id || 'q-' + i) === qId);
+    if (!question) return;
+
+    const isCorrect = optIndex === question.answer;
+
+    userProgress[qId] = {
+      chosen: optIndex,
+      correct: isCorrect,
+      answeredAt: Date.now(),
+    };
+
+    gameState.questionsProgress = userProgress;
+    gameState.answered = Math.max((gameState.answered || 0) + 1, Object.keys(userProgress).length);
+
+    if (isCorrect) {
+      gameState.correct = (gameState.correct || 0) + 1;
+      gameState.combo = (gameState.combo || 0) + 1;
+      gameState.bestCombo = Math.max(gameState.bestCombo || 0, gameState.combo);
+
+      const reward = question.reward || 100;
+      const xpReward = question.xp || 55;
+      gameState.coins = (gameState.coins || 0) + reward;
+      gameState.xp = (gameState.xp || 0) + xpReward;
+
+      playSound('correct');
+      launchConfetti();
+      showToast(`🎉 Correto! +${reward} BrunoCoins e +${xpReward} XP no PonteiroQuest!`);
+    } else {
+      gameState.combo = 0;
+      playSound('wrong');
+      showToast('❌ Quase lá! Veja a explicação para fixar o conceito.');
+    }
+
+    saveGameState();
+    updateKPICards();
+    renderQuestionsGrid();
+  }
+
+  function handleRetryClick(e) {
+    const qId = e.currentTarget.getAttribute('data-qid');
+    if (!qId) return;
+
+    delete userProgress[qId];
+    gameState.questionsProgress = userProgress;
+
+    saveGameState();
+    updateKPICards();
+    renderQuestionsGrid();
+    showToast('🔄 Questão resetada para praticar novamente!');
+  }
+
+  /* ==========================================================
+     Aba de Maestria por Estrutura de Dados
+  ========================================================== */
+  function renderMasterySection(stats) {
+    const container = document.getElementById('masteryContentArea');
+    if (!container) return;
+
+    const cats = stats.categoryStats;
+    const catKeys = Object.keys(cats);
+
+    if (catKeys.length === 0) {
+      container.innerHTML = '<p>Nenhum dado disponível ainda.</p>';
+      return;
+    }
+
+    const itemsHtml = catKeys
+      .map((cat) => {
+        const item = cats[cat];
+        const pct = item.total > 0 ? Math.round((item.correct / item.total) * 100) : 0;
+        const slug = getCategorySlug(cat);
+
+        return `
+          <div class="mastery-bar-item">
+            <div class="mastery-bar-info">
+              <span>${escapeHtml(cat)}</span>
+              <span><strong>${item.correct}/${item.total}</strong> (${pct}%)</span>
+            </div>
+            <div class="mastery-track">
+              <div class="mastery-fill fill-${slug}" style="width: ${pct}%"></div>
+            </div>
+          </div>
+        `;
+      })
+      .join('');
+
+    container.innerHTML = `
+      <div class="mastery-layout">
+        <div class="mastery-card">
+          <h3>Progresso por Estrutura</h3>
+          <p>Acompanhe sua taxa de aproveitamento em cada tema de Estrutura de Dados.</p>
+          ${itemsHtml}
+        </div>
+        <div class="mastery-card">
+          <h3>Dicas de Estudo Personalizadas</h3>
+          <div class="study-tips-list" style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
+            <div style="background: #f4f8f5; border-radius: 12px; padding: 14px; border-left: 4px solid #10b981;">
+              <strong style="color: #065f46; display: block; margin-bottom: 4px;">🚀 Complexidades Assintóticas</strong>
+              <span style="font-size: 0.88rem; color: #37463f;">Em listas encadeadas, ponteiros de início e fim garantem inserções em O(1), mas buscas sem índice custam O(n).</span>
+            </div>
+            <div style="background: #eff6ff; border-radius: 12px; padding: 14px; border-left: 4px solid #3b82f6;">
+              <strong style="color: #1e40af; display: block; margin-bottom: 4px;">🔄 LIFO vs FIFO</strong>
+              <span style="font-size: 0.88rem; color: #37463f;">Lembre-se: Pilhas (Stack) atuam no topo (LIFO) e Filas (Queue) inserem no fim e removem no início (FIFO).</span>
+            </div>
+            <div style="background: #fdf4ff; border-radius: 12px; padding: 14px; border-left: 4px solid #a855f7;">
+              <strong style="color: #6b21a8; display: block; margin-bottom: 4px;">🌳 Trie vs Patricia</strong>
+              <span style="font-size: 0.88rem; color: #37463f;">A Patricia é uma Trie compactada: qualquer sequência de nós sem ramificações vira um único nó longo, poupando ponteiros!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  /* ==========================================================
+     Modo Simulado Rápido
+  ========================================================== */
+  function startSimulado(numQuestoes = 5) {
+    // Escolhe aleatoriamente numQuestoes
+    const shuffled = [...QUESTIONS].sort(() => 0.5 - Math.random());
+    simuladoState.questions = shuffled.slice(0, Math.min(numQuestoes, QUESTIONS.length));
+    simuladoState.currentIndex = 0;
+    simuladoState.answers = {};
+    simuladoState.correctCount = 0;
+    simuladoState.active = true;
+
+    renderSimuladoScreen();
+  }
+
+  function renderSimuladoScreen() {
+    const container = document.getElementById('simuladoViewArea');
+    if (!container) return;
+
+    if (!simuladoState.active) {
+      container.innerHTML = `
+        <div class="simulado-result-screen">
+          <div class="result-trophy">⚡</div>
+          <h2 class="result-score-title">Pronto para o Simulado Rápido?</h2>
+          <p class="result-score-desc">Teste seus conhecimentos com questões aleatórias selecionadas na hora com pontuação instantânea.</p>
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <button type="button" class="button-cute primary" id="btnStartSimulado5">Simulado de 5 Questões</button>
+            <button type="button" class="button-cute secondary" id="btnStartSimulado10">Simulado de 10 Questões</button>
+          </div>
+        </div>
+      `;
+
+      const b5 = document.getElementById('btnStartSimulado5');
+      const b10 = document.getElementById('btnStartSimulado10');
+      if (b5) b5.addEventListener('click', () => startSimulado(5));
+      if (b10) b10.addEventListener('click', () => startSimulado(10));
+      return;
+    }
+
+    // Se finalizou
+    if (simuladoState.currentIndex >= simuladoState.questions.length) {
+      finishSimulado(container);
+      return;
+    }
+
+    const currentQ = simuladoState.questions[simuladoState.currentIndex];
+    const totalQ = simuladoState.questions.length;
+    const progressPct = Math.round((simuladoState.currentIndex / totalQ) * 100);
+    const catSlug = getCategorySlug(currentQ.categoria);
+    const letters = ['A', 'B', 'C', 'D'];
+
+    container.innerHTML = `
+      <div class="quiz-mode-container">
+        <div class="simulado-header">
+          <span class="category-badge badge-${catSlug}">${escapeHtml(currentQ.categoria)}</span>
+          <span style="font-weight: 800; font-size: 0.95rem; color: var(--dp-muted);">Questão ${simuladoState.currentIndex + 1} de ${totalQ}</span>
+        </div>
+
+        <div class="simulado-progress-bar">
+          <div class="simulado-progress-fill" style="width: ${progressPct}%"></div>
+        </div>
+
+        <div class="simulado-question-box">
+          <h3 class="simulado-question-title">${escapeHtml(currentQ.question)}</h3>
+          <div class="simulado-options-grid">
+            ${currentQ.options
+              .map(
+                (opt, i) => `
+              <button type="button" class="simulado-option-btn" data-opt="${i}">
+                <span class="opt-letter">${letters[i]}</span>
+                <span>${escapeHtml(opt)}</span>
+              </button>
+            `
+              )
+              .join('')}
+          </div>
+        </div>
+
+        <div class="simulado-footer-actions">
+          <button type="button" class="button-cute secondary" id="btnCancelSimulado">Sair do simulado</button>
+          <span style="font-size: 0.85rem; color: var(--dp-muted);">Selecione uma resposta para avançar</span>
+        </div>
+      </div>
+    `;
+
+    container.querySelectorAll('.simulado-option-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const opt = parseInt(e.currentTarget.getAttribute('data-opt'), 10);
+        handleSimuladoAnswer(opt);
+      });
+    });
+
+    const btnCancel = document.getElementById('btnCancelSimulado');
+    if (btnCancel) {
+      btnCancel.addEventListener('click', () => {
+        if (confirm('Deseja realmente sair do simulado? O progresso da rodada não será salvo.')) {
+          simuladoState.active = false;
+          renderSimuladoScreen();
+        }
+      });
+    }
+  }
+
+  function handleSimuladoAnswer(chosenOpt) {
+    const currentQ = simuladoState.questions[simuladoState.currentIndex];
+    const isCorrect = chosenOpt === currentQ.answer;
+
+    if (isCorrect) {
+      simuladoState.correctCount++;
+      playSound('correct');
+    } else {
+      playSound('wrong');
+    }
+
+    // Salva também no progresso geral e no PonteiroQuest
+    const qId = currentQ.id || 'q-' + QUESTIONS.indexOf(currentQ);
+    userProgress[qId] = {
+      chosen: chosenOpt,
+      correct: isCorrect,
+      answeredAt: Date.now(),
+    };
+
+    gameState.questionsProgress = userProgress;
+    gameState.answered = Math.max((gameState.answered || 0) + 1, Object.keys(userProgress).length);
+
+    if (isCorrect) {
+      gameState.correct = (gameState.correct || 0) + 1;
+      gameState.combo = (gameState.combo || 0) + 1;
+      gameState.bestCombo = Math.max(gameState.bestCombo || 0, gameState.combo);
+
+      const reward = currentQ.reward || 100;
+      const xpReward = currentQ.xp || 55;
+      gameState.coins = (gameState.coins || 0) + reward;
+      gameState.xp = (gameState.xp || 0) + xpReward;
+    } else {
+      gameState.combo = 0;
+    }
+
+    saveGameState();
+
+    simuladoState.currentIndex++;
+    renderSimuladoScreen();
+  }
+
+  function finishSimulado(container) {
+    const total = simuladoState.questions.length;
+    const correct = simuladoState.correctCount;
+    const pct = Math.round((correct / total) * 100);
+
+    playSound('fanfare');
+    launchConfetti();
+    updateKPICards();
+
+    let feedbackTitle = 'Sensacional! 🌟';
+    let feedbackDesc = 'Você demonstrou excelente domínio das estruturas de dados do Grupo 6!';
+    if (pct < 60) {
+      feedbackTitle = 'Bom esforço! 📚';
+      feedbackDesc = 'Revise os tópicos com menor aproveitamento no Banco de Questões!';
+    } else if (pct < 80) {
+      feedbackTitle = 'Muito bem! 🚀';
+      feedbackDesc = 'Você está no caminho certo para dominar todas as estruturas!';
+    }
+
+    container.innerHTML = `
+      <div class="quiz-mode-container simulado-result-screen">
+        <div class="result-trophy">🏆</div>
+        <h2 class="result-score-title">${feedbackTitle}</h2>
+        <p class="result-score-desc">${feedbackDesc}</p>
+
+        <div class="result-stats-row">
+          <div class="result-stat-pill">
+            <span>Acertos</span>
+            <strong>${correct} / ${total}</strong>
+          </div>
+          <div class="result-stat-pill">
+            <span>Aproveitamento</span>
+            <strong>${pct}%</strong>
+          </div>
+          <div class="result-stat-pill">
+            <span>BrunoCoins Ganhas</span>
+            <strong>+${correct * 120} BC</strong>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <button type="button" class="button-cute primary" id="btnRestartSimulado">Fazer Outro Simulado</button>
+          <button type="button" class="button-cute secondary" id="btnBackToBank">Ir ao Banco de Questões</button>
+        </div>
+      </div>
+    `;
+
+    const bRestart = document.getElementById('btnRestartSimulado');
+    if (bRestart) {
+      bRestart.addEventListener('click', () => {
+        startSimulado(total);
+      });
+    }
+
+    const bBack = document.getElementById('btnBackToBank');
+    if (bBack) {
+      bBack.addEventListener('click', () => {
+        simuladoState.active = false;
+        switchTab('banco');
+      });
+    }
+  }
+
+  /* ==========================================================
+     Alternador de Abas
+  ========================================================== */
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.classList.toggle('is-active', btn.getAttribute('data-tab') === tabId);
+    });
+
+    const bankSec = document.getElementById('tabContentBanco');
+    const simuladoSec = document.getElementById('tabContentSimulado');
+    const masterySec = document.getElementById('tabContentMaestria');
+
+    if (bankSec) bankSec.style.display = tabId === 'banco' ? 'block' : 'none';
+    if (simuladoSec) {
+      simuladoSec.style.display = tabId === 'simulado' ? 'block' : 'none';
+      if (tabId === 'simulado') renderSimuladoScreen();
+    }
+    if (masterySec) {
+      masterySec.style.display = tabId === 'maestria' ? 'block' : 'none';
+      if (tabId === 'maestria') updateKPICards();
+    }
+  }
+
+  /* ==========================================================
+     Toast de Notificação
+  ========================================================== */
+  let toastTimer = null;
+  function showToast(msg) {
+    const toast = document.getElementById('cuteToast');
+    if (!toast) return;
+
+    toast.textContent = msg;
+    toast.classList.add('is-visible');
+
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('is-visible');
+    }, 3200);
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  /* ==========================================================
+     Inicialização dos Eventos
+  ========================================================== */
+  function init() {
+    // 1. Abas
+    document.querySelectorAll('.tab-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        switchTab(btn.getAttribute('data-tab'));
+      });
+    });
+
+    // 2. Busca com debounce
+    const searchInput = document.getElementById('searchQuestions');
+    if (searchInput) {
+      let debounceTimer = null;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          currentFilters.search = e.target.value;
+          renderQuestionsGrid();
+        }, 200);
+      });
+    }
+
+    // 3. Pílulas de Categoria
+    document.querySelectorAll('.cat-pill').forEach((pill) => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.cat-pill').forEach((p) => p.classList.remove('is-active'));
+        pill.classList.add('is-active');
+        currentFilters.category = pill.getAttribute('data-cat');
+        renderQuestionsGrid();
+      });
+    });
+
+    // 4. Select de Dificuldade
+    const selectDiff = document.getElementById('selectDifficulty');
+    if (selectDiff) {
+      selectDiff.addEventListener('change', (e) => {
+        currentFilters.difficulty = e.target.value;
+        renderQuestionsGrid();
+      });
+    }
+
+    // 5. Select de Status
+    const selectStatus = document.getElementById('selectStatus');
+    if (selectStatus) {
+      selectStatus.addEventListener('change', (e) => {
+        currentFilters.status = e.target.value;
+        renderQuestionsGrid();
+      });
+    }
+
+    // 6. Botão de Som
+    const btnSound = document.getElementById('btnToggleSound');
+    if (btnSound) {
+      function updateSoundBtn() {
+        btnSound.innerHTML = soundEnabled ? '🔊 Sons: Ligados' : '🔇 Sons: Mudos';
+      }
+      updateSoundBtn();
+
+      btnSound.addEventListener('click', () => {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem(SOUND_KEY, soundEnabled);
+        updateSoundBtn();
+        showToast(soundEnabled ? '🔊 Efeitos sonoros ativados!' : '🔇 Efeitos sonoros desativados!');
+      });
+    }
+
+    // 7. Botão Limpar Progresso
+    const btnReset = document.getElementById('btnResetProgress');
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        if (confirm('Tem certeza de que deseja resetar todo o seu histórico de respostas?')) {
+          userProgress = {};
+          gameState.questionsProgress = {};
+          saveGameState();
+          updateKPICards();
+          renderQuestionsGrid();
+          showToast('🧹 Progresso zerado com sucesso!');
+        }
+      });
+    }
+
+    // 8. Clique no Mascote para trocar frase
+    const mascotWrap = document.getElementById('mascotWrapper');
+    if (mascotWrap) {
+      mascotWrap.addEventListener('click', () => {
+        launchConfetti();
+        playSound('correct');
+        const bubble = document.getElementById('mascotBubbleText');
+        if (bubble) {
+          const randomPhrase = MASCOT_PHRASES[Math.floor(Math.random() * MASCOT_PHRASES.length)];
+          bubble.innerHTML = `<strong>Nóbinho:</strong> ${randomPhrase}`;
+        }
+      });
+    }
+
+    // 9. Sincronização entre abas com o PonteiroQuest
+    window.addEventListener('storage', (e) => {
+      if (e.key === STORAGE_KEY && e.newValue) {
+        try {
+          const updated = JSON.parse(e.newValue);
+          if (updated && typeof updated === 'object') {
+            gameState = { ...gameState, ...updated };
+            userProgress = gameState.questionsProgress || {};
+            updateKPICards();
+            renderQuestionsGrid();
+          }
+        } catch (err) {}
+      }
+    });
+
+    // Renderização inicial
+    updateKPICards();
+    renderQuestionsGrid();
+
+    // Sincroniza com servidor (MySQL) se usuário estiver logado
+    hidratarComServidor();
+  }
+
+  // Executa ao carregar o DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+  </script>
+</body>
+</html>

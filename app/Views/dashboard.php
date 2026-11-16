@@ -16,6 +16,7 @@
         <nav class="main-nav">
             <a href="../index.php">Início</a>
             <a href="#" aria-current="page">Dashboard</a>
+            <a href="dashboard-perguntas.php">Questões & Simulado</a>
             <a href="gamificacao.php">Gameficacao</a>
             <a href="perfil.php">Meu perfil</a>
             <a href="logout.php">Sair</a>
@@ -87,6 +88,13 @@
                     <h3>Árvore Patricia</h3>
                     <p>Entenda a compressão de caminhos e compare-a com uma Trie convencional.</p>
                     <div class="card-action">Acessar conteúdo</div>
+                </a>
+
+                <a href="dashboard-perguntas.php" class="module-card module-card--featured">
+                    <span style="color: var(--green);">Prática & Simulado</span>
+                    <h3>Dashboard de Perguntas</h3>
+                    <p>Treine com 30 questões comentadas sobre TAD, listas, filas, pilhas e árvores. Acompanhe acertos e maestria.</p>
+                    <div class="card-action">Abrir dashboard de perguntas</div>
                 </a>
             </div>
         </section>

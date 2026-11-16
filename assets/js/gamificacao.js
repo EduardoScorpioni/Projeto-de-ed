@@ -567,6 +567,7 @@
       answeredCurrent: false,
       lastAnswer: null,
       abilityCharges: {},
+      questionsProgress: {},
     };
   }
 
@@ -586,7 +587,16 @@
         owned: Array.isArray(saved.owned) ? saved.owned : base.owned,
         claimedMissions: Array.isArray(saved.claimedMissions) ? saved.claimedMissions : [],
         abilityCharges: { ...(saved.abilityCharges || {}) },
+        questionsProgress: { ...(saved.questionsProgress || {}) },
       };
+
+      // Carrega e mescla respostas do dashboard de questões, se houver
+      try {
+        const legacyAnswers = JSON.parse(localStorage.getItem('ed_perguntas_respostas_v2'));
+        if (legacyAnswers && typeof legacyAnswers === 'object') {
+          merged.questionsProgress = { ...legacyAnswers, ...merged.questionsProgress };
+        }
+      } catch (e) {}
 
       merged.owned = Array.from(new Set([...base.owned, ...merged.owned]));
       if (!Number.isInteger(merged.challengeIndex) || !challenges[merged.challengeIndex]) {
@@ -656,6 +666,10 @@
           claimedMissions: Array.isArray(estadoServidor.claimedMissions)
             ? estadoServidor.claimedMissions
             : state.claimedMissions,
+          questionsProgress: {
+            ...(state.questionsProgress || {}),
+            ...(estadoServidor.questionsProgress || {}),
+          },
         };
 
         if (!Number.isInteger(state.challengeIndex) || !challenges[state.challengeIndex]) {
@@ -1062,6 +1076,19 @@
       accepted,
       savedByArmor: savedByArmor || savedByShield,
     };
+    if (challenge && challenge.id) {
+      if (!state.questionsProgress || typeof state.questionsProgress !== 'object') {
+        state.questionsProgress = {};
+      }
+      state.questionsProgress[challenge.id] = {
+        chosen: optionIndex,
+        correct: accepted,
+        answeredAt: Date.now(),
+      };
+      try {
+        localStorage.setItem('ed_perguntas_respostas_v2', JSON.stringify(state.questionsProgress));
+      } catch (e) {}
+    }
     window.clearInterval(timerInterval);
 
     if (correct) {
@@ -1800,6 +1827,18 @@
   if (window.Avatar3D) {
     window.Avatar3D.montar(elements.avatar);
   }
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === STORAGE_KEY && event.newValue) {
+      try {
+        const updated = JSON.parse(event.newValue);
+        if (updated && typeof updated === 'object') {
+          state = { ...state, ...updated };
+          renderAll();
+        }
+      } catch (err) {}
+    }
+  });
 
   window.setInterval(renderChestLabel, 60000);
   renderAll();
